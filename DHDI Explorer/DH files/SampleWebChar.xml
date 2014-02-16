@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Root>WebCharacterTranslations
+<!--Attribute meanings:-->
+<!--"Char" == Native character-->
+<!--"Web" == HTML entity-->
+<!--"PlainText" == Plain text (no diacriticals)-->
+<!--"UniCodePoint" == Unicode code point-->
+<!--"UTF8" == UTF-8 (hex) character-->
+<WebChar Char="A" Web="A" PlainText="A" UniCodePoint="U00C1" UTF8="c3 81" />
+<WebChar Char="a" Web="a" PlainText="a" UniCodePoint="U00E1" UTF8="c3 a1" />
+</Root>

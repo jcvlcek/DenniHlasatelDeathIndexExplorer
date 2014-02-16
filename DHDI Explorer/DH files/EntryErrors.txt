@@ -1,0 +1,52 @@
+Frantisek,Andel,,Nov,1918 -> 8 Nov 1918 (guess: died 7th, buried 9th)
+Charles,Balicek,6a,Jan,1948 -> 6 Jan 1948
+Frantisek,Baudis,5a,Mar,1900 -> 5 Mar 1900
+Josef,Belsky,25,Amr,1905 -> 25 Mar 1905
+Joseph,Bezdekovsky,29,Ma,1948 -> 29 Mar 1948
+Rudolph,Churan,3,Ape,1970 -> 3 Apr 1970
+Lottie,Cockebeen,29,,1929 -> 29 Oct 1929
+Marie,Fortelka,18,Aep,1932 -> 18 Apr 1932
+Annu,Gebaur,30,Mau,1912 -> Anna,Gebaur,30,May,1912
+Marie,Hadraba,16,Sug,1940 -> 16 Aug 1940
+Joseph,Hanzelin,30,Amr,1959 -> 30 Mar 1959
+Frank,Hataj,18,Sug,1936 -> 18 Aug 1936
+August,Hlavaty,16,Sug,1940 -> 16 Aug 1940
+Barbora,Janota,22,Sug,1940 -> 22 Aug 1940
+Frantiska,Kahounova,13,Sec,1920 -> 13 Dec 1920
+Ruzenka,Kalal,10,0ct,1905 -> 10 Oct 1905
+Stanley,Karnoscak,1a,Mar,1949 -> 1 Mar 1949 (can only guess; no matching records found)
+Ruzena,Klauda,30,Ape,1935 -> 30 Apr 1935
+Marie,Koudela,8,Ju;,1930 -> 8 Jul 1930
+Leopoldine,Kovacik,6e,Dec,1946 -> 6 Dec 1946
+Geneiveve,Krajic,2o,Nov,1918 -> Genevieve,Krajic,2,Nov,1918
+Freda,Maasse,2,0ct,1911 -> 2 Oct 1911
+Josef,Machu,30,Amr,1915 -> 30 Mar 1915
+Georgiana,Malone,5,Sug,1932 -> 5 Aug 1932
+Rudolph,Moravec,9a,Jan,1939 -> 9 Jan 1939
+Marie,Mrkvickova,30,No,1908 -> 30 Nov 1908
+Marie,Nechodoma,6,0ct,1929 -> 6 Oct 1929
+Ernest,Nesvacil,9,0ct,1905 -> 9 Oct 1905
+Barbora,Nonotny,22,Auf,1929 -> 22 Aug 1929
+Josef,Novotny,30,11,1932 -> 30 Nov 1932 (Illinois death records list 1931)
+Frank,Pavlik,12,Aur,1915 -> 12 Aug 1915
+Johnovsky,Pavlovsky,6e,Dec,1946 -> 6 Dec 1946
+Marie,Pribyl,25,Amr,1969 -> 25 Mar 1969
+Agatha,Ray,S6,Apr,1965 -> 6 Apr 1965
+John,Razim,2,Spe,1959 -> 2 Sep 1959
+Bohumila,Riha,2,Aep,1933 -> 2 Sep 1933
+Bohumil,Rokusek,25,Aep,1919 -> 25 Sep 1919
+Marii,Sanove,30,Feb,1901 -> 28 Feb 1901 (can only guess; no matching records found)
+Zuzana,Sianta,18,Sug,1931 -> 18 Aug 1931
+Marie,Sidlo,11,Ajn,1930 -> 11 Jan 1930
+Anna,Simek,28,Spr,1949 -> 28 Apr 1949
+Lillian,Sokolik,19,Amy,1915 -> 19 May 1915
+Emma,Soukup,26,Nar,1939 -> 26 Mar 1939
+Annton,Straka,,Nov,1912 -> Anton,Straka,8,Nov,1912 (Illinois death record 7 Nov 1912)
+Karel,Suchomel,26,No,1935 -> 26 Nov 1935
+Ludvik,Susmilich,10,Nao,1935 -> 10 Nov 1935 (can only guess; no matching records found)
+Marii,Svec,28,,1918 -> Marie,Svec,28 May 1918
+Marie,Vejvoda,,Feb,1921 -> 1 Feb 1921 (can only guess; no matching records found)
+Tomas,Vladyka,24,0ct,1915 -> 24 Oct 1915
+Josef,Vokac,27,Aut,1940 -> 27 Aug 1940
+Barbora,Vokaty,A4,Apr,1941 -> 4 Apr 1941
+Frantisek,Zachata,1e,Sep,1919 -> 1 Sep 1919

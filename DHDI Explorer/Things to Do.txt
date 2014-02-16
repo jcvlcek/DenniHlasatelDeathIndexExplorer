@@ -1,0 +1,24 @@
+*** Everything is an IDeathRecord ***
+Add an interface "IDeathRecord" to dbAccess, and use this as the object type used everywhere.  This helps when refactoring to separate UI from data code, by providing a standard interface to pass back around.
+It also provides a way for class methods in dbAccess to work with death records - currently the DeathRecord class is implemented in IllinoisDeathIndex project, and thus not visible to dbAccess.
+
+*** Specialized web queries? ***
+Right now, the generic base class WebQuery is used to provide implementation inheritance for some of the basic web query functionality.
+But this confines the results returned, when a query completes, to a list of objects of class "DeathRecord".  Ideally, the query would return results more aligned to the database they will be stored into (Pre-1916/Post-1915 Illinois death records, etc).
+At present, we have to re-check the date (a second time) and figure out (a second time) which database to update or insert into.
+
+*** Association of WebQuery with database ***
+Maybe just add a field to the WebQuery base class that identifies a database, or a specialize death record class, with the web query?
+That addresses the "specialized web queries" issue (at least partially), and eliminates the need for a second comparison of dates for the Illinois death record database association.
+
+*** Refactor web query complete event handler ***
+This currently combines user interface and data handling logic.  Separate them out, and make the UI work with everything in terms of IDeathRecord instances.
+
+*** Restrict the use of the text boxes in Form1 ***
+Right now, the surname / given name / date text boxes are being used all over the place.  This makes a mess of things.  Restrict their usage: make them resolve to a DeathRecord, and that object is used for further searches (such as to Illinois death records, etc).
+
+*** Gender and Race ***
+Just added the two enums for Gender and Race.  Code needs to be put in place to synchronize the single-byte Gender/Race specifications used by Illinois death indices, to these values.  Original code just used the single-byte specifications verbatim - not a solid approach.
+
+*** Refactoring of DeathRecord class ***
+Continue migrating Illinois-specific code from DeathRecord to IllinoisDeathRecord class.

@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.375, 12.75" name="Linq2Sql">
+  <DataContextMoniker Name="/Linq2SqlDataContext" />
+  <nestedChildShapes>
+    <classShape Id="6a1a46f1-01ce-4454-aa95-c989bbaf1e33" absoluteBounds="5, 7.875, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/GenderIndex" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0eb7757c-a0b9-4ade-99ab-58e66f591398" absoluteBounds="5.0150000000000006, 8.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="da5bc78e-d518-441c-b2fc-6f08ef02b664" absoluteBounds="5, 9.25, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/RaceIndex" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a8bf8f4b-2b75-4fd8-aeee-c0c5336f0405" absoluteBounds="5.0150000000000006, 9.71, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="eac9cb6b-4050-4398-9a42-9b6c54ee38c8" absoluteBounds="7.375, 7.875, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/GenderMatch" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0e13b8e9-c40a-4c2d-ba65-d2c483220fe3" absoluteBounds="7.3900000000000006, 8.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7 : 8.42307657877604); (7.375 : 8.42307657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/GenderIndex/GenderIndex_GenderMatch" />
+      <nodes>
+        <classShapeMoniker Id="6a1a46f1-01ce-4454-aa95-c989bbaf1e33" />
+        <classShapeMoniker Id="eac9cb6b-4050-4398-9a42-9b6c54ee38c8" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="82cc1415-90ac-46bd-badb-46ee5529ac9b" absoluteBounds="7.375, 9.25, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/RaceMatch" />
+      <nestedChildShapes>
+        <elementListCompartment Id="315b67a6-1bde-483c-977a-70ff58816842" absoluteBounds="7.39, 9.71, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7 : 9.79807657877604); (7.375 : 9.79807657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/RaceIndex/RaceIndex_RaceMatch" />
+      <nodes>
+        <classShapeMoniker Id="da5bc78e-d518-441c-b2fc-6f08ef02b664" />
+        <classShapeMoniker Id="82cc1415-90ac-46bd-badb-46ee5529ac9b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="18a2de15-3f04-4536-9cbf-21640561dfa0" absoluteBounds="3.75, 2.875, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/DHIllinoisPost1915Match" />
+      <nestedChildShapes>
+        <elementListCompartment Id="56ccf5a9-01bd-4cf9-9757-00edabb65080" absoluteBounds="3.765, 3.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2de55ea2-ffb1-4cbb-b484-085e8a90f00a" absoluteBounds="6.125, 2.875, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/DHIllinoisPre1916Match" />
+      <nestedChildShapes>
+        <elementListCompartment Id="033cf89f-7cf8-40b3-94e7-1bd148a03c28" absoluteBounds="6.1400000000000006, 3.335, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="624e7405-088a-4ecf-826f-5822546ba7dd" absoluteBounds="3.625, 4.75, 2, 2.73962646484375">
+      <DataClassMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexPost1915" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ec37ed7f-a423-4015-9250-2d11e5d17128" absoluteBounds="3.64, 5.21, 1.9700000000000002, 2.17962646484375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.6875 : 4.75); (4.6875 : 3.97115315755208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexPost1915/IllinoisDeathIndexPost1915_DHIllinoisPost1915Match" />
+      <nodes>
+        <classShapeMoniker Id="624e7405-088a-4ecf-826f-5822546ba7dd" />
+        <classShapeMoniker Id="18a2de15-3f04-4536-9cbf-21640561dfa0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.3125 : 7.875); (5.3125 : 7.48962646484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/GenderIndex/GenderIndex_IllinoisDeathIndexPost1915" />
+      <nodes>
+        <classShapeMoniker Id="6a1a46f1-01ce-4454-aa95-c989bbaf1e33" />
+        <classShapeMoniker Id="624e7405-088a-4ecf-826f-5822546ba7dd" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5 : 9.79807657877604); (4.3124995 : 9.79807657877604); (4.3124995 : 7.48962646484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/RaceIndex/RaceIndex_IllinoisDeathIndexPost1915" />
+      <nodes>
+        <classShapeMoniker Id="da5bc78e-d518-441c-b2fc-6f08ef02b664" />
+        <classShapeMoniker Id="624e7405-088a-4ecf-826f-5822546ba7dd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="455412bf-c3b2-4869-9613-daf92b24ff13" absoluteBounds="6.125, 4.75, 2, 2.73962646484375">
+      <DataClassMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexPre1916" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8ebeeac4-0de2-4aa2-8489-51e1531c0a38" absoluteBounds="6.1400000000000006, 5.21, 1.9700000000000002, 2.17962646484375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.125 : 4.75); (7.125 : 3.97115315755208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexPre1916/IllinoisDeathIndexPre1916_DHIllinoisPre1916Match" />
+      <nodes>
+        <classShapeMoniker Id="455412bf-c3b2-4869-9613-daf92b24ff13" />
+        <classShapeMoniker Id="2de55ea2-ffb1-4cbb-b484-085e8a90f00a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.5625 : 7.875); (6.5625 : 7.48962646484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/GenderIndex/GenderIndex_IllinoisDeathIndexPre1916" />
+      <nodes>
+        <classShapeMoniker Id="6a1a46f1-01ce-4454-aa95-c989bbaf1e33" />
+        <classShapeMoniker Id="455412bf-c3b2-4869-9613-daf92b24ff13" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="3c9a1503-e5e6-428b-b065-5fe13b4c3077" absoluteBounds="5, 0.625, 2, 1.4248478190104168">
+      <DataClassMoniker Name="/Linq2SqlDataContext/DHDeathIndex" />
+      <nestedChildShapes>
+        <elementListCompartment Id="04a51b72-513f-406c-94d7-2b744947ba93" absoluteBounds="5.0150000000000006, 1.085, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.375 : 2.04984781901042); (5.375 : 2.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/DHDeathIndex/DHDeathIndex_DHIllinoisPost1915Match" />
+      <nodes>
+        <classShapeMoniker Id="3c9a1503-e5e6-428b-b065-5fe13b4c3077" />
+        <classShapeMoniker Id="18a2de15-3f04-4536-9cbf-21640561dfa0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.5625 : 2.04984781901042); (6.5625 : 2.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/DHDeathIndex/DHDeathIndex_DHIllinoisPre1916Match" />
+      <nodes>
+        <classShapeMoniker Id="3c9a1503-e5e6-428b-b065-5fe13b4c3077" />
+        <classShapeMoniker Id="2de55ea2-ffb1-4cbb-b484-085e8a90f00a" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="ca0babc8-5b42-4341-b1c3-69498b791ae6" absoluteBounds="7.375, 10.625, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/GivenNameEquivalent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9efdda00-3a51-402f-b9f2-ffbf4e7c6091" absoluteBounds="7.39, 11.085, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="67b7daea-86d5-4175-8ec6-2a14dde294be" absoluteBounds="5, 10.625, 2, 1.9178898111979166">
+      <DataClassMoniker Name="/Linq2SqlDataContext/KrestniJmena" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d8163eda-a629-496a-b744-bec879310472" absoluteBounds="5.0150000000000006, 11.085, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7 : 11.173076578776); (7.375 : 11.173076578776)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/KrestniJmena/KrestniJmena_GivenNameEquivalent" />
+      <nodes>
+        <classShapeMoniker Id="67b7daea-86d5-4175-8ec6-2a14dde294be" />
+        <classShapeMoniker Id="ca0babc8-5b42-4341-b1c3-69498b791ae6" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="0c5f7219-5eba-47ba-8c9f-877471a69d17" absoluteBounds="9.125, 4.375, 2, 1.5891951497395831">
+      <DataClassMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexSearchesPre1916" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d96ccd0d-3819-474d-b9a6-73f001edaa0e" absoluteBounds="9.14, 4.835, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1c3a90e5-23e0-4efb-ad49-53a283ca55b5" absoluteBounds="9.125, 6.375, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexSearchHitsPre1916" />
+      <nestedChildShapes>
+        <elementListCompartment Id="854b2967-cff5-45b5-811b-cfe04df8df86" absoluteBounds="9.14, 6.835, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.125 : 6.92307657877604); (9.125 : 6.92307657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexPre1916/IllinoisDeathIndexPre1916_IllinoisDeathIndexSearchHitsPre1916" />
+      <nodes>
+        <classShapeMoniker Id="455412bf-c3b2-4869-9613-daf92b24ff13" />
+        <classShapeMoniker Id="1c3a90e5-23e0-4efb-ad49-53a283ca55b5" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(10.125 : 5.96419514973958); (10.125 : 6.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexSearchesPre1916/IllinoisDeathIndexSearchesPre1916_IllinoisDeathIndexSearchHitsPre1916" />
+      <nodes>
+        <classShapeMoniker Id="0c5f7219-5eba-47ba-8c9f-877471a69d17" />
+        <classShapeMoniker Id="1c3a90e5-23e0-4efb-ad49-53a283ca55b5" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="7a444ab1-2ce1-4566-bd53-861b8b73ce16" absoluteBounds="0.5, 4.375, 2, 1.5891951497395831">
+      <DataClassMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexSearchesPost1915" />
+      <nestedChildShapes>
+        <elementListCompartment Id="941bacd1-50d4-408b-b76f-ad1f33f22bcf" absoluteBounds="0.51500000000000012, 4.835, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="aa809dbd-fbdb-44cd-8f21-774ad467a8a1" absoluteBounds="0.5, 6.375, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexSearchHitsPost1915" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f24f7ab6-37e0-40a7-9101-9f22c2c29260" absoluteBounds="0.515, 6.835, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.625 : 6.92307657877604); (2.5 : 6.92307657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexPost1915/IllinoisDeathIndexPost1915_IllinoisDeathIndexSearchHitsPost1915" />
+      <nodes>
+        <classShapeMoniker Id="624e7405-088a-4ecf-826f-5822546ba7dd" />
+        <classShapeMoniker Id="aa809dbd-fbdb-44cd-8f21-774ad467a8a1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.5 : 5.96419514973958); (1.5 : 6.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Linq2SqlDataContext/IllinoisDeathIndexSearchesPost1915/IllinoisDeathIndexSearchesPost1915_IllinoisDeathIndexSearchHitsPost1915" />
+      <nodes>
+        <classShapeMoniker Id="7a444ab1-2ce1-4566-bd53-861b8b73ce16" />
+        <classShapeMoniker Id="aa809dbd-fbdb-44cd-8f21-774ad467a8a1" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="35706159-a7da-401e-a980-1215371ef2a4" absoluteBounds="0.875, 8.125, 2, 1.75354248046875">
+      <DataClassMoniker Name="/Linq2SqlDataContext/Prijmeni" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6dbd7b58-a2f3-4c69-9bbf-534a92fb092d" absoluteBounds="0.89, 8.585, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

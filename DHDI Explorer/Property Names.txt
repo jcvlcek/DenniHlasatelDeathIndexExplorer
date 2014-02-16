@@ -1,0 +1,27 @@
+Pre-1916:
+
+("Name of Deceased" is in format "LastName, FirstName")
+
+Name of Deceased ("LastName, FirstName [Middle]")
+Date (YYYY-MM-DD)
+City
+Age ("99 YR")
+Sex (Typically "U")
+Volume
+Page
+Cert No
+County
+
+1916 and after:
+
+Last Name
+First Name
+Middle Name
+Sex/Race (Format "M/W")
+Age (Typically "UNK")
+Cert No. 
+Death Date (YYYY-MM-DD)
+County
+City
+Date Filed (YY-MM-DD)
+

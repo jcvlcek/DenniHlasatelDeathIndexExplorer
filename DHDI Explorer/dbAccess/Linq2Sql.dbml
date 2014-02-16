@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Genealogy" Class="Linq2SqlDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=Genealogy;Integrated Security=True" SettingsObjectName="dbAccess.Properties.Settings" SettingsPropertyName="GenealogyConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.GenderIndex" Member="GenderIndexes">
+    <Type Name="GenderIndex">
+      <Column Name="Serial" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="GenderIndex_GenderMatch" Member="GenderMatches" ThisKey="Serial" OtherKey="GenderIndex" Type="GenderMatch" />
+      <Association Name="GenderIndex_IllinoisDeathIndexPost1915" Member="IllinoisDeathIndexPost1915s" ThisKey="Serial" OtherKey="GenderIndex" Type="IllinoisDeathIndexPost1915" />
+      <Association Name="GenderIndex_IllinoisDeathIndexPre1916" Member="IllinoisDeathIndexPre1916s" ThisKey="Serial" OtherKey="GenderIndex" Type="IllinoisDeathIndexPre1916" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RaceIndex" Member="RaceIndexes">
+    <Type Name="RaceIndex">
+      <Column Name="Serial" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="RaceIndex_RaceMatch" Member="RaceMatches" ThisKey="Serial" OtherKey="RaceIndex" Type="RaceMatch" />
+      <Association Name="RaceIndex_IllinoisDeathIndexPost1915" Member="IllinoisDeathIndexPost1915s" ThisKey="Serial" OtherKey="RaceIndex" Type="IllinoisDeathIndexPost1915" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GenderMatch" Member="GenderMatches">
+    <Type Name="GenderMatch">
+      <Column Name="Mnemonic" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GenderIndex" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="GenderIndex_GenderMatch" Member="GenderIndex1" ThisKey="GenderIndex" OtherKey="Serial" Type="GenderIndex" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RaceMatch" Member="RaceMatches">
+    <Type Name="RaceMatch">
+      <Column Name="Mnemonic" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RaceIndex" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="RaceIndex_RaceMatch" Member="RaceIndex1" ThisKey="RaceIndex" OtherKey="Serial" Type="RaceIndex" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DHIllinoisPost1915Match" Member="DHIllinoisPost1915Matches">
+    <Type Name="DHIllinoisPost1915Match">
+      <Column Name="HlasatelIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IllinoisDeathIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="IllinoisDeathIndexPost1915_DHIllinoisPost1915Match" Member="IllinoisDeathIndexPost1915" ThisKey="IllinoisDeathIndex" OtherKey="Serial" Type="IllinoisDeathIndexPost1915" IsForeignKey="true" />
+      <Association Name="DHDeathIndex_DHIllinoisPost1915Match" Member="DHDeathIndex" ThisKey="HlasatelIndex" OtherKey="serial" Type="DHDeathIndex" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DHIllinoisPre1916Match" Member="DHIllinoisPre1916Matches">
+    <Type Name="DHIllinoisPre1916Match">
+      <Column Name="HlasatelIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IllinoisDeathIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="IllinoisDeathIndexPre1916_DHIllinoisPre1916Match" Member="IllinoisDeathIndexPre1916" ThisKey="IllinoisDeathIndex" OtherKey="serial" Type="IllinoisDeathIndexPre1916" IsForeignKey="true" />
+      <Association Name="DHDeathIndex_DHIllinoisPre1916Match" Member="DHDeathIndex" ThisKey="IllinoisDeathIndex" OtherKey="serial" Type="DHDeathIndex" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IllinoisDeathIndexPost1915" Member="IllinoisDeathIndexPost1915s">
+    <Type Name="IllinoisDeathIndexPost1915">
+      <Column Name="Surname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GivenName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GenderIndex" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="RaceIndex" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="AgeInYears" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CertificateNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DeathDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="County" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReportDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Serial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="IllinoisDeathIndexPost1915_DHIllinoisPost1915Match" Member="DHIllinoisPost1915Matches" ThisKey="Serial" OtherKey="IllinoisDeathIndex" Type="DHIllinoisPost1915Match" />
+      <Association Name="IllinoisDeathIndexPost1915_IllinoisDeathIndexSearchHitsPost1915" Member="IllinoisDeathIndexSearchHitsPost1915s" ThisKey="Serial" OtherKey="RecordIndex" Type="IllinoisDeathIndexSearchHitsPost1915" />
+      <Association Name="GenderIndex_IllinoisDeathIndexPost1915" Member="GenderIndex1" ThisKey="GenderIndex" OtherKey="Serial" Type="GenderIndex" IsForeignKey="true" />
+      <Association Name="RaceIndex_IllinoisDeathIndexPost1915" Member="RaceIndex1" ThisKey="RaceIndex" OtherKey="Serial" Type="RaceIndex" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IllinoisDeathIndexPre1916" Member="IllinoisDeathIndexPre1916s">
+    <Type Name="IllinoisDeathIndexPre1916">
+      <Column Name="certificateNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GivenName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="deathDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="ageInYears" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="GenderIndex" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="city" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="county" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="volume" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="page" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="serial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="IllinoisDeathIndexPre1916_DHIllinoisPre1916Match" Member="DHIllinoisPre1916Matches" ThisKey="serial" OtherKey="IllinoisDeathIndex" Type="DHIllinoisPre1916Match" />
+      <Association Name="IllinoisDeathIndexPre1916_IllinoisDeathIndexSearchHitsPre1916" Member="IllinoisDeathIndexSearchHitsPre1916s" ThisKey="serial" OtherKey="RecordIndex" Type="IllinoisDeathIndexSearchHitsPre1916" />
+      <Association Name="GenderIndex_IllinoisDeathIndexPre1916" Member="GenderIndex1" ThisKey="GenderIndex" OtherKey="Serial" Type="GenderIndex" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DHDeathIndex" Member="DHDeathIndexes">
+    <Type Name="DHDeathIndex">
+      <Column Name="Surname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GivenName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReportDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="serial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="DHDeathIndex_DHIllinoisPost1915Match" Member="DHIllinoisPost1915Matches" ThisKey="serial" OtherKey="HlasatelIndex" Type="DHIllinoisPost1915Match" />
+      <Association Name="DHDeathIndex_DHIllinoisPre1916Match" Member="DHIllinoisPre1916Matches" ThisKey="serial" OtherKey="IllinoisDeathIndex" Type="DHIllinoisPre1916Match" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GivenNameEquivalents" Member="GivenNameEquivalents">
+    <Type Name="GivenNameEquivalent">
+      <Column Name="English" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Native" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="KrestniJmena_GivenNameEquivalent" Member="KrestniJmena" ThisKey="Native" OtherKey="CodePage" Type="KrestniJmena" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KrestniJmena" Member="KrestniJmenas">
+    <Type Name="KrestniJmena">
+      <Column Name="CodePage" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Web" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PlainText" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MaleCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaleIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FemaleCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FemaleIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="KrestniJmena_GivenNameEquivalent" Member="GivenNameEquivalents" ThisKey="CodePage" OtherKey="Native" Type="GivenNameEquivalent" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IllinoisDeathIndexSearchesPre1916" Member="IllinoisDeathIndexSearchesPre1916s">
+    <Type Name="IllinoisDeathIndexSearchesPre1916">
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GivenName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="County" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="serial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="IllinoisDeathIndexSearchesPre1916_IllinoisDeathIndexSearchHitsPre1916" Member="IllinoisDeathIndexSearchHitsPre1916s" ThisKey="serial" OtherKey="SearchIndex" Type="IllinoisDeathIndexSearchHitsPre1916" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IllinoisDeathIndexSearchHitsPre1916" Member="IllinoisDeathIndexSearchHitsPre1916s">
+    <Type Name="IllinoisDeathIndexSearchHitsPre1916">
+      <Column Name="SearchIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="IllinoisDeathIndexPre1916_IllinoisDeathIndexSearchHitsPre1916" Member="IllinoisDeathIndexPre1916" ThisKey="RecordIndex" OtherKey="serial" Type="IllinoisDeathIndexPre1916" IsForeignKey="true" />
+      <Association Name="IllinoisDeathIndexSearchesPre1916_IllinoisDeathIndexSearchHitsPre1916" Member="IllinoisDeathIndexSearchesPre1916" ThisKey="SearchIndex" OtherKey="serial" Type="IllinoisDeathIndexSearchesPre1916" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IllinoisDeathIndexSearchesPost1915" Member="IllinoisDeathIndexSearchesPost1915s">
+    <Type Name="IllinoisDeathIndexSearchesPost1915">
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GivenName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="County" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="serial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="IllinoisDeathIndexSearchesPost1915_IllinoisDeathIndexSearchHitsPost1915" Member="IllinoisDeathIndexSearchHitsPost1915s" ThisKey="serial" OtherKey="SearchIndex" Type="IllinoisDeathIndexSearchHitsPost1915" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IllinoisDeathIndexSearchHitsPost1915" Member="IllinoisDeathIndexSearchHitsPost1915s">
+    <Type Name="IllinoisDeathIndexSearchHitsPost1915">
+      <Column Name="SearchIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordIndex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="IllinoisDeathIndexPost1915_IllinoisDeathIndexSearchHitsPost1915" Member="IllinoisDeathIndexPost1915" ThisKey="RecordIndex" OtherKey="Serial" Type="IllinoisDeathIndexPost1915" IsForeignKey="true" />
+      <Association Name="IllinoisDeathIndexSearchesPost1915_IllinoisDeathIndexSearchHitsPost1915" Member="IllinoisDeathIndexSearchesPost1915" ThisKey="SearchIndex" OtherKey="serial" Type="IllinoisDeathIndexSearchesPost1915" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Prijmeni" Member="Prijmenis">
+    <Type Name="Prijmeni">
+      <Column Name="Rank" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Iso8859" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Windows" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Web" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PlainText" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

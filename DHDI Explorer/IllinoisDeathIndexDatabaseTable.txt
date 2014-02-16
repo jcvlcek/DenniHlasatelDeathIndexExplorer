@@ -1,0 +1,14 @@
+whichDatabase
+certificateNumber
+lastName
+firstName
+middleName
+deathDate
+filedDate
+ageInYears
+gender
+race
+city
+county
+volume
+page
