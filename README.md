@@ -1,9 +1,9 @@
 Denni Hlasatel Death Index Explorer
 ===================================
 
-The ''Denni Hlasatel'' (Daily Herald) was a Czech-language newspaper that published in Chicago, Illinois, USA from 1891 to 2006.  Through its lifetime, the ''Denni Hlasatel'' published death notices for many persons of Czech, Slovak or related ancestry.  These death notices are a rich source of genealogical information, and are regularly browsed by individuals researching their family history.
+The *Denni Hlasatel* (Daily Herald) was a Czech-language newspaper that published in Chicago, Illinois, USA from 1891 to 2006.  Through its lifetime, the *Denni Hlasatel* published death notices for many persons of Czech, Slovak or related ancestry.  These death notices are a rich source of genealogical information, and are regularly browsed by individuals researching their family history.
 
-In the mid-1990s, the Czech/Slovak-American Genealogical Society of Illinois (aka '''CSAGSI''') compiled an index of the death notices published in the ''Denni Hlasatel'' to that time.  This index includes records consisting of the
+In the mid-1990s, the Czech/Slovak-American Genealogical Society of Illinois (aka **CSAGSI**) compiled an index of the death notices published in the *Denni Hlasatel* to that time.  This index includes records consisting of the
 
 * name of the deceased, and
 * publication date of the death notice.
