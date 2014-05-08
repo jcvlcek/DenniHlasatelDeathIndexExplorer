@@ -7,6 +7,9 @@ using dbAccess;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Main form for the Denni Hlasatel / Illinois Death Index Explorer program
+    /// </summary>
     public partial class Form1 : Form
     {
         #region Private members
@@ -108,27 +111,40 @@ namespace Genealogy
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'genealogyDataSet.KrestniJmena' table. You can move, or remove it, as needed.
-            this.krestniJmenaTableAdapter.Fill(this.genealogyDataSet.KrestniJmena);
-            // TODO: This line of code loads data into the 'genealogyDataSet.Prijmeni' table. You can move, or remove it, as needed.
-            this.prijmeniTableAdapter.Fill(this.genealogyDataSet.Prijmeni);
-            // TODO: This line of code loads data into the 'genealogyDataSet.GivenNameEquivalents' table. You can move, or remove it, as needed.
-            this.givenNameEquivalentsTableAdapter.Fill(this.genealogyDataSet.GivenNameEquivalents);
-            // TODO: This line of code loads data into the 'genealogyDataSet.DHDeathIndex' table. You can move, or remove it, as needed.
-            this.dHDeathIndexTableAdapter.Fill(this.genealogyDataSet.DHDeathIndex);
-
+            try
+            {
+                // TODO: This line of code loads data into the 'genealogyDataSet.KrestniJmena' table. You can move, or remove it, as needed.
+                this.krestniJmenaTableAdapter.Fill(this.genealogyDataSet.KrestniJmena);
+                // TODO: This line of code loads data into the 'genealogyDataSet.Prijmeni' table. You can move, or remove it, as needed.
+                this.prijmeniTableAdapter.Fill(this.genealogyDataSet.Prijmeni);
+                // TODO: This line of code loads data into the 'genealogyDataSet.GivenNameEquivalents' table. You can move, or remove it, as needed.
+                this.givenNameEquivalentsTableAdapter.Fill(this.genealogyDataSet.GivenNameEquivalents);
+                // TODO: This line of code loads data into the 'genealogyDataSet.DHDeathIndex' table. You can move, or remove it, as needed.
+                this.dHDeathIndexTableAdapter.Fill(this.genealogyDataSet.DHDeathIndex);
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                MessageBox.Show( "Unable to load/fill database table adapters:" + Environment.NewLine + ex.Message, "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+            }
             mdB = new Linq2SqlDataContext();
             Utilities.dB = mdB;
 
-            var query = from c in mdB.DHDeathIndexes
-                        select c.GivenName;
-
-            foreach (string sNext in query)
+            try
             {
-                if (!txtFirstName.AutoCompleteCustomSource.Contains(sNext))
-                    txtFirstName.AutoCompleteCustomSource.Add(sNext);
-            }
+                var query = from c in mdB.DHDeathIndexes
+                            select c.GivenName;
 
+                foreach (string sNext in query)
+                {
+                    if (!txtFirstName.AutoCompleteCustomSource.Contains(sNext))
+                        txtFirstName.AutoCompleteCustomSource.Add(sNext);
+                }
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                // TODO: Figure out what (if anything) to do here...  We don't want to rethrow, that's for sure!
+                // throw;
+            }
             webBrowser1.Navigating += new WebBrowserNavigatingEventHandler(webBrowser1_Navigating);
         }
 
