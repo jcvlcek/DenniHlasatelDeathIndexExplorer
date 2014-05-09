@@ -121,16 +121,10 @@ namespace Genealogy
                 this.givenNameEquivalentsTableAdapter.Fill(this.genealogyDataSet.GivenNameEquivalents);
                 // TODO: This line of code loads data into the 'genealogyDataSet.DHDeathIndex' table. You can move, or remove it, as needed.
                 this.dHDeathIndexTableAdapter.Fill(this.genealogyDataSet.DHDeathIndex);
-            }
-            catch (System.Data.SqlClient.SqlException ex)
-            {
-                MessageBox.Show( "Unable to load/fill database table adapters:" + Environment.NewLine + ex.Message, "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error );
-            }
-            mdB = new Linq2SqlDataContext();
-            Utilities.dB = mdB;
 
-            try
-            {
+                mdB = new Linq2SqlDataContext();
+                Utilities.dB = mdB;
+
                 var query = from c in mdB.DHDeathIndexes
                             select c.GivenName;
 
@@ -140,11 +134,11 @@ namespace Genealogy
                         txtFirstName.AutoCompleteCustomSource.Add(sNext);
                 }
             }
-            catch (System.Data.SqlClient.SqlException)
+            catch (System.Data.SqlClient.SqlException ex)
             {
-                // TODO: Figure out what (if anything) to do here...  We don't want to rethrow, that's for sure!
-                // throw;
+                MessageBox.Show( "Unable to load/fill database table adapters:" + Environment.NewLine + ex.Message, "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             }
+
             webBrowser1.Navigating += new WebBrowserNavigatingEventHandler(webBrowser1_Navigating);
         }
 
