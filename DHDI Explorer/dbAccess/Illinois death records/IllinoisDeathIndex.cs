@@ -5,10 +5,18 @@ using System.Text;
 
 namespace dbAccess
 {
+    /// <summary>
+    /// A death record in one of the Illinois death indices (pre-1916 or post-1915)
+    /// </summary>
     public sealed class IllinoisDeathIndex
     {
         #region Constructors
 
+        /// <summary>
+        /// Copy one death record to another
+        /// </summary>
+        /// <param name="drSource">the death record to copy</param>
+        /// <param name="drTarg">the copy of the original death record <paramref name="drSource"/></param>
         static private void Initialize( IDeathRecord drSource, IDeathRecord drTarg )
         {
             drTarg.AgeInYears = drSource.AgeInYears;
@@ -26,6 +34,11 @@ namespace dbAccess
             drTarg.Volume = drSource.Volume;
         }
 
+        /// <summary>
+        /// Create a copy of an existing Illinois death record
+        /// </summary>
+        /// <param name="drSource">the death record to copy</param>
+        /// <returns>an exact, but referentially distinct, copy of <paramref name="drSource"/></returns>
         public static IDeathRecord Create(IDeathRecord drSource)
         {
             IDeathRecord drNew;
@@ -37,6 +50,11 @@ namespace dbAccess
             return drNew;
         }
 
+        /// <summary>
+        /// Create a copy of a pre-1916 Illinois death record
+        /// </summary>
+        /// <param name="drSource">the death record to copy</param>
+        /// <returns>an exact, but referentially distinct, copy of <paramref name="drSource"/></returns>
         public static IllinoisDeathIndexPre1916 CreatePre1916(IDeathRecord drSource)
         {
             if (drSource.DeathDate.Year > 1915)
@@ -47,6 +65,11 @@ namespace dbAccess
             return drNew;
         }
 
+        /// <summary>
+        /// Create a copy of a post-1915 Illinois death record
+        /// </summary>
+        /// <param name="drSource">the death record to copy</param>
+        /// <returns>an exact, but referentially distinct, copy of <paramref name="drSource"/></returns>
         public static IllinoisDeathIndexPost1915 CreatePost1915(IDeathRecord drSource)
         {
             if (drSource.DeathDate.Year < 1916)
@@ -61,6 +84,13 @@ namespace dbAccess
 
         #region Public methods
 
+        /// <summary>
+        /// Construct a list of death records matching a specific record, using a user-definable filter predicate
+        /// </summary>
+        /// <param name="dB">the database to search</param>
+        /// <param name="drMatch">the specific death record to match</param>
+        /// <param name="filter">the filter predicate used to determine matches to <paramref name="drMatch"/></param>
+        /// <returns></returns>
         public static List<IDeathRecord> Matches(Linq2SqlDataContext dB, IDeathRecord drMatch, Func<IDeathRecord, IDeathRecord, bool> filter)
         {
             List<IDeathRecord> lMatches = new List<IDeathRecord>();
