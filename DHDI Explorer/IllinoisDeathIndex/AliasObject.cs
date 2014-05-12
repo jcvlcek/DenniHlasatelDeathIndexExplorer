@@ -7,7 +7,7 @@ using System.Text;
 namespace Genealogy
 {
     /// <summary>
-    /// Base class implementation of an "alias" (wrapper) to an existing <see cref="IObject"/> instance
+    /// Base class implementation of an "alias" (wrapper or decorator) to an existing <see cref="IObject"/> instance
     /// </summary>
     [Description("Base class implementation of an \"alias\" to an existing IObject instance")]
     [DefaultProperty("Name")]

@@ -9,7 +9,7 @@ namespace dbAccess
     {
         #region Constructors
 
-        private static void Initialize(IDeathRecord drSource, IDeathRecord drTarg)
+        private static void Initialize(IDeathRecord drSource, DHDeathIndex drTarg)
         {
             // The commented-out properties simply don't exist in the Denni Hlasatel index
             //drTarg.AgeInYears = drSource.AgeInYears;
