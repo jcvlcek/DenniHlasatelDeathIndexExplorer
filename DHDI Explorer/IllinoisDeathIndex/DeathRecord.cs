@@ -6,9 +6,16 @@ using dbAccess;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Baseline implementation of <see cref="IDeathRecord"/> interface
+    /// via a decorator (wrapper) pattern approach
+    /// </summary>
     public class DeathRecord : AliasObject, IDeathRecord
     {
         #region Public members
+        /// <summary>
+        /// Class tag identifying a death record
+        /// </summary>
         public const string DEATH_RECORD_CLASS = "DeathRecord";
 
         /// <summary>
@@ -63,11 +70,25 @@ namespace Genealogy
                 AddProperty(PropertyTags.MIDDLE_NAME, string.Empty);
         }
 
+        /// <summary>
+        /// Create a new (blank) death record with the specified name
+        /// <paramref name="sName"/> need not be the name of the decedent;
+        /// it is used instead as a unique identifier for the death record
+        /// </summary>
+        /// <param name="sName">The unique ID to be applied to this death record</param>
+        /// <returns>A new (and blank) death record with the specified name</returns>
         public static DeathRecord Create(string sName)
         {
             return new DeathRecord(new SimpleObject(sName, DEATH_RECORD_CLASS));
         }
 
+        /// <summary>
+        /// Deep copy an existing death record, into a new death record
+        /// with a specified name
+        /// </summary>
+        /// <param name="sName">The uniqe ID to be applied to the copy</param>
+        /// <param name="oSource">the death record to copy</param>
+        /// <returns></returns>
         public static DeathRecord Create( string sName, DeathRecord oSource )
         {
             SimpleObject oNew = new SimpleObject(sName, oSource);
