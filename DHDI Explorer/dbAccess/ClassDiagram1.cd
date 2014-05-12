@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="dbAccess.CustomTypes" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CustomTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.DeathIndices" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAwAAAAJABAAAQAAAAAgCQBgAAAAAAAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.DHDeathIndex" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBCgAUABAkCAJYCIRAcQEAQBjCCAAEKMBQIAAAACAAg=</HashCode>
+      <FileName>Denni Hlasatel records\DHDeathIndex.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.Filters" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDeathRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.IllinoisDeathIndex" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAQAAAAAAAEAAAAAAAEAAAAAAAAAAAAE=</HashCode>
+      <FileName>Illinois death records\IllinoisDeathIndex.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.IllinoisDeathIndexPost1915" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACgAdABEkDMBoCYRAcSUQQBzDCAABpsBUKIAEIGACg=</HashCode>
+      <FileName>Illinois death records\IllinoisDeathIndexPost1915.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.IllinoisDeathIndexPre1916" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACgANABEkDEBICYVEcSGQQBjiAAIBrMBQKIQGGGACg=</HashCode>
+      <FileName>Illinois death records\IllinoisDeathIndexPre1916.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.Linq2SqlDataContext" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RQERAQABAAESBAJFAAABAWQQpCARADERBDojQQAEFAQ=</HashCode>
+      <FileName>Linq2Sql.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.GenderIndex" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAABAAEgAAAAQAVAAADBiDAAIAA0AAYAACIGAEA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.RaceIndex" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAABBAIEgAAAAQBVAAACBiDABAAAEAAQAAAIGAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.GenderMatch" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgABABEgIAIAAIQAEAAAABiCAAAAAAAACCAEAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.RaceMatch" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAABAgIIIAAAQAEAQAAByCAAAAIgAEACAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.DHIllinoisPost1915Match" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAEAAAAAAgAAAEAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.DHIllinoisPre1916Match" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAEAAAAAAgAAAEAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.GivenNameEquivalent" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAIAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAEA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.KrestniJmena" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAhABDBCgICQpAAQBEFAAQBiCggMAACAIIA0AAAAIA=</HashCode>
+      <FileName>Names\KrestniJmena.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.IllinoisDeathIndexSearchesPre1916" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAIABAkAABIAQRAcSEQQBjCAAAAiIBAAAAAACAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.IllinoisDeathIndexSearchHitsPre1916" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAACAAAAAAAAAAAAABAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.IllinoisDeathIndexSearchesPost1915" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAIABAkAABIAQRAcSEQQBjCAAAAiIBAAAAAACAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.IllinoisDeathIndexSearchHitsPost1915" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAACAAAAAAAAAAAAABAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbAccess.Prijmeni" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAhABBBAAACRZAAQDEAgBUBiCgAlACAABIAQAQAAAA=</HashCode>
+      <FileName>Names\Prijmeni.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="dbAccess.Properties.Settings" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAIAAAAAABAAAAAAAACIAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="dbAccess.IDeathRecord" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAEAAAAAAAACIAAAQEAQAAAAAAAIEAQIAAAAAAAg=</HashCode>
+      <FileName>IDeathRecord.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="dbAccess.IJmeno" Collapsed="true">
+    <Position X="2.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABABAAAAAAQAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Names\IJmeno.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -115,6 +115,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="GenealogyDataSet.xsc">
       <DependentUpon>GenealogyDataSet.xsd</DependentUpon>
     </None>
