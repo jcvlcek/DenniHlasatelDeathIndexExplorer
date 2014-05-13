@@ -7,6 +7,10 @@ using dbAccess;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// <para>Represents the Denni Hlasatel death index stored in a single XML document</para>
+    /// Also provides utility functions for examining Denni Hlasatel death records in the original file format
+    /// </summary>
     public class DenniHlasatelDataStore
     {
         #region Private members
@@ -17,6 +21,10 @@ namespace Genealogy
 
         #region Constructors
 
+        /// <summary>
+        /// Create a Denni Hlasatel death index from a specified XML document
+        /// </summary>
+        /// <param name="sDocumentPath">the XML document containing the Denni Hlasatel death index</param>
         public DenniHlasatelDataStore(string sDocumentPath)
         {
             mXmlRecords = XDocument.Load(sDocumentPath);
@@ -35,11 +43,14 @@ namespace Genealogy
 
         #region Public methods
 
+        /// <summary>
+        /// Create a death record from a single line in an original (non-XML) Denni Hlasatel death index file
+        /// </summary>
+        /// <param name="sRecord">a single line in a Denni Hlasatel death index file</param>
+        /// <returns>a death record constructed from <paramref name="sRecord"/></returns>
         public static IDeathRecord CreateFromRecord(string sRecord)
         {
-            string sName = sRecord;
-
-            IDeathRecord drNew = DeathRecord.Create(sName);
+            IDeathRecord drNew = DeathRecord.Create(sRecord);
             string[] sElements = sRecord.Split(',');
             drNew.FirstName = sElements[0];
             drNew.LastName = sElements[1];
@@ -51,6 +62,13 @@ namespace Genealogy
             return drNew;
         }
 
+        /// <summary>
+        /// Create a death record from a full (first + last) name and a death date
+        /// </summary>
+        /// <param name="sFirstName">the first (given) name of the decedent</param>
+        /// <param name="sLastName">the last (family) name of the decedent</param>
+        /// <param name="sDate">the filing date of the death certificate</param>
+        /// <returns>a death record constructed from the supplied parameters</returns>
         public static IDeathRecord CreateFromNameAndDate(string sFirstName, string sLastName, string sDate)
         {
             IDeathRecord drNew = DeathRecord.Create(sFirstName + " " + sLastName);
@@ -62,9 +80,13 @@ namespace Genealogy
             return drNew;
         }
 
-        private static string sDataFilesFolder = "";
         private static System.IO.TextReader fDataFile = null;
 
+        /// <summary>
+        /// Read the next death record from a Denni Hlasatel death index data file (in the original format)
+        /// </summary>
+        /// <returns>a death record created from the next line in the file</returns>
+        /// <remarks>DEPRECATED - this was used only for testing purposes and should be deleted</remarks>
         public static IDeathRecord Next()
         {
             if (fDataFile == null)
