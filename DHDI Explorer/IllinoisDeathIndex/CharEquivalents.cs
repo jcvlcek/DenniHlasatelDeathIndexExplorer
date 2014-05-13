@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Equivalent forms between character sets (primarily UTF-8, Web and plain text)
+    /// </summary>
     class CharEquivalents
     {
 
@@ -108,6 +111,15 @@ namespace Genealogy
 
         private static Dictionary<String, TransChar> mDictionary = null;
 
+        /// <summary>
+        /// <para>Transliterate a "native" (UTF) code form of a string into both</para>
+        /// <para>1. A web-page compatible, equivalent form, using HTML attributes</para>
+        /// <para>2. A "plain text" form, removing all diacritical marks</para>
+        /// </summary>
+        /// <param name="sNative">the original UTF text</param>
+        /// <param name="WebReturn">[out] a web-page compatible form that displays equivalent to <paramref name="sNative"/></param>
+        /// <param name="PlainTextReturn">[out] a plain-text version of <paramref name="sNative"/>, with all diacritical marks removed</param>
+        /// <returns>true if <paramref name="sNative"/> differs on return, in a byte-for-byte comparison, from either <paramref name="WebReturn"/> or <paramref name="PlainTextReturn"/></returns>
         public static bool Transliterate( String sNative, out string WebReturn, out string PlainTextReturn )
         {
             if (mDictionary == null)
