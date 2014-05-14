@@ -7,10 +7,20 @@ using System.Windows.Forms;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Custom URL scheme for redirecting hyperlinks into Denni Hlasatel Death Index program code
+    /// </summary>
     public class DhdiScheme
     {
         #region Public methods
 
+        /// <summary>
+        /// Execute a Denni Hlasatel Death Index query URI,
+        /// and place its output into a specified location
+        /// </summary>
+        /// <param name="elemTarg">the HTML element into which the query outut will be directed</param>
+        /// <param name="sPath">the Denni Hlasatel Death Index query to be executed</param>
+        /// <param name="lQuery">the arguments to the query, as name/value pairs</param>
         public static void NavigateTo(HtmlElement elemTarg, string sPath, NameValueCollection lQuery)
         {
             if (sPath.StartsWith("/"))
@@ -32,6 +42,13 @@ namespace Genealogy
 
         #region Private methods
 
+        /// <summary>
+        /// List, for debugging purposes, the parameters passed to a Denni Hlasatel Death Index query
+        /// </summary>
+        /// <param name="elemTarg">the HTML element into which the list outut will be directed</param>
+        /// <param name="sPath">the Denni Hlasatel Death Index query to be executed</param>
+        /// <param name="lQuery">the arguments to the query, as name/value pairs</param>
+        /// <param name="sBaseMessage">a header string that will be prepended to the list output</param>
         private static void ListQueryParameters(HtmlElement elemTarg, string sPath, NameValueCollection lQuery, string sBaseMessage)
         {
             string sMessage = sBaseMessage;
@@ -42,6 +59,13 @@ namespace Genealogy
             elemTarg.InnerHtml = sMessage;
         }
 
+        /// <summary>
+        /// Search the Denni Hlasatel Death Index for a specific surname
+        /// (specified by the parameter in <paramref name="lQuery"/> named <value>Surname</value>)
+        /// </summary>
+        /// <param name="elemTarg">the HTML element into which the query outut will be directed</param>
+        /// <param name="sPath">the Denni Hlasatel Death Index query to be executed</param>
+        /// <param name="lQuery">the arguments to the query, as name/value pairs</param>
         public static void SurnameSearch(HtmlElement elemTarg, string sPath, NameValueCollection lQuery)
         {
             if (lQuery.AllKeys.Contains("Surname"))
@@ -68,6 +92,13 @@ namespace Genealogy
             }
         }
 
+        /// <summary>
+        /// Default Denni Hlasatel Death Index URI handler
+        /// (invoked if no handler is registered for the specified value of <paramref name="sPath"/>)
+        /// </summary>
+        /// <param name="elemTarg">the HTML element into which the query outut will be directed</param>
+        /// <param name="sPath">the (unrecognized) Denni Hlasatel Death Index query</param>
+        /// <param name="lQuery">the arguments to the query, as name/value pairs</param>
         public static void Default(HtmlElement elemTarg, string sPath, NameValueCollection lQuery)
         {
             ListQueryParameters(elemTarg, sPath, lQuery, "<h2>Error: Unrecognized Denni Hlasatel Web Function</h2>" + Environment.NewLine + "Function: " + sPath + "<br>" + Environment.NewLine);
