@@ -6,11 +6,21 @@ using System.Text;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Utility class for representing international characters
+    /// in differing character sets (CP125x, ISO-8859-*, Unicode, UTF-8, etc.)
+    /// </summary>
     public sealed class WebChar
     {
         #region Private members
+        /// <summary>
+        /// Dictionary of Web characters, indexed by characters in a native code page
+        /// </summary>
         private static Dictionary<Char, WebChar> mCharList = new Dictionary<Char, WebChar>();
 
+        /// <summary>
+        /// Associates HTML entities corresponding to upper and lower case forms of the same character
+        /// </summary>
         public sealed class Cases : Tuple<String, String>
         {
             public Cases(String Upper, String Lower) : base(Upper, Lower) { }
@@ -23,8 +33,20 @@ namespace Genealogy
         private static Dictionary<String, Cases> mCaseList = new Dictionary<string, Cases>();
         private static XDocument mDoc = null;
 
+        /// <summary>
+        /// <para>String representations of a single character as an:</para>
+        /// <para>HTML entry (mWeb)</para>
+        /// <para>Unicode code point (mUniCodePoint)</para>
+        /// <para>UTF-8 character (mUTF8)</para>
+        /// </summary>
         private string mWeb, mUniCodePoint, mUTF8;
+        /// <summary>
+        /// The character in its original representation (likely a code page e.g. CP125x)
+        /// </summary>
         Char mNative;
+        /// <summary>
+        /// The character in its closest 7-bit ASCII representation
+        /// </summary>
         char mPlainText;
         #endregion
 
