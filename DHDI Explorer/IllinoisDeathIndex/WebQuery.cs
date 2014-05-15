@@ -11,15 +11,33 @@ namespace Genealogy
     public class WebQuery : IWebQuery
     {
         #region Private members
+        /// <summary>
+        /// The Uniform Resource Locater of the web query
+        /// </summary>
         protected string mUrl;
+        /// <summary>
+        /// Data to be supplied to a POST request
+        /// </summary>
         protected string mPostData;
+        /// <summary>
+        /// A Web Browser to process the query
+        /// </summary>
         protected WebBrowser mWebBrowser;
+        /// <summary>
+        /// GET or POST
+        /// </summary>
         protected eQueryMethod mQueryMethod;
+        /// <summary>
+        /// The results of the query
+        /// </summary>
         protected List<IDeathRecord> mRecords = new List<IDeathRecord>();
         #endregion
 
         #region Public members
 
+        /// <summary>
+        /// The HTML method to be executed by the query
+        /// </summary>
         public enum eQueryMethod
         {
             GET,
@@ -127,6 +145,12 @@ namespace Genealogy
             mWebBrowser.DocumentText = sResponseText;
         }
 
+        /// <summary>
+        /// <para>Change to lower case, as necessary, all but the first character in a string.</para>
+        /// HTML entities are (supposed to be) properly converted by this method.
+        /// </summary>
+        /// <param name="sOriginal">the string to be converted to "proper case"</param>
+        /// <returns>the original string, with all but the first character in lower case</returns>
         public static string ConvertToProperCase(string sOriginal)
         {
             int iLen = sOriginal.Length;
