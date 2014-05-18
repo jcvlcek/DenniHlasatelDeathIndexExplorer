@@ -7,13 +7,13 @@ using dbAccess;
 namespace Genealogy
 {
     /// <summary>
-    /// <para></para>Represents one of the components of a person's full name,
+    /// Represents one of the components of a person's full name,
     /// e.g. first (given) name, family name (surname), etc.
     /// </summary>
     /// <typeparam name="T">the type of objects that will be stored in the name cache</typeparam>
     /// <remarks>This abstract class provides default implementation of generic methods,
     /// and caches names for faster lookup when multiple lookups are performed</remarks>
-    public abstract class PersonName< T >
+    public abstract class PersonName< T > where T : PersonName< T >
     {
         #region Public members
         /// <summary>
