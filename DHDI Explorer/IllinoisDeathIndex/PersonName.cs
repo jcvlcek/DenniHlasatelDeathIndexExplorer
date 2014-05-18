@@ -6,9 +6,24 @@ using dbAccess;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// <para></para>Represents one of the components of a person's full name,
+    /// e.g. first (given) name, family name (surname), etc.
+    /// </summary>
+    /// <typeparam name="T">the type of objects that will be stored in the name cache</typeparam>
+    /// <remarks>This abstract class provides default implementation of generic methods,
+    /// and caches names for faster lookup when multiple lookups are performed</remarks>
     public abstract class PersonName< T >
     {
         #region Public members
+        /// <summary>
+        /// Provides a representation of a name in the three following forms:
+        /// <list type="bullet">
+        /// <item>Native (code page)</item>
+        /// <item>Web (HTML)</item>
+        /// <item>Plain text (7-bit ASCII equivalent)</item>
+        /// </list>
+        /// </summary>
         public class NativeForm : Tuple<String, string, string>
         {
             /// <summary>
@@ -21,8 +36,19 @@ namespace Genealogy
             {
             }
 
+            /// <summary>
+            /// The original (native code page) form of the name string
+            /// </summary>
             public String Value { get { return Item1; } }
+            
+            /// <summary>
+            /// A web- (HTML)-compatible form of the name string
+            /// </summary>
             public string Web { get { return Item2; } }
+
+            /// <summary>
+            /// A plain-text (7-bit ASCII) rendering of the name string
+            /// </summary>
             public string PlainText { get { return Item3; } }
         }
         #endregion
@@ -40,7 +66,7 @@ namespace Genealogy
 
         /// <summary>
         /// Creates a <see cref="PersonName"/> object corresponding to the argument string,
-        /// and binds that object into the given name cache
+        /// and binds that object into the name cache
         /// </summary>
         /// <param name="dcTarg">The data context to search for forms equivalent to this name</param>
         /// <param name="sName"></param>
@@ -53,7 +79,6 @@ namespace Genealogy
         /// Gets a <see cref="PersonName"/> corresponding to argument string
         /// </summary>
         /// <param name="sName">The name to search for</param>
-        /// <param name="dcTarg">The data context to search for forms equivalent to this name</param>
         /// <returns>A cached <see cref="PersonName"/>, if one has already been created for <see cref="sName"/>,
         /// otherwise a new <see cref="PersonName"/> created for the argument string</returns>
         public static PersonName< T > Get( string sName )
@@ -158,6 +183,12 @@ namespace Genealogy
 
         #region Public methods
 
+        /// <summary>
+        /// Generate a listing of all names matching a plain-text name string
+        /// </summary>
+        /// <param name="sPlainTextName">the plain-text name string to match</param>
+        /// <returns>a list of names matching <paramref name="sPlainTextName"/>.  This list may be empty if no matching names are found.</returns>
+        /// <remarks>Multiple matches are possible, due to varying use of diacritical marks in names.</remarks>
         public static List<PersonName<T>> MatchToPlainTextName(string sPlainTextName)
         {
             throw new NotImplementedException("MatchToPlainText not implemented in base class PersonName< T >");
