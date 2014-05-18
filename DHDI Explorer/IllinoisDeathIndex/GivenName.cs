@@ -6,13 +6,24 @@ using dbAccess;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Represents the first (given) name of a person
+    /// </summary>
     public class GivenName : PersonName<GivenName>
     {
         #region Public members
         #endregion
 
         #region Private members
+
+        /// <summary>
+        /// Count of males in the reference census with this given name
+        /// </summary>
         private int mMaleCount = 0;
+
+        /// <summary>
+        /// Count of females in the reference census with this given name
+        /// </summary>
         private int mFemaleCount = 0;
         #endregion
 
@@ -22,8 +33,7 @@ namespace Genealogy
         /// Creates a <see cref="GivenName"/> object corresponding to the argument string,
         /// and binds that object into the given name cache
         /// </summary>
-        /// <param name="dcTarg">The data context to search for forms equivalent to this name</param>
-        /// <param name="sName"></param>
+        /// <param name="sName">the native (code page) form of the name</param>
         private GivenName(string sName) : base( sName )
         {
             var queryNative = (from cNative in Utilities.dB.KrestniJmenas
@@ -52,9 +62,8 @@ namespace Genealogy
         /// Gets a <see cref="GivenName"/> corresponding to argument string
         /// </summary>
         /// <param name="sName">The name to search for</param>
-        /// <param name="dcTarg">The data context to search for forms equivalent to this name</param>
         /// <returns>A cached <see cref="GivenName"/>, if one has already been created for <see cref="sName"/>,
-        /// otherwise a new <see cref="GivenName"/> created for the argument string</returns>
+        /// otherwise a new <see cref="GivenName"/> created from the argument string</returns>
         public new static GivenName Get( string sName )
         {
             PersonName<GivenName> gnTarg;
@@ -94,10 +103,6 @@ namespace Genealogy
         {
             get { return MaleCount + FemaleCount; }
         }
-
-        #endregion
-
-        #region Private properties
 
         /// <summary>
         /// A comprehensive list of all available alternate forms of this name.
@@ -177,8 +182,19 @@ namespace Genealogy
 
         #endregion
 
+        #region Private properties
+
+        #endregion
+
         #region Public methods
 
+        /// <summary>
+        /// Constructs a list of given names matching a plain text (7-bit ASCII) representation
+        /// </summary>
+        /// <param name="sPlainTextName">the plain text representation of the given name(s)</param>
+        /// <param name="mdB">the database connection to query for the matching given names</param>
+        /// <returns>a list of given names matching <paramref name="sPlainTextName"/>.  This list may be empty, if no given names match</returns>
+        /// <remarks>Multiple given names may match the same plain-text representation, as a result of differing applications of diacriticals</remarks>
         public static List<GivenName> MatchToPlainTextName(string sPlainTextName, Linq2SqlDataContext mdB)
         {
             List<GivenName> lMatches = new List<GivenName>();
