@@ -99,7 +99,7 @@ namespace Genealogy
         /// <summary>
         /// Total number of individuals in the census with this given name
         /// </summary>
-        public int TotalCount
+        override public int TotalCount
         {
             get { return MaleCount + FemaleCount; }
         }
