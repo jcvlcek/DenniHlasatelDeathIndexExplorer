@@ -6,7 +6,10 @@ using dbAccess;
 
 namespace Genealogy
 {
-    public class Surname : PersonName< Surname >
+    /// <summary>
+    /// Represents the last (family) name of a person
+    /// </summary>
+    public class Surname : PersonName<Surname>
     {
         #region Private members
         #endregion
@@ -17,8 +20,7 @@ namespace Genealogy
         /// Creates a <see cref="Surame"/> object corresponding to the argument string,
         /// and binds that object into the surname cache
         /// </summary>
-        /// <param name="dcTarg">The data context to search for forms equivalent to this name</param>
-        /// <param name="sName"></param>
+        /// <param name="sName">the native (code page) form of the name</param>
         private Surname(string sName) : base( sName )
         {
             var queryNative = (from cNative in Utilities.dB.Prijmenis
@@ -45,7 +47,6 @@ namespace Genealogy
         /// Gets a <see cref="Surname"/> corresponding to argument string
         /// </summary>
         /// <param name="sName">The name to search for</param>
-        /// <param name="dcTarg">The data context to search for forms equivalent to this name</param>
         /// <returns>A cached <see cref="Surname"/>, if one has already been created for <see cref="sName"/>,
         /// otherwise a new <see cref="Surname"/> created for the argument string</returns>
         public static new Surname Get( string sName )
@@ -164,6 +165,12 @@ namespace Genealogy
 
         #region Public methods
 
+        /// <summary>
+        /// Constructs a list of last names (surnames) matching a plain text (7-bit ASCII) representation
+        /// </summary>
+        /// <param name="sPlainTextName">the plain text representation of the surname(s)</param>
+        /// <returns>a list of surnames matching <paramref name="sPlainTextName"/>.  This list may be empty, if no surnames match</returns>
+        /// <remarks>Multiple surnames may match the same plain-text representation, as a result of differing applications of diacriticals</remarks>
         public static new List<Surname> MatchToPlainTextName(string sPlainTextName)
         {
             List<Surname> lMatches = new List<Surname>();
