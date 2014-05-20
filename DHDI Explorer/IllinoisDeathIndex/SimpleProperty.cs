@@ -6,11 +6,12 @@ using System.Text;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Single, scalar property of an object
+    /// </summary>
     class SimpleProperty : IProperty
     {
         #region Private members
-        private string mName = string.Empty;
-        private string mValue = string.Empty;
         #endregion
 
         #region Constructors
@@ -30,8 +31,8 @@ namespace Genealogy
                 throw new ArgumentOutOfRangeException( "Empty string cannot be used as a property name" );
             if ( sValue == null )
                 sValue = string.Empty;
-            mName = sName;
-            mValue = sValue;
+            Name = sName;
+            Value = sValue;
         }
         #endregion
 
@@ -44,8 +45,8 @@ namespace Genealogy
         [Browsable(true)]
         public string Name
         {
-            get { return mName; }
-            private set { mName = value; }
+            get;
+            private set;
         }
 
         /// <summary>
@@ -55,8 +56,8 @@ namespace Genealogy
         [Browsable(true)]
         public string Value
         {
-            get { return mValue; }
-            set { mValue = value; }
+            get;
+            set;
         }
         #endregion
     }
