@@ -7,6 +7,10 @@ using dbAccess;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// General-purpose utilities class
+    /// </summary>
+    /// <remarks>This class contains only static members, methods and properties</remarks>
     public sealed class Utilities
     {
         #region Public properties
@@ -44,6 +48,9 @@ namespace Genealogy
 
         #endregion
 
+        /// <summary>
+        /// Prompt the user to identify the disk folder in which the flat data files can be found
+        /// </summary>
         public static void PromptForDataFilesFolder()
         {
             FolderBrowserDialog fDataFiles = new FolderBrowserDialog();
@@ -101,12 +108,17 @@ namespace Genealogy
         }
 
         // Neděle, pondělí, úterý, středa, čtvrtek, pátek, sobota
+        /// <summary>
+        /// Days of the week, in Czech (nominative case?), using HTML entities to represent characters with diacriticals
+        /// </summary>
         static private string[] mDays = new string[] {
             "Ned&#283;le", "Pond&#283;l&iacute;", "&Uacute;ter&yacute", "St&#345;eda",
             "&#268;tvrtek", "P&aacute;tek", "Sobota"
         };
 
-        // 
+        /// <summary>
+        /// Months of the year, in Czech (nominative case?), using HTML entities to represent characters with diacriticals
+        /// </summary>
         static private string[] mMonths = new string[] {
             "Ledna",
             "&Uacute;nora",
@@ -122,6 +134,11 @@ namespace Genealogy
             "Prosince"
         };
 
+        /// <summary>
+        /// Convert a <see cref="DateTime"/> structure to a Czech-language long form
+        /// </summary>
+        /// <param name="dtWhen"></param>
+        /// <returns></returns>
         public static string CzechDate( DateTime dtWhen )
         {
             return mDays[(int)dtWhen.DayOfWeek] + " " + dtWhen.Day.ToString() + ". "
