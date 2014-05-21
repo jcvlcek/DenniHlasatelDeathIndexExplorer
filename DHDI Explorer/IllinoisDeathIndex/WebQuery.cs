@@ -8,7 +8,10 @@ using dbAccess;
 
 namespace Genealogy
 {
-    public class WebQuery : IWebQuery
+    /// <summary>
+    /// Abstract base class foundation for genealogical queries performed via Web (HTML) methods
+    /// </summary>
+    public abstract class WebQuery : IWebQuery
     {
         #region Private members
         /// <summary>
