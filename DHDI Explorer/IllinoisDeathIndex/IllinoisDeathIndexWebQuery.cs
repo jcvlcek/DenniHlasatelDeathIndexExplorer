@@ -4,6 +4,9 @@ using dbAccess;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Web query for searching the Illinois Statewide Death Indices (pre-1916 and post-1915)
+    /// </summary>
     class IllinoisDeathIndexWebQuery : WebQuery
     {
         #region Private members
@@ -29,6 +32,11 @@ namespace Genealogy
 
         #region Public methods
 
+        /// <summary>
+        /// Get the Uniform Resource Locator for a query matching a specified death record
+        /// </summary>
+        /// <param name="drTarg">the death record to match</param>
+        /// <returns>a properly-formatted URL for issuing the web query</returns>
         public static string GetUrl(IDeathRecord drTarg)
         {
             bool bBefore1916 = drTarg.FilingDate.Year < 1916;
@@ -50,8 +58,7 @@ namespace Genealogy
         /// <summary>
         /// Event handler called when the web browser has completed parsing a response document
         /// </summary>
-        /// <param name="sender">The object originating the event</param>
-        /// <param name="e">The arguments passed by the web browser upon document completion</param>
+        /// <remarks>The actual event handler is implemented in the base class; that handler calls this virtual method</remarks>
         override protected void OnDocumentCompleted()
         {
             HtmlDocument docResponse = mWebBrowser.Document;
