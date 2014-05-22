@@ -15,6 +15,9 @@ namespace Genealogy
     {
         #region Private members
 
+        /// <summary>
+        /// The XML document containing the Denni Hlasatel death index
+        /// </summary>
         private XDocument mXmlRecords = null;
 
         #endregion
@@ -34,6 +37,9 @@ namespace Genealogy
 
         #region Public properties
 
+        /// <summary>
+        /// Gets the XML document containing the Denni Hlasatel death index records
+        /// </summary>
         public XDocument XmlDocument
         {
             get { return mXmlRecords; }
