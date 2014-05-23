@@ -7,16 +7,38 @@ using dbAccess;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Web query for searching the Czech online names database http://www.kdejsme.cz/
+    /// </summary>
     public class KdeJsmeWebQuery : WebQuery
     {
         #region Private members
+
+        /// <summary>
+        /// Count of individuals bearing a specified name
+        /// </summary>
         int mCount = 0;
+
         #endregion
 
         #region Public members
+        /// <summary>
+        /// Identifies a specific component of a person's full name
+        /// </summary>
         public enum eWhichName {
+            /// <summary>
+            /// First (or "given") name
+            /// </summary>
             GIVEN_NAME,
+
+            /// <summary>
+            /// Last (or family) name
+            /// </summary>
             SURNAME,
+
+            /// <summary>
+            /// Unspecified whether first or last name
+            /// </summary>
             UNKNOWN
         };
         #endregion
@@ -38,6 +60,13 @@ namespace Genealogy
 
         #region Public methods
 
+        /// <summary>
+        /// Get the Uniform Resource Locator (URL) for querying the KdeJsme web site
+        /// in regards to a specified name
+        /// </summary>
+        /// <param name="sName">the name to query</param>
+        /// <param name="eGivenOrSurname">which component of a full name <paramref name="sName"/> corresponds to</param>
+        /// <returns></returns>
         public static string GetUrl(String sName, eWhichName eGivenOrSurname)
         {
             string sDatabase;
@@ -66,8 +95,6 @@ namespace Genealogy
         /// <summary>
         /// Event handler called when the web browser has completed parsing a response document
         /// </summary>
-        /// <param name="sender">The object originating the event</param>
-        /// <param name="e">The arguments passed by the web browser upon document completion</param>
         override protected void OnDocumentCompleted()
         {
             HtmlDocument docResponse = mWebBrowser.Document;
