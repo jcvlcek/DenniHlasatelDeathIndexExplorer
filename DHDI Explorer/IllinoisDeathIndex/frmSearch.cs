@@ -7,14 +7,40 @@ using System.Text.RegularExpressions;
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Form for searching string lists for names matching a specified pattern
+    /// (optionally using regular expressions for matching)
+    /// </summary>
+    /// <remarks>The search results are placed into a text box supplied to this form as an argument to the <see cref="Search"/> method</remarks>
     public class frmSearch : Form
     {
+        #region User interface (UX) elements
+
         private Label label1;
+
+        /// <summary>
+        /// Flags whether the contents of <see cref="txtSearchTerm"/> are to be treated as a regular expression
+        /// </summary>
         private CheckBox chkUseRegex;
+
+        /// <summary>
+        /// Searches for names matching the pattern in <see cref="txtSearchTerm"/>
+        /// </summary>
         private Button cmdSearch;
+
+        /// <summary>
+        /// Cancels the search and closes the form
+        /// </summary>
         private Button cmdCancel;
+
+        /// <summary>
+        /// The string (potentially using regular expressions) to search for in the name list
+        /// </summary>
         private TextBox txtSearchTerm;
     
+        /// <summary>
+        /// Initialize the user interface of the form
+        /// </summary>
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
@@ -90,18 +116,44 @@ namespace Genealogy
 
         }
 
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Create a new instance of the search form
+        /// </summary>
         public frmSearch()
         {
             InitializeComponent();
         }
 
+        #endregion
+
         #region Private members
+
+        /// <summary>
+        /// <see cref="TextBox"/> the search results are placed into
+        /// (the previous contents are completely overwritten with new search results)
+        /// </summary>
         private TextBox mResults;
+
+        /// <summary>
+        /// The list of strings (names) to be searched
+        /// </summary>
         private IEnumerable<string> mEntries;
         #endregion
 
         #region Public methods
 
+        /// <summary>
+        /// <para>Specifies the list of strings to be searched, and the text box to display the results in</para>
+        /// After initializing these internal members, the form displays itself
+        /// </summary>
+        /// <param name="lEntries">the list of strings to be searched</param>
+        /// <param name="txtResults"></param>
+        /// <remarks>Despite its name, this method does not perform an actual search.
+        /// A search is performed only when the <see cref="cmdSearch"/> button is pressed</remarks>
         public void Search(IEnumerable<string> lEntries, TextBox txtResults)
         {
             mResults = txtResults;
@@ -111,11 +163,24 @@ namespace Genealogy
 
         #endregion
 
+        #region Event handlers
+
+        /// <summary>
+        /// Action(s) taken on pressing the "Cancel" button: Hide the form
+        /// </summary>
+        /// <param name="sender">sender of the event (the <see cref="cmdCancel"/> button</param>
+        /// <param name="e">button press event arguments</param>
         private void cmdCancel_Click(object sender, EventArgs e)
         {
             Hide();
         }
 
+        /// <summary>
+        /// Action(s) taken on pressing the "Search" button:
+        /// clear the results text box, perform the search, and write the results into the text box
+        /// </summary>
+        /// <param name="sender">sender of the event (the <see cref="cmdCancel"/> button</param>
+        /// <param name="e">button press event arguments</param>
         private void cmdSearch_Click(object sender, EventArgs e)
         {
             mResults.Clear();
@@ -128,7 +193,7 @@ namespace Genealogy
                 }
                 catch (ArgumentException eX)
                 {
-                    MessageBox.Show(eX.Message, "Invalid regular expression patter", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(eX.Message, "Invalid regular expression pattern", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -155,5 +220,8 @@ namespace Genealogy
 
             Hide();
         }
+
+        #endregion
+
     }
 }
