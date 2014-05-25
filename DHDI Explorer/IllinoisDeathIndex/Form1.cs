@@ -24,6 +24,11 @@ namespace Genealogy
 
         #region Constructors
 
+        /// <summary>
+        /// <para>Construct a default version of the form</para>
+        /// Initializes the user interface, instantiates an SQL connection,
+        /// instantiates the tree view, and initializes the web browser with an empty HTML document
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +41,12 @@ namespace Genealogy
 
         #region Private methods
 
+        /// <summary>
+        /// Ensures that a day-of-the-week/month string is two characters in length
+        /// (padding with a leading "0" as necessary)
+        /// </summary>
+        /// <param name="sInformalDay">the existing day-of-the-week/month string</param>
+        /// <returns>a two-character day-of-the-week/month string, padded with a leading "0" as necessary</returns>
         private string FormalDay(string sInformalDay)
         {
             if (sInformalDay.Length < 2)
@@ -45,6 +56,14 @@ namespace Genealogy
         }
 
         static List<string> lMonths = new List<string>(new string[] { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" });
+
+        /// <summary>
+        /// Converts a three-character month abbreviation to a two-character month index (1-referenced).
+        /// The month index is zero-padded on the left for the months "Jan" through "Sep".
+        /// </summary>
+        /// <param name="sInformalMonth">a three-character month abbreviation</param>
+        /// <returns>a two-character month index, in the range "01" to "12"</returns>
+        /// <remarks>Accepts only the US English month abbreviations</remarks>
         private string FormalMonth(string sInformalMonth)
         {
             int iMonth = lMonths.IndexOf(sInformalMonth.ToUpper()) + 1;
@@ -54,6 +73,11 @@ namespace Genealogy
                 return iMonth.ToString();
         }
 
+        /// <summary>
+        /// Changes the binding source propert of the data grid view.
+        /// This has the effect of displaying a different database table in the grid view.
+        /// </summary>
+        /// <param name="bsTarg">the new binding source (database table) to display in the grid view</param>
         private void ChangeBindingSource(BindingSource bsTarg)
         {
             this.dataGridView1.Columns.Clear();
@@ -65,6 +89,13 @@ namespace Genealogy
             this.dataGridView1.Refresh();
         }
 
+        /// <summary>
+        /// <para>Event handler called when a web query (of any flavor) has completed</para>
+        /// Displays the <code>Results</code> list in the tree and list views,
+        /// and submits for processing any queries in the "pending" queue
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">the results of the web query, including the <code>Results</code> list of death records</param>
         private void OnWebQueryCompleted(object sender, WebQueryEventArgs e)
         {
             HtmlDocument docResponse = webBrowser1.Document;
@@ -293,6 +324,12 @@ namespace Genealogy
             FamilySearchWebQuery.WriteOutFrame(webBrowser1);
         }
 
+        /// <summary>
+        /// Queries the Illinois Statewide Death Index databases
+        /// for a match to the data currently entered into the user interface
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void illinoisDeathIndexToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mPendingWebQueries.Clear();
@@ -347,6 +384,12 @@ namespace Genealogy
             qNew.Submit();
         }
 
+        /// <summary>
+        /// Queries the Family Search databases
+        /// for a match to the data currently entered into the user interface
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void familySearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             txtResponse.Clear();
@@ -358,11 +401,22 @@ namespace Genealogy
             qNew.Submit();
         }
 
+        /// <summary>
+        /// Copies the original Denni Hlasatel data files into a single XML-formatted output file
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void convertDHFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CombineDhFilesIntoXml();
         }
 
+        /// <summary>
+        /// Copies the names in the "prijmeni.xls" spreadsheet, converting them to proper casing
+        /// (only the first character upper-cased) and writes the output into a "prijmeni lowercase.xls" file
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void prijmeniConversionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sPrijmeniPath;
@@ -431,6 +485,12 @@ namespace Genealogy
             fNamesOut.Close();
         }
 
+        /// <summary>
+        /// Advances to the next record in the Denni Hlasatel data store, and displays it in the user interface
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>This method was used for diagnostic purposes only, and will be removed from the final release of the software</remarks>
         private void nextDHRecordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -449,6 +509,12 @@ namespace Genealogy
             }
         }
 
+        /// <summary>
+        /// Reads through the rank-sorted Czech family names list "prijmeni rank-sorted.xls",
+        /// displaying every 100-th name in the user interface, and flagging any duplicate entries
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void prijmeniRankCheckToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sPrijmeniPath;
@@ -494,12 +560,26 @@ namespace Genealogy
             fNames.Close();
         }
 
+        /// <summary>
+        /// <para>Event hander called when text in the last name text box is changed</para>
+        /// Queries the Denni Hlasatel death index for possible results against the text currently in the box,
+        /// scheduling a call to the <see cref="OnLastNameChanged"/> web document complete event handler
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void txtLastName_TextChanged(object sender, EventArgs e)
         {
             if (mdB != null)
                 DisplayDenniHlasatelResultsInBrowser(OnLastNameChanged);
         }
 
+        /// <summary>
+        /// Displays possible name matches, within the Denni Hlasatel death index,
+        /// with the text in a first or last name text box
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>Possible matches are displayed only if three or more characters have been entered into the text box</remarks>
         private void OnLastNameChanged(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             string sInnerHtml = string.Empty;
