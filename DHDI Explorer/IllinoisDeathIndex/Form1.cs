@@ -109,6 +109,14 @@ namespace Genealogy
 
         #region Event handlers
 
+        /// <summary>
+        /// Load event handler for the main form <see cref="Form1"/>
+        /// </summary>
+        /// <param name="sender">the originator of the event (an instance of <see cref="Form1"/>)</param>
+        /// <param name="e">arguments to the event handler</param>
+        /// <remarks>This event handler currently loads the database table adapters.
+        /// These calls to the <code>TableAdapter.Fill</code> method will ultimately be moved
+        /// to another location, to enable selective connection to the database.</remarks>
         private void Form1_Load(object sender, EventArgs e)
         {
             try
@@ -142,6 +150,14 @@ namespace Genealogy
             webBrowser1.Navigating += new WebBrowserNavigatingEventHandler(webBrowser1_Navigating);
         }
 
+        /// <summary>
+        /// Event raised by the web browser when (just prior to) navigating to a new URL
+        /// </summary>
+        /// <param name="sender">the originator of te event</param>
+        /// <param name="e">additional details of the navigation event</param>
+        /// <remarks>This event is hooked, to enable the program to detect URLs with custom schemes.
+        /// For example, the <code>dhdi</code> scheme represents a query
+        /// into the Denni Hlasatel death indes</remarks>
         void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
             if (e.Url.Scheme == "dhdi")
@@ -157,6 +173,15 @@ namespace Genealogy
             }
         }
 
+        /// <summary>
+        /// Event handler for the list view containing "hits" in the Illinois death index database.
+        /// Adds (if possible) the death record clicked on into the appropriate local Illinois Death index database.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details associated with the event</param>
+        /// <remarks>This implementation of the double-click event handler is experimental,
+        /// to enable testing the code for adding records to the local Illinois death index databases.
+        /// It is unlikely that the final version of the software will include this method of adding database records</remarks>
         private void lvHits_DoubleClick(object sender, EventArgs e)
         {
             DateTime dtWhen = DateTime.Parse( txtDate.Text.Replace( ',', ' ' ));
@@ -209,32 +234,64 @@ namespace Genealogy
             }
         }
 
+        /// <summary>
+        /// <para>Event handler for the Denni Hlasatel menu item</para> 
+        /// Display the Denni Hlasatel death index table in the program's grid view
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void denniHlasatelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeBindingSource(dHDeathIndexBindingSource);
         }
 
+        /// <summary>
+        /// <para>Event handler for the given name equivalents menu item</para> 
+        /// Display the given name equivalents table in the program's grid view
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void givenNameEquivalentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeBindingSource(givenNameEquivalentsBindingSource);
         }
 
+        /// <summary>
+        /// <para>Event handler for the Prijmeni menu item</para> 
+        /// Display the Prijmeni (family or surname) table in the program's grid view
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void prijmeniToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeBindingSource(prijmeniBindingSource);
         }
 
+        /// <summary>
+        /// <para>Event handler for the Krestni Jmena menu item</para> 
+        /// Display the Krestni Jmena (given or Christian name) table in the program's grid view
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void krestniJmenaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeBindingSource(krestniJmenaBindingSource);
         }
 
+        /// <summary>
+        /// <para>Event handler for the "frames dump" menu item</para>
+        /// Dumps the contents of the frame(s) contained in a Family Search web query reply
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>This event handler is for diagnostic purposes only,
+        /// and will be removed from the final version of the software.
+        /// Specifically, it has been used in a (to date unsuccessful) attempt
+        /// to determine a way to get the actual results out of a Family Search reply</remarks>
         private void framesDumpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FamilySearchWebQuery.WriteOutFrame(webBrowser1);
         }
-
-        #endregion
 
         private void illinoisDeathIndexToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -728,6 +785,8 @@ namespace Genealogy
                 DisplayDenniHlasatelResultsInBrowser( OnDhDocumentLoaded );
             }
         }
+
+        #endregion
 
         private Uri mBaseUri = null;
 
