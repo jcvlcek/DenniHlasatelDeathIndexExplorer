@@ -627,6 +627,12 @@ namespace Genealogy
             frame.Document.Body.InnerHtml = sInnerHtml;
         }
 
+        /// <summary>
+        /// Display a collection of strings in the response text box.
+        /// A count of the number of strings is displayed at the end of the list.
+        /// </summary>
+        /// <param name="lStrings">the collection of strings to display</param>
+        /// <remarks>This method is for diagnostic purposes only, and will be removed from the final version of the software</remarks>
         private void ListStrings(IEnumerable<string> lStrings)
         {
             List<string> lDistinctNames = new List<string>(lStrings);
@@ -638,6 +644,16 @@ namespace Genealogy
                 lDistinctNames.Count.ToString() + " names total" + Environment.NewLine);
         }
 
+        /// <summary>
+        /// Generate a list of all the known Czech given (first) names,
+        /// taking input from any / all of the database tables.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>This method has been used only for diagnostic purposes,
+        /// and it uses comments to select one of a variety of output display options
+        /// (e.g. only displaying names in the Denni Hlasatel index that don't match
+        /// any name in the other tables, thus generating a list of possible errors.)</remarks>
         private void listGivenNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //var query = (from c in mdB.DHDeathIndexes
@@ -704,6 +720,16 @@ namespace Genealogy
             ListStrings(lUnmatchedNames);
         }
 
+        /// <summary>
+        /// Generate a list of all the known Czech family (last) names,
+        /// taking input from any / all of the database tables.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>This method has been used only for diagnostic purposes,
+        /// and it uses comments to select one of a variety of output display options
+        /// (e.g. only displaying names in the Denni Hlasatel index that don't match
+        /// any name in the other tables, thus generating a list of possible errors.)</remarks>
         private void listSurnamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // This query generate a list of all surnames in Denni Hlasatel
@@ -721,6 +747,15 @@ namespace Genealogy
             ListStrings(query);
         }
 
+        /// <summary>
+        /// Event handler for the given names transliteration menu item.
+        /// No longer sure just what this did when it was last used, to be frank.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>Looks like this was used in a combination of two operations:
+        /// Transliterating Czech names (with diacriticals) to English (without),
+        /// and obtaining counts of the frequency of each name.</remarks>
         private void givenNamesTranslitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sGivenNames;
