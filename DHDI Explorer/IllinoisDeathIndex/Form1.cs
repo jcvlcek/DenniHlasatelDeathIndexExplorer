@@ -834,6 +834,14 @@ namespace Genealogy
 
         private List<IDeathRecord> mDhMatches;
 
+        /// <summary>
+        /// Search the Denni Hlasatel death index database table
+        /// for a match to the person identified in the user interface
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>This method takes its input solely from the user interface,
+        /// via the text boxes <see cref="txtFirstName"/>, <see cref="txtLastName"/> and <see cref="txtDate"/></remarks>
         private void mnuDenniHlasatelSearch_Click(object sender, EventArgs e)
         {
             IDeathRecord drMatch = DeathRecord.Create(txtLastName.Text + ", " + txtFirstName.Text);
@@ -905,6 +913,13 @@ namespace Genealogy
 
         private Uri mBaseUri = null;
 
+        /// <summary>
+        /// Loads the empty Denni Hlasatal death index HTML file, and populates it with the results of a web query
+        /// </summary>
+        /// <param name="target">the action to be taken when the empty HTML file is completely loaded</param>
+        /// <remarks>Denni Hlasatel queries can be processed by simply calling this method,
+        /// passing it a web query event handler to be executed when the basic (empty) death index HTML file has been loaded.
+        /// The web query event handler is then executed, and its results are inserted into the body of the basic HTML document.</remarks>
         private void DisplayDenniHlasatelResultsInBrowser( Action< object, WebBrowserDocumentCompletedEventArgs> target )
         {
             if (mBaseUri == null)
@@ -924,8 +939,18 @@ namespace Genealogy
             }
         }
 
+        /// <summary>
+        /// Represents an alternate form (with or without diacriticals or -ova or similar endings)
+        /// of a person's full name.  Usage rankings (expressed as <code>Count</code> properties)
+        /// are included to provide a measure of relative frequency of usage.
+        /// </summary>
         private class AlternateName
         {
+            /// <summary>
+            /// Construct an alternate form of a person's full name
+            /// </summary>
+            /// <param name="sGivenName">The person's first name</param>
+            /// <param name="sSurname">The person's last (family) name</param>
             public AlternateName(string sGivenName, string sSurname) 
             {
                 GivenName = sGivenName;
@@ -933,12 +958,34 @@ namespace Genealogy
                 GivenNameCount = 0;
                 SurnameCount = 0;
             }
+
+            /// <summary>
+            /// The person's first name
+            /// </summary>
             public string GivenName { get; private set; }
+
+            /// <summary>
+            /// The person's last (family) name
+            /// </summary>
             public string Surname { get; private set; }
+
+            /// <summary>
+            /// Number of occurrences of this person's first name in the given names database
+            /// </summary>
             public int GivenNameCount { get; set; }
+
+            /// <summary>
+            /// Number of occurrences of this person's last (family) name in the surname database
+            /// </summary>
             public int SurnameCount { get; set; }
         }
 
+        /// <summary>
+        /// Displays the results of a Denni Hlasatel death index search on a person's full name and death reporting date
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>j
+        /// <remarks>This method is used to display the results of the <see cref="mnuDenniHlasatelSearch_Click"/> event handler</remarks>
         void OnDhDocumentLoaded(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             string sInnerHtml = string.Empty, sLastFullName = string.Empty, sCurrentFullName;
@@ -1014,17 +1061,36 @@ namespace Genealogy
             frame.Document.Body.InnerHtml = sInnerHtml;
         }
 
+        /// <summary>
+        /// Exits the application
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// <para>Event handler invoked when text is changed in <see cref="txtFirstName"/> text box.</para>
+        /// Attempts to display possible matches to the (partial) first name in the text box
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void txtFirstName_TextChanged(object sender, EventArgs e)
         {
             if ( mdB != null )
                 DisplayDenniHlasatelResultsInBrowser(OnFirstNameChanged);
         }
 
+        /// <summary>
+        /// Displays, in the basic Denni Hlasatel HTML document, the possible matches to the (partial)
+        /// first name entered in the <see cref="txtFirstName"/> text box.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>This method requires a connection to the Denni Hlasatel database.
+        /// Matches are only sought if three or more characters have been entered into the text box.</remarks>
         private void OnFirstNameChanged( object sender, WebBrowserDocumentCompletedEventArgs e )
         {
             string sInnerHtml = string.Empty;
