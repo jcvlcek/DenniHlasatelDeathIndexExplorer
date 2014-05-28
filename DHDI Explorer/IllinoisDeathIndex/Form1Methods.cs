@@ -13,6 +13,12 @@ namespace Genealogy
     {
         #region Event handlers
 
+        /// <summary>
+        /// Scans through a spreadsheet of given (first) names and looks for
+        /// invalid instance counts and non-printable characters
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void givenNamesCheckToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sGivenNames;
@@ -107,6 +113,12 @@ namespace Genealogy
             fNames.Close();
         }
 
+        /// <summary>
+        /// Reads in a spreadsheet containing given (first) names
+        /// and adds the names to the given names database table if they don't already exist there.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void givenNamesMergeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string sGivenNames;
@@ -218,6 +230,10 @@ namespace Genealogy
 
         #region Archived code
 
+        /// <summary>
+        /// Reads in all the original Denni Hlasatel death index data files
+        /// and writes the data into a single comma-separated values file
+        /// </summary>
         private void CombineDhFilesIntoSingleCSV()
         {
             char[] cSeparators = new char[] { ',' };
@@ -283,6 +299,10 @@ namespace Genealogy
             //xlOut.Close();
         }
 
+        /// <summary>
+        /// Reads in all the original Denni Hlasatel death index data files
+        /// and writes the data into a single XML file
+        /// </summary>
         private void CombineDhFilesIntoXml()
         {
             char[] cSeparators = new char[] { ',' };
@@ -345,6 +365,12 @@ namespace Genealogy
 
         private DenniHlasatelDataStore dsDenniHlasatel = null;
 
+        /// <summary>
+        /// Searches the XML Denni Hlasatel death index data store
+        /// for death records matching entries in the user interface
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void denniHlasatelXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dsDenniHlasatel == null)
@@ -387,6 +413,12 @@ namespace Genealogy
             DisplayDenniHlasatelResultsInBrowser( OnDhDocumentLoaded );
         }
 
+        /// <summary>
+        /// Displays a <see cref="FolderBrowserDialog"/>, enabling the user
+        /// to identify the disk folder containing the program's data files
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void dataFilesFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Utilities.PromptForDataFilesFolder();
