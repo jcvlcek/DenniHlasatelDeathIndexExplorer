@@ -1138,6 +1138,12 @@ namespace Genealogy
             frame.Document.Body.InnerHtml = sInnerHtml;
         }
 
+        /// <summary>
+        /// Queries the KdeJsme online database for a possible match to the surname entered into the user interface
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>The contents of the <see cref="txtLastName"/> text box are submitted to the web query.</remarks>
         private void kdeJsmeSurnameSearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             KdeJsmeWebQuery kjQ = new KdeJsmeWebQuery(txtLastName.Text, KdeJsmeWebQuery.eWhichName.SURNAME, webBrowser1);
@@ -1145,8 +1151,20 @@ namespace Genealogy
             kjQ.Submit();
         }
 
+        /// <summary>
+        /// Cached value of the "next document completed event handler".
+        /// This member is used when sequentially processing web queries that "stack"
+        /// (one query triggering another, etc.)
+        /// </summary>
         private Action<object, WebBrowserDocumentCompletedEventArgs> mDocumentCompleted = null;
 
+        /// <summary>
+        /// <para>Directly handles the <see cref="DocumentCompleted"/> event of the web browser.</para>
+        /// This event handler forwards the event to the "next document completed event handler"
+        /// (stored in the member variable <see cref="mDocumentCompleted"/>, if that member is not null.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             if ( mDocumentCompleted != null )
@@ -1156,6 +1174,14 @@ namespace Genealogy
 
         private frmSearch fGivenNameSearch = new frmSearch();
 
+        /// <summary>
+        /// Initiates a search into the Denni Hlasatel death index
+        /// for given names matching a pattern specified in a search dialog.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>This method makes the search dialog visible.
+        /// User interaction with the search dialog causes the actual results to be displayed.</remarks>
         private void searchGivenNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (mGivenNamesCache.Count < 1)
@@ -1170,6 +1196,14 @@ namespace Genealogy
 
         private frmSearch fSurnameSearch = new frmSearch();
 
+        /// <summary>
+        /// Initiates a search into the Denni Hlasatel death index
+        /// for surnames matching a pattern specified in a search dialog.
+        /// </summary>
+        /// <param name="sender">originator of the event</param>
+        /// <param name="e">additional details on the event</param>
+        /// <remarks>This method makes the search dialog visible.
+        /// User interaction with the search dialog causes the actual results to be displayed.</remarks>
         private void searchSurnamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (mSurnamesCache.Count < 1)
