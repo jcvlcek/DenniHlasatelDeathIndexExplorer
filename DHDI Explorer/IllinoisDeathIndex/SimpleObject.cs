@@ -285,6 +285,17 @@ namespace Genealogy
             RemoveChild( mChildNames[ iIndex ] );
         }
 
+        /// <summary>
+        /// Serializes the object in the specified format
+        /// </summary>
+        /// <param name="ostream">the output stream to serialize the object to</param>
+        /// <param name="format">the format to save the object in</param>
+        /// <remarks>Enables the visitor pattern for saving objects in differing formats</remarks>
+        public void SaveAs( System.IO.StreamWriter ostream, ISaveFormat format )
+        {
+            format.SaveElement<SimpleObject>(this);
+        }
+
         #endregion
 
         #region Private methods

@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="Illinois death records\IllinoisDeathRecord.cs" />
     <Compile Include="IllinoisDeathIndexWebQuery.cs" />
+    <Compile Include="ISaveFormat.cs" />
     <Compile Include="IWebQuery.cs" />
     <Compile Include="IObject.cs" />
     <Compile Include="IProperty.cs" />
