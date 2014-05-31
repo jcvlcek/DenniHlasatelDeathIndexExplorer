@@ -293,7 +293,7 @@ namespace Genealogy
         /// <remarks>Enables the visitor pattern for saving objects in differing formats</remarks>
         public void SaveAs( System.IO.StreamWriter ostream, ISaveFormat format )
         {
-            format.SaveElement<SimpleObject>(this);
+            format.Stream(ostream, this);
         }
 
         #endregion
