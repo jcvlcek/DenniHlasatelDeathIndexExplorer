@@ -7,7 +7,7 @@ namespace Genealogy
 {
     interface ISaveFormat
     {
-        void Stream(System.IO.StreamWriter stream, SimpleObject o);
-        void Stream(System.IO.StreamWriter stream, SimpleProperty p);
+        void Stream(System.IO.StreamWriter stream, IObject o);
+        void Stream(System.IO.StreamWriter stream, IProperty p);
     }
 }

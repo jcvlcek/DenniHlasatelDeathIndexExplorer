@@ -1215,5 +1215,26 @@ namespace Genealogy
 
             fSurnameSearch.Search(mSurnamesCache, txtResponse);
         }
+
+        private void convertToJSONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeathRecord drSample = DeathRecord.Create("GrandfathersDeath");
+            drSample.AgeInYears = 30;
+            drSample.CertificateNumber = 12345;
+            drSample.City = "Chicago";
+            drSample.County = "Cook";
+            drSample.FilingDate = new DateTime(1918, 4, 28, 12, 0, 0);
+            drSample.FirstName = "Frantisek";
+            drSample.LastName = "Vlcek";
+            drSample.PageNumber = 123;
+            drSample.Volume = "A";
+            drSample.Gender = CustomTypes.Gender.MALE;
+            drSample.DeathDate = new DateTime(1918, 4, 26, 12, 0, 0);
+
+            System.IO.StreamWriter txtOut = new System.IO.StreamWriter(@"C:\users\james\FrantisekVlcek.json");
+            JsonSaveFormat jsFmt = new JsonSaveFormat();
+            jsFmt.Stream(txtOut, drSample);
+            txtOut.Close();
+        }
     }
 }

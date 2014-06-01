@@ -64,6 +64,7 @@
             this.denniHlasatelXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchGivenNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchSurnamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listGivenNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listSurnamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -88,7 +89,7 @@
             this.krestniJmenaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.krestniJmenaTableAdapter = new Genealogy.GenealogyDataSetTableAdapters.KrestniJmenaTableAdapter();
             this.txtLastName = new System.Windows.Forms.TextBox();
-            this.searchSurnamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.convertToJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.givenNameEquivalentsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genealogyDataSet)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -116,9 +117,10 @@
             // 
             // txtFirstName
             // 
-            this.txtFirstName.Location = new System.Drawing.Point(12, 26);
+            this.txtFirstName.Location = new System.Drawing.Point(16, 32);
+            this.txtFirstName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(131, 20);
+            this.txtFirstName.Size = new System.Drawing.Size(173, 22);
             this.txtFirstName.TabIndex = 1;
             this.txtFirstName.TextChanged += new System.EventHandler(this.txtFirstName_TextChanged);
             // 
@@ -132,18 +134,20 @@
             this.tabControl1.Controls.Add(this.tabText);
             this.tabControl1.Controls.Add(this.tabTree);
             this.tabControl1.Controls.Add(this.tabdB);
-            this.tabControl1.Location = new System.Drawing.Point(13, 53);
+            this.tabControl1.Location = new System.Drawing.Point(17, 65);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(948, 572);
+            this.tabControl1.Size = new System.Drawing.Size(1264, 704);
             this.tabControl1.TabIndex = 6;
             // 
             // tabBrowse
             // 
             this.tabBrowse.Controls.Add(this.webBrowser1);
-            this.tabBrowse.Location = new System.Drawing.Point(4, 22);
+            this.tabBrowse.Location = new System.Drawing.Point(4, 25);
+            this.tabBrowse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabBrowse.Name = "tabBrowse";
-            this.tabBrowse.Size = new System.Drawing.Size(940, 546);
+            this.tabBrowse.Size = new System.Drawing.Size(1256, 675);
             this.tabBrowse.TabIndex = 2;
             this.tabBrowse.Text = "Browser";
             this.tabBrowse.UseVisualStyleBackColor = true;
@@ -152,19 +156,21 @@
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(940, 546);
+            this.webBrowser1.Size = new System.Drawing.Size(1256, 675);
             this.webBrowser1.TabIndex = 3;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
             // tabHits
             // 
             this.tabHits.Controls.Add(this.lvHits);
-            this.tabHits.Location = new System.Drawing.Point(4, 22);
+            this.tabHits.Location = new System.Drawing.Point(4, 25);
+            this.tabHits.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabHits.Name = "tabHits";
-            this.tabHits.Size = new System.Drawing.Size(940, 546);
+            this.tabHits.Size = new System.Drawing.Size(1256, 675);
             this.tabHits.TabIndex = 3;
             this.tabHits.Text = "Hits";
             this.tabHits.UseVisualStyleBackColor = true;
@@ -174,8 +180,9 @@
             this.lvHits.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvHits.LargeImageList = this.imgList1;
             this.lvHits.Location = new System.Drawing.Point(0, 0);
+            this.lvHits.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lvHits.Name = "lvHits";
-            this.lvHits.Size = new System.Drawing.Size(940, 546);
+            this.lvHits.Size = new System.Drawing.Size(1256, 675);
             this.lvHits.SmallImageList = this.imgList1;
             this.lvHits.TabIndex = 0;
             this.lvHits.UseCompatibleStateImageBehavior = false;
@@ -192,10 +199,11 @@
             // tabText
             // 
             this.tabText.Controls.Add(this.txtResponse);
-            this.tabText.Location = new System.Drawing.Point(4, 22);
+            this.tabText.Location = new System.Drawing.Point(4, 25);
+            this.tabText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabText.Name = "tabText";
-            this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(940, 546);
+            this.tabText.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabText.Size = new System.Drawing.Size(1256, 675);
             this.tabText.TabIndex = 0;
             this.tabText.Text = "Text";
             this.tabText.UseVisualStyleBackColor = true;
@@ -203,21 +211,23 @@
             // txtResponse
             // 
             this.txtResponse.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtResponse.Location = new System.Drawing.Point(3, 3);
+            this.txtResponse.Location = new System.Drawing.Point(4, 4);
+            this.txtResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtResponse.Multiline = true;
             this.txtResponse.Name = "txtResponse";
             this.txtResponse.ReadOnly = true;
             this.txtResponse.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtResponse.Size = new System.Drawing.Size(934, 540);
+            this.txtResponse.Size = new System.Drawing.Size(1248, 667);
             this.txtResponse.TabIndex = 1;
             // 
             // tabTree
             // 
             this.tabTree.Controls.Add(this.tvDocument);
-            this.tabTree.Location = new System.Drawing.Point(4, 22);
+            this.tabTree.Location = new System.Drawing.Point(4, 25);
+            this.tabTree.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabTree.Name = "tabTree";
-            this.tabTree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTree.Size = new System.Drawing.Size(940, 546);
+            this.tabTree.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabTree.Size = new System.Drawing.Size(1256, 675);
             this.tabTree.TabIndex = 1;
             this.tabTree.Text = "Tree";
             this.tabTree.UseVisualStyleBackColor = true;
@@ -225,17 +235,19 @@
             // tvDocument
             // 
             this.tvDocument.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvDocument.Location = new System.Drawing.Point(3, 3);
+            this.tvDocument.Location = new System.Drawing.Point(4, 4);
+            this.tvDocument.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tvDocument.Name = "tvDocument";
-            this.tvDocument.Size = new System.Drawing.Size(934, 540);
+            this.tvDocument.Size = new System.Drawing.Size(1248, 667);
             this.tvDocument.TabIndex = 0;
             // 
             // tabdB
             // 
             this.tabdB.Controls.Add(this.dataGridView1);
-            this.tabdB.Location = new System.Drawing.Point(4, 22);
+            this.tabdB.Location = new System.Drawing.Point(4, 25);
+            this.tabdB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabdB.Name = "tabdB";
-            this.tabdB.Size = new System.Drawing.Size(940, 546);
+            this.tabdB.Size = new System.Drawing.Size(1256, 675);
             this.tabdB.TabIndex = 4;
             this.tabdB.Text = "Database";
             this.tabdB.UseVisualStyleBackColor = true;
@@ -250,8 +262,9 @@
             this.dataGridView1.DataSource = this.givenNameEquivalentsBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(940, 546);
+            this.dataGridView1.Size = new System.Drawing.Size(1256, 675);
             this.dataGridView1.TabIndex = 0;
             // 
             // englishDataGridViewTextBoxColumn
@@ -273,9 +286,10 @@
             // 
             // txtDate
             // 
-            this.txtDate.Location = new System.Drawing.Point(276, 26);
+            this.txtDate.Location = new System.Drawing.Point(368, 32);
+            this.txtDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtDate.Name = "txtDate";
-            this.txtDate.Size = new System.Drawing.Size(143, 20);
+            this.txtDate.Size = new System.Drawing.Size(189, 22);
             this.txtDate.TabIndex = 3;
             // 
             // dHDeathIndexTableAdapter
@@ -291,7 +305,8 @@
             this.tableToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(973, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1297, 28);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -304,40 +319,40 @@
             this.toolStripMenuItem2,
             this.exitToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(35, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(44, 24);
             this.toolStripMenuItem1.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.openToolStripMenuItem.Text = "&Open";
             // 
             // dataFilesFolderToolStripMenuItem
             // 
             this.dataFilesFolderToolStripMenuItem.Name = "dataFilesFolderToolStripMenuItem";
-            this.dataFilesFolderToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.dataFilesFolderToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.dataFilesFolderToolStripMenuItem.Text = "Data Files Folder...";
             this.dataFilesFolderToolStripMenuItem.Click += new System.EventHandler(this.dataFilesFolderToolStripMenuItem_Click);
             // 
             // framesDumpToolStripMenuItem
             // 
             this.framesDumpToolStripMenuItem.Name = "framesDumpToolStripMenuItem";
-            this.framesDumpToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.framesDumpToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.framesDumpToolStripMenuItem.Text = "Frames &Dump";
             this.framesDumpToolStripMenuItem.Click += new System.EventHandler(this.framesDumpToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(195, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(198, 24);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -351,14 +366,14 @@
             this.webToolStripMenuItem.Name = "webToolStripMenuItem";
             this.webToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+D";
             this.webToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.webToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.webToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
             this.webToolStripMenuItem.Text = "&Search";
             // 
             // illinoisDeathIndexToolStripMenuItem
             // 
             this.illinoisDeathIndexToolStripMenuItem.Name = "illinoisDeathIndexToolStripMenuItem";
             this.illinoisDeathIndexToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.illinoisDeathIndexToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.illinoisDeathIndexToolStripMenuItem.Size = new System.Drawing.Size(249, 24);
             this.illinoisDeathIndexToolStripMenuItem.Text = "&Illinois death index";
             this.illinoisDeathIndexToolStripMenuItem.ToolTipText = "Search Illinois death indices for match(es)";
             this.illinoisDeathIndexToolStripMenuItem.Click += new System.EventHandler(this.illinoisDeathIndexToolStripMenuItem_Click);
@@ -367,7 +382,7 @@
             // 
             this.familySearchToolStripMenuItem.Name = "familySearchToolStripMenuItem";
             this.familySearchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.familySearchToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.familySearchToolStripMenuItem.Size = new System.Drawing.Size(249, 24);
             this.familySearchToolStripMenuItem.Text = "&Family Search";
             this.familySearchToolStripMenuItem.ToolTipText = "Search FamilySearch for match(es)";
             this.familySearchToolStripMenuItem.Click += new System.EventHandler(this.familySearchToolStripMenuItem_Click);
@@ -375,14 +390,14 @@
             // mnuDenniHlasatelSearch
             // 
             this.mnuDenniHlasatelSearch.Name = "mnuDenniHlasatelSearch";
-            this.mnuDenniHlasatelSearch.Size = new System.Drawing.Size(210, 22);
+            this.mnuDenniHlasatelSearch.Size = new System.Drawing.Size(249, 24);
             this.mnuDenniHlasatelSearch.Text = "Denni Hlasatel (dB)";
             this.mnuDenniHlasatelSearch.Click += new System.EventHandler(this.mnuDenniHlasatelSearch_Click);
             // 
             // denniHlasatelXMLToolStripMenuItem
             // 
             this.denniHlasatelXMLToolStripMenuItem.Name = "denniHlasatelXMLToolStripMenuItem";
-            this.denniHlasatelXMLToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.denniHlasatelXMLToolStripMenuItem.Size = new System.Drawing.Size(249, 24);
             this.denniHlasatelXMLToolStripMenuItem.Text = "Denni Hlasatel (XML)";
             this.denniHlasatelXMLToolStripMenuItem.Click += new System.EventHandler(this.denniHlasatelXMLToolStripMenuItem_Click);
             // 
@@ -397,6 +412,7 @@
             this.givenNamesCheckToolStripMenuItem,
             this.givenNamesMergeToolStripMenuItem,
             this.convertDHFilesToolStripMenuItem,
+            this.convertToJSONToolStripMenuItem,
             this.prijmeniConversionToolStripMenuItem,
             this.prijmeniRankCheckToolStripMenuItem,
             this.givenNamesTranslitToolStripMenuItem,
@@ -404,53 +420,60 @@
             this.nextDHRecordToolStripMenuItem,
             this.kdeJsmeSurnameSearchToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // searchGivenNamesToolStripMenuItem
             // 
             this.searchGivenNamesToolStripMenuItem.Name = "searchGivenNamesToolStripMenuItem";
-            this.searchGivenNamesToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.searchGivenNamesToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.searchGivenNamesToolStripMenuItem.Text = "Search given names";
             this.searchGivenNamesToolStripMenuItem.Click += new System.EventHandler(this.searchGivenNamesToolStripMenuItem_Click);
+            // 
+            // searchSurnamesToolStripMenuItem
+            // 
+            this.searchSurnamesToolStripMenuItem.Name = "searchSurnamesToolStripMenuItem";
+            this.searchSurnamesToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
+            this.searchSurnamesToolStripMenuItem.Text = "Search surnames";
+            this.searchSurnamesToolStripMenuItem.Click += new System.EventHandler(this.searchSurnamesToolStripMenuItem_Click);
             // 
             // listGivenNamesToolStripMenuItem
             // 
             this.listGivenNamesToolStripMenuItem.Name = "listGivenNamesToolStripMenuItem";
-            this.listGivenNamesToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.listGivenNamesToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.listGivenNamesToolStripMenuItem.Text = "List given names";
             this.listGivenNamesToolStripMenuItem.Click += new System.EventHandler(this.listGivenNamesToolStripMenuItem_Click);
             // 
             // listSurnamesToolStripMenuItem
             // 
             this.listSurnamesToolStripMenuItem.Name = "listSurnamesToolStripMenuItem";
-            this.listSurnamesToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.listSurnamesToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.listSurnamesToolStripMenuItem.Text = "List surnames";
             this.listSurnamesToolStripMenuItem.Click += new System.EventHandler(this.listSurnamesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(208, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(247, 6);
             // 
             // givenNamesCheckToolStripMenuItem
             // 
             this.givenNamesCheckToolStripMenuItem.Name = "givenNamesCheckToolStripMenuItem";
-            this.givenNamesCheckToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.givenNamesCheckToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.givenNamesCheckToolStripMenuItem.Text = "Given names check";
             this.givenNamesCheckToolStripMenuItem.Click += new System.EventHandler(this.givenNamesCheckToolStripMenuItem_Click);
             // 
             // givenNamesMergeToolStripMenuItem
             // 
             this.givenNamesMergeToolStripMenuItem.Name = "givenNamesMergeToolStripMenuItem";
-            this.givenNamesMergeToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.givenNamesMergeToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.givenNamesMergeToolStripMenuItem.Text = "Given names merge";
             this.givenNamesMergeToolStripMenuItem.Click += new System.EventHandler(this.givenNamesMergeToolStripMenuItem_Click);
             // 
             // convertDHFilesToolStripMenuItem
             // 
             this.convertDHFilesToolStripMenuItem.Name = "convertDHFilesToolStripMenuItem";
-            this.convertDHFilesToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.convertDHFilesToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.convertDHFilesToolStripMenuItem.Text = "&Convert DH Files";
             this.convertDHFilesToolStripMenuItem.ToolTipText = "Convet Denni Hlasatel files to uploadable text";
             this.convertDHFilesToolStripMenuItem.Click += new System.EventHandler(this.convertDHFilesToolStripMenuItem_Click);
@@ -458,7 +481,7 @@
             // prijmeniConversionToolStripMenuItem
             // 
             this.prijmeniConversionToolStripMenuItem.Name = "prijmeniConversionToolStripMenuItem";
-            this.prijmeniConversionToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.prijmeniConversionToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.prijmeniConversionToolStripMenuItem.Text = "&Prijmeni conversion";
             this.prijmeniConversionToolStripMenuItem.ToolTipText = "Scan and capitalize surnames spreadsheet";
             this.prijmeniConversionToolStripMenuItem.Click += new System.EventHandler(this.prijmeniConversionToolStripMenuItem_Click);
@@ -466,26 +489,26 @@
             // prijmeniRankCheckToolStripMenuItem
             // 
             this.prijmeniRankCheckToolStripMenuItem.Name = "prijmeniRankCheckToolStripMenuItem";
-            this.prijmeniRankCheckToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.prijmeniRankCheckToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.prijmeniRankCheckToolStripMenuItem.Text = "Prijmeni rank check";
             this.prijmeniRankCheckToolStripMenuItem.Click += new System.EventHandler(this.prijmeniRankCheckToolStripMenuItem_Click);
             // 
             // givenNamesTranslitToolStripMenuItem
             // 
             this.givenNamesTranslitToolStripMenuItem.Name = "givenNamesTranslitToolStripMenuItem";
-            this.givenNamesTranslitToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.givenNamesTranslitToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.givenNamesTranslitToolStripMenuItem.Text = "Given names translit";
             this.givenNamesTranslitToolStripMenuItem.Click += new System.EventHandler(this.givenNamesTranslitToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(208, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(247, 6);
             // 
             // nextDHRecordToolStripMenuItem
             // 
             this.nextDHRecordToolStripMenuItem.Name = "nextDHRecordToolStripMenuItem";
-            this.nextDHRecordToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.nextDHRecordToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.nextDHRecordToolStripMenuItem.Text = "&Next DH record";
             this.nextDHRecordToolStripMenuItem.ToolTipText = "Load the next Denni Hlasatel record";
             this.nextDHRecordToolStripMenuItem.Click += new System.EventHandler(this.nextDHRecordToolStripMenuItem_Click);
@@ -493,7 +516,7 @@
             // kdeJsmeSurnameSearchToolStripMenuItem
             // 
             this.kdeJsmeSurnameSearchToolStripMenuItem.Name = "kdeJsmeSurnameSearchToolStripMenuItem";
-            this.kdeJsmeSurnameSearchToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.kdeJsmeSurnameSearchToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
             this.kdeJsmeSurnameSearchToolStripMenuItem.Text = "Kde Jsme Surname Search";
             this.kdeJsmeSurnameSearchToolStripMenuItem.Click += new System.EventHandler(this.kdeJsmeSurnameSearchToolStripMenuItem_Click);
             // 
@@ -505,34 +528,34 @@
             this.prijmeniToolStripMenuItem,
             this.krestniJmenaToolStripMenuItem});
             this.tableToolStripMenuItem.Name = "tableToolStripMenuItem";
-            this.tableToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.tableToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.tableToolStripMenuItem.Text = "Table";
             // 
             // denniHlasatelToolStripMenuItem
             // 
             this.denniHlasatelToolStripMenuItem.Name = "denniHlasatelToolStripMenuItem";
-            this.denniHlasatelToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.denniHlasatelToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
             this.denniHlasatelToolStripMenuItem.Text = "Denni Hlasatel";
             this.denniHlasatelToolStripMenuItem.Click += new System.EventHandler(this.denniHlasatelToolStripMenuItem_Click);
             // 
             // givenNameEquivalentsToolStripMenuItem
             // 
             this.givenNameEquivalentsToolStripMenuItem.Name = "givenNameEquivalentsToolStripMenuItem";
-            this.givenNameEquivalentsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.givenNameEquivalentsToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
             this.givenNameEquivalentsToolStripMenuItem.Text = "Given Name Equivalents";
             this.givenNameEquivalentsToolStripMenuItem.Click += new System.EventHandler(this.givenNameEquivalentsToolStripMenuItem_Click);
             // 
             // prijmeniToolStripMenuItem
             // 
             this.prijmeniToolStripMenuItem.Name = "prijmeniToolStripMenuItem";
-            this.prijmeniToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.prijmeniToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
             this.prijmeniToolStripMenuItem.Text = "Prijmeni";
             this.prijmeniToolStripMenuItem.Click += new System.EventHandler(this.prijmeniToolStripMenuItem_Click);
             // 
             // krestniJmenaToolStripMenuItem
             // 
             this.krestniJmenaToolStripMenuItem.Name = "krestniJmenaToolStripMenuItem";
-            this.krestniJmenaToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.krestniJmenaToolStripMenuItem.Size = new System.Drawing.Size(238, 24);
             this.krestniJmenaToolStripMenuItem.Text = "Krestni Jmena";
             this.krestniJmenaToolStripMenuItem.Click += new System.EventHandler(this.krestniJmenaToolStripMenuItem_Click);
             // 
@@ -564,30 +587,32 @@
             // 
             // txtLastName
             // 
-            this.txtLastName.Location = new System.Drawing.Point(149, 26);
+            this.txtLastName.Location = new System.Drawing.Point(199, 32);
+            this.txtLastName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(121, 20);
+            this.txtLastName.Size = new System.Drawing.Size(160, 22);
             this.txtLastName.TabIndex = 2;
             this.txtLastName.TextChanged += new System.EventHandler(this.txtLastName_TextChanged);
             // 
-            // searchSurnamesToolStripMenuItem
+            // convertToJSONToolStripMenuItem
             // 
-            this.searchSurnamesToolStripMenuItem.Name = "searchSurnamesToolStripMenuItem";
-            this.searchSurnamesToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.searchSurnamesToolStripMenuItem.Text = "Search surnames";
-            this.searchSurnamesToolStripMenuItem.Click += new System.EventHandler(this.searchSurnamesToolStripMenuItem_Click);
+            this.convertToJSONToolStripMenuItem.Name = "convertToJSONToolStripMenuItem";
+            this.convertToJSONToolStripMenuItem.Size = new System.Drawing.Size(250, 24);
+            this.convertToJSONToolStripMenuItem.Text = "Convert to JSON";
+            this.convertToJSONToolStripMenuItem.Click += new System.EventHandler(this.convertToJSONToolStripMenuItem_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(973, 637);
+            this.ClientSize = new System.Drawing.Size(1297, 784);
             this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.txtDate);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Denni Hlasatel Death Index";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -677,6 +702,7 @@
         private System.Windows.Forms.ToolStripMenuItem kdeJsmeSurnameSearchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchGivenNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchSurnamesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem convertToJSONToolStripMenuItem;
     }
 }
 

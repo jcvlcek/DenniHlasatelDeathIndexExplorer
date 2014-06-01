@@ -91,6 +91,7 @@
     <Compile Include="IWebQuery.cs" />
     <Compile Include="IObject.cs" />
     <Compile Include="IProperty.cs" />
+    <Compile Include="JsonSaveFormat.cs" />
     <Compile Include="KdeJsmeWebQuery.cs" />
     <Compile Include="PersonName.cs" />
     <Compile Include="Program.cs" />
