@@ -1231,6 +1231,10 @@ namespace Genealogy
             drSample.Gender = CustomTypes.Gender.MALE;
             drSample.DeathDate = new DateTime(1918, 4, 26, 12, 0, 0);
 
+            SimpleObject oChild = new SimpleObject("Cross-Reference", "Reference");
+            oChild.AddProperty("SampleProperty", "SampleValue");
+            drSample.AddChild(oChild);
+
             System.IO.StreamWriter txtOut = new System.IO.StreamWriter(@"C:\users\james\FrantisekVlcek.json");
             JsonSaveFormat jsFmt = new JsonSaveFormat();
             jsFmt.Stream(txtOut, drSample);

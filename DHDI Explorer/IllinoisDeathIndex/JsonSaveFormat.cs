@@ -11,8 +11,10 @@ namespace Genealogy
         {
             try
             {
-                Newtonsoft.Json.JsonSerializer jsonSerializer = Newtonsoft.Json.JsonSerializer.CreateDefault();
-                jsonSerializer.Serialize(stream, o);
+                Newtonsoft.Json.JsonWriter jw = new Newtonsoft.Json.JsonTextWriter(stream);
+                jw.Formatting = Newtonsoft.Json.Formatting.Indented;
+                Newtonsoft.Json.JsonSerializer js = new Newtonsoft.Json.JsonSerializer();
+                js.Serialize(jw, o);
             }
             catch (Exception)
             {
