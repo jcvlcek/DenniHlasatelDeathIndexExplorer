@@ -40,6 +40,8 @@ namespace Genealogy
 
         public int ChildCount { get { return mTarget.ChildCount; } }
 
+        public IEnumerable<IObject> Children { get { return mTarget.Children; } }
+
         #endregion
 
         #region Public methods

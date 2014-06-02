@@ -142,6 +142,14 @@ namespace Genealogy
             get { return mChildren.Count; }
         }
 
+        /// <summary>
+        /// Child (nested) objects within this object
+        /// </summary>
+        public IEnumerable<IObject> Children
+        {
+            get { return mChildren.Values; }
+        }
+
         #endregion
 
         #region Public methods

@@ -69,6 +69,8 @@ namespace Genealogy
 
         // Children
 
+        IEnumerable<IObject> Children { get;  }
+
         /// <summary>
         /// The number of child objects contained within this object
         /// </summary>
