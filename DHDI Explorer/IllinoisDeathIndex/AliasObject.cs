@@ -11,7 +11,7 @@ namespace Genealogy
     /// </summary>
     [Description("Base class implementation of an \"alias\" to an existing IObject instance")]
     [DefaultProperty("Name")]
-    public class AliasObject : IObject
+    public abstract class AliasObject : IObject
     {
         #region Private members
         private IObject mTarget = null;
