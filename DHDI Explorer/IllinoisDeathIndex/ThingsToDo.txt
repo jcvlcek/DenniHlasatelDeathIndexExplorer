@@ -1,0 +1,18 @@
+﻿(1) Automatically detect the data files folder on startup, if it is beneath the project folder
+
+(2) Make the database connection on demand (menu item, etc) rather than automatic
+
+(3) Create a names generator, to make up sample data that can be publicly available
+
+(4) Make all non-ASCII data UTF-8 - includes renaming database columns / properties as needed
+
+(5) Create a "details" page on each hit in the Denni Hlasatel index (rather than having the link point to kdejsme)
+	The details page should expand to show everything that can be calculated about the decedent:
+	All forms of the name
+	Male or female (with[out] diacriticals, with[out] -ova endings, etc.)
+	Link first / last names to kdejsme.cz if possible
+	Death reporting date
+	Links to any matches in the Illinois death index
+	Social Security Account Number (SSAN) when possible
+
+(6) Create a form for entering (as UTF-8) all the cases of a name - to enable group-sourcing the collection
