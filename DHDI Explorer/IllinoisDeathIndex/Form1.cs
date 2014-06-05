@@ -1172,7 +1172,7 @@ namespace Genealogy
             mDocumentCompleted = null;
         }
 
-        private frmSearch fGivenNameSearch = new frmSearch();
+        private SearchForm _fGivenNameSearchForm = new SearchForm();
 
         /// <summary>
         /// Initiates a search into the Denni Hlasatel death index
@@ -1191,10 +1191,10 @@ namespace Genealogy
                 mGivenNamesCache.AddRange(query);
             }
 
-            fGivenNameSearch.Search(mGivenNamesCache, txtResponse);
+            _fGivenNameSearchForm.Search(mGivenNamesCache, txtResponse);
         }
 
-        private frmSearch fSurnameSearch = new frmSearch();
+        private SearchForm _fSurnameSearchForm = new SearchForm();
 
         /// <summary>
         /// Initiates a search into the Denni Hlasatel death index
@@ -1213,7 +1213,7 @@ namespace Genealogy
                 mSurnamesCache.AddRange(query);
             }
 
-            fSurnameSearch.Search(mSurnamesCache, txtResponse);
+            _fSurnameSearchForm.Search(mSurnamesCache, txtResponse);
         }
 
         private void convertToJSONToolStripMenuItem_Click(object sender, EventArgs e)
