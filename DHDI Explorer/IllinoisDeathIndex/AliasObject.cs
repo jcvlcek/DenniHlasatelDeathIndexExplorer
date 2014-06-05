@@ -14,7 +14,12 @@ namespace Genealogy
     public abstract class AliasObject : IObject
     {
         #region Private members
+
+        /// <summary>
+        /// The underlying object being wrapped
+        /// </summary>
         private IObject mTarget = null;
+
         #endregion
 
         #region Constructors
