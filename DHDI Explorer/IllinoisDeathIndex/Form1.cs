@@ -1228,7 +1228,7 @@ namespace Genealogy
             drSample.LastName = "Vlcek";
             drSample.PageNumber = 123;
             drSample.Volume = "A";
-            drSample.Gender = CustomTypes.Gender.MALE;
+            drSample.Gender = CustomTypes.Gender.Male;
             drSample.DeathDate = new DateTime(1918, 4, 26, 12, 0, 0);
 
             SimpleObject oChild = new SimpleObject("Cross-Reference", "Reference");

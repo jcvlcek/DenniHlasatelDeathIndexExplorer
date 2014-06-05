@@ -23,7 +23,7 @@ namespace dbAccess
 
         public CustomTypes.Race Race
         {
-            get { return CustomTypes.Race.UNKNOWN; }
+            get { return CustomTypes.Race.Unknown; }
             set { }
         }
 

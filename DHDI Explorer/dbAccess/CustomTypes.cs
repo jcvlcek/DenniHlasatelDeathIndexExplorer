@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace dbAccess
 {
@@ -19,16 +17,16 @@ namespace dbAccess
             /// <summary>
             /// Specifically identified as female
             /// </summary>
-            FEMALE = 1,
+            Female = 1,
             /// <summary>
             /// Specifically identified as male
             /// </summary>
-            MALE = 2,
+            Male = 2,
             /// <summary>
             /// Either unspecified as male or female,
             /// or the specification itself is uncertain
             /// </summary>
-            UNKNOWN = 3
+            Unknown = 3
         };
 
         /// <summary>
@@ -39,16 +37,16 @@ namespace dbAccess
             /// <summary>
             /// Specified in an official record as white (typically indicating Caucasion)
             /// </summary>
-            WHITE = 1,
+            White = 1,
             /// <summary>
             /// Specified in an official records as African-American
             /// </summary>
-            AFRICAN_AMERICAN = 2,
+            AfricanAmerican = 2,
             /// <summary>
             /// No specification of race in the official record,
             /// or the specification itself is uncertain
             /// </summary>
-            UNKNOWN = 3
+            Unknown = 3
         };
 
         /// <summary>
@@ -57,17 +55,16 @@ namespace dbAccess
         /// <param name="db">The database to consult for a gender translation table</param>
         /// <param name="bGender">The gender specification to convert</param>
         /// <returns>An enumerated gender value</returns>
-        /// <exception cref="ArgumentException">if <paramref name="bGender"/> does not represent a valid gender value in <paramref name="dB"/></exception>
+        /// <exception cref="ArgumentException">if <paramref name="bGender"/> does not represent a valid gender value in <paramref name="db"/></exception>
         public static Gender GetGender(Linq2SqlDataContext db, byte bGender)
         {
-            string sGender = new string(new char[] { (char)bGender });
+            var sGender = new string(new[] { (char)bGender });
             var query = from e in db.GenderMatches
                     where e.Mnemonic == sGender
                     select e;
-            if (query.Count() > 0)
+            if (query.Any())
                 return (Gender)query.First().GenderIndex;
-            else
-                throw new ArgumentException("Invalid gender specification \"" + sGender + "\"");
+            throw new ArgumentException("Invalid gender specification \"" + sGender + "\"");
         }
 
         /// <summary>
@@ -76,17 +73,16 @@ namespace dbAccess
         /// <param name="db">The database to consult for a race translation table</param>
         /// <param name="bRace">The race specification to convert</param>
         /// <returns>An enumerated race value</returns>
-        /// <exception cref="ArgumentException">if <paramref name="bRace"/> does not represent a valid race value in <paramref name="dB"/></exception>
+        /// <exception cref="ArgumentException">if <paramref name="bRace"/> does not represent a valid race value in <paramref name="db"/></exception>
         public static Race GetRace(Linq2SqlDataContext db, byte bRace)
         {
-            string sRace = new string(new char[] { (char)bRace });
+            var sRace = new string(new[] { (char)bRace });
             var query = from e in db.RaceMatches
                         where e.Mnemonic == sRace
                         select e;
-            if (query.Count() > 0)
+            if (query.Any())
                 return (Race)query.First().RaceIndex;
-            else
-                throw new ArgumentException("Invalid race specification \"" + sRace + "\"");
+            throw new ArgumentException("Invalid race specification \"" + sRace + "\"");
         }
     }
 }

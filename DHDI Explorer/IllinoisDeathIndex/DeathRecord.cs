@@ -225,7 +225,7 @@ namespace Genealogy
                         return eGender;
                 }
 
-                return CustomTypes.Gender.UNKNOWN;
+                return CustomTypes.Gender.Unknown;
             }
             set { ForcePropertyValue(PropertyTags.GENDER, value.ToString()); }
         }
@@ -244,7 +244,7 @@ namespace Genealogy
                         return eRace;
                 }
 
-                return CustomTypes.Race.UNKNOWN;
+                return CustomTypes.Race.Unknown;
             }
             set { ForcePropertyValue(PropertyTags.RACE, value.ToString()); }
         }
@@ -313,14 +313,14 @@ namespace Genealogy
                 case "M":
                 case "MALE":
                 case "MAN":
-                    Gender = CustomTypes.Gender.MALE; break;
+                    Gender = CustomTypes.Gender.Male; break;
                 case "F":
                 case "FEMALE":
                 case "W":
                 case "WOMAN":
-                    Gender = CustomTypes.Gender.FEMALE; break;
+                    Gender = CustomTypes.Gender.Female; break;
                 default:
-                    Gender = CustomTypes.Gender.UNKNOWN; break;
+                    Gender = CustomTypes.Gender.Unknown; break;
             }
         }
 
@@ -329,11 +329,11 @@ namespace Genealogy
             switch (sValue.ToUpper())
             {
                 case "W":
-                    Race = CustomTypes.Race.WHITE; break;
+                    Race = CustomTypes.Race.White; break;
                 case "N":
-                    Race = CustomTypes.Race.AFRICAN_AMERICAN; break;
+                    Race = CustomTypes.Race.AfricanAmerican; break;
                 default:
-                    Race = CustomTypes.Race.UNKNOWN; break;
+                    Race = CustomTypes.Race.Unknown; break;
             }
         }
         #endregion

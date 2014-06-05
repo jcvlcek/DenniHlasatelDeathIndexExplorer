@@ -47,8 +47,8 @@ namespace dbAccess
         public string FirstName { get { return GivenName; } set { } }
         public string LastName { get { return Surname; } set { } }
         public string MiddleName { get { return string.Empty; } set { } }
-        public CustomTypes.Gender Gender { get { return CustomTypes.Gender.UNKNOWN; } set { } }
-        public CustomTypes.Race Race { get { return CustomTypes.Race.UNKNOWN; } set { } }
+        public CustomTypes.Gender Gender { get { return CustomTypes.Gender.Unknown; } set { } }
+        public CustomTypes.Race Race { get { return CustomTypes.Race.Unknown; } set { } }
         public short PageNumber { get { return -1; } set { } }
         public string Volume { get { return string.Empty; } set { } }
 
