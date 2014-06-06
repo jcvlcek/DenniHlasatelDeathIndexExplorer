@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using dbAccess;
 
 namespace Genealogy
@@ -88,7 +89,7 @@ namespace Genealogy
         /// <returns></returns>
         public static DeathRecord Create( string sName, DeathRecord oSource )
         {
-            SimpleObject oNew = new SimpleObject(sName, oSource);
+            var oNew = new SimpleObject(sName, oSource);
             return new DeathRecord(oNew);
         }
 
@@ -184,13 +185,14 @@ namespace Genealogy
         {
             get
             {
-                short iAge = -1;
-                short.TryParse(GetPropertyValue(PropertyTags.AgeInYears), out iAge);
-                return iAge;
+                short iAge;
+                if ( short.TryParse(GetPropertyValue(PropertyTags.AgeInYears), out iAge) )
+                    return iAge;
+                return -1;
             }
             set
             {
-                ForcePropertyValue(PropertyTags.AgeInYears, value.ToString());
+                ForcePropertyValue(PropertyTags.AgeInYears, value.ToString(CultureInfo.InvariantCulture));
             }
         }
 
@@ -201,11 +203,12 @@ namespace Genealogy
         {
             get 
             {
-                int iCertificate = -1;
-                int.TryParse(GetPropertyValue(PropertyTags.CertificateNumber), out iCertificate);
-                return iCertificate;
+                int iCertificate;
+                if ( int.TryParse(GetPropertyValue(PropertyTags.CertificateNumber), out iCertificate) )
+                    return iCertificate;
+                return -1;
             }
-            set { ForcePropertyValue(PropertyTags.CertificateNumber, value.ToString()); }
+            set { ForcePropertyValue(PropertyTags.CertificateNumber, value.ToString(CultureInfo.InvariantCulture)); }
         }
 
         /// <summary>
