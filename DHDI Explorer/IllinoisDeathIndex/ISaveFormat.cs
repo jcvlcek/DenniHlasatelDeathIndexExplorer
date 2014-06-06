@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Genealogy
+﻿namespace Genealogy
 {
     /// <summary>
     /// Interface implemented by classes that serialize objects implementing IObject
