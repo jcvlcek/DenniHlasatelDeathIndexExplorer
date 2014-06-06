@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using dbAccess;
 
 namespace Genealogy
@@ -16,26 +13,26 @@ namespace Genealogy
         /// <summary>
         /// Class tag identifying a death record
         /// </summary>
-        public const string DEATH_RECORD_CLASS = "DeathRecord";
+        public const string DeathRecordClass = "DeathRecord";
 
         /// <summary>
         /// Names of properties used in this object class
         /// </summary>
         public sealed class PropertyTags
         {
-            public const string DEATH_DATE = "DeathDate";
-            public const string CITY = "City";
-            public const string AGE_IN_YEARS = "Age";
-            public const string GENDER = "Sex";
-            public const string RACE = "Race";
-            public const string VOLUME = "Volume";
-            public const string PAGE = "Page";
-            public const string CERTIFICATE_NUMBER = "CertificateNumber";
-            public const string COUNTY = "County";
-            public const string LAST_NAME = "LastName";
-            public const string FIRST_NAME = "FirstName";
-            public const string MIDDLE_NAME = "MiddleName";
-            public const string FILING_DATE = "FilingDate";
+            public const string DeathDate = "DeathDate";
+            public const string City = "City";
+            public const string AgeInYears = "Age";
+            public const string Gender = "Sex";
+            public const string Race = "Race";
+            public const string Volume = "Volume";
+            public const string Page = "Page";
+            public const string CertificateNumber = "CertificateNumber";
+            public const string County = "County";
+            public const string LastName = "LastName";
+            public const string FirstName = "FirstName";
+            public const string MiddleName = "MiddleName";
+            public const string FilingDate = "FilingDate";
         };
         #endregion
 
@@ -46,28 +43,28 @@ namespace Genealogy
         protected DeathRecord(IObject target)
             : base(target)
         {
-            if (!PropertyExists(PropertyTags.CITY))
-                AddProperty(PropertyTags.CITY, "Unspecified");
-            if (!PropertyExists(PropertyTags.AGE_IN_YEARS))
-                AddProperty(PropertyTags.AGE_IN_YEARS, "-1");
-            if (!PropertyExists(PropertyTags.GENDER))
-                AddProperty(PropertyTags.GENDER, "U");
-            if (!PropertyExists(PropertyTags.RACE))
-                AddProperty(PropertyTags.RACE, "U");
-            if (!PropertyExists(PropertyTags.VOLUME))
-                AddProperty(PropertyTags.VOLUME, "-1");
-            if (!PropertyExists(PropertyTags.PAGE))
-                AddProperty(PropertyTags.PAGE, "-1");
-            if (!PropertyExists(PropertyTags.CERTIFICATE_NUMBER))
-                AddProperty(PropertyTags.CERTIFICATE_NUMBER, "-1");
-            if (!PropertyExists(PropertyTags.COUNTY))
-                AddProperty(PropertyTags.COUNTY, "Unspecified");
-            if (!PropertyExists(PropertyTags.LAST_NAME))
-                AddProperty(PropertyTags.LAST_NAME, "Unknown");
-            if (!PropertyExists(PropertyTags.FIRST_NAME))
-                AddProperty(PropertyTags.FIRST_NAME, "Unknown");
-            if (!PropertyExists(PropertyTags.MIDDLE_NAME))
-                AddProperty(PropertyTags.MIDDLE_NAME, string.Empty);
+            if (!PropertyExists(PropertyTags.City))
+                AddProperty(PropertyTags.City, "Unspecified");
+            if (!PropertyExists(PropertyTags.AgeInYears))
+                AddProperty(PropertyTags.AgeInYears, "-1");
+            if (!PropertyExists(PropertyTags.Gender))
+                AddProperty(PropertyTags.Gender, "U");
+            if (!PropertyExists(PropertyTags.Race))
+                AddProperty(PropertyTags.Race, "U");
+            if (!PropertyExists(PropertyTags.Volume))
+                AddProperty(PropertyTags.Volume, "-1");
+            if (!PropertyExists(PropertyTags.Page))
+                AddProperty(PropertyTags.Page, "-1");
+            if (!PropertyExists(PropertyTags.CertificateNumber))
+                AddProperty(PropertyTags.CertificateNumber, "-1");
+            if (!PropertyExists(PropertyTags.County))
+                AddProperty(PropertyTags.County, "Unspecified");
+            if (!PropertyExists(PropertyTags.LastName))
+                AddProperty(PropertyTags.LastName, "Unknown");
+            if (!PropertyExists(PropertyTags.FirstName))
+                AddProperty(PropertyTags.FirstName, "Unknown");
+            if (!PropertyExists(PropertyTags.MiddleName))
+                AddProperty(PropertyTags.MiddleName, string.Empty);
         }
 
         /// <summary>
@@ -79,7 +76,7 @@ namespace Genealogy
         /// <returns>A new (and blank) death record with the specified name</returns>
         public static DeathRecord Create(string sName)
         {
-            return new DeathRecord(new SimpleObject(sName, DEATH_RECORD_CLASS));
+            return new DeathRecord(new SimpleObject(sName, DeathRecordClass));
         }
 
         /// <summary>
@@ -104,8 +101,8 @@ namespace Genealogy
         /// </summary>
         public string LastName
         {
-            get { return GetPropertyValue(PropertyTags.LAST_NAME); }
-            set { ForcePropertyValue(PropertyTags.LAST_NAME, value); }
+            get { return GetPropertyValue(PropertyTags.LastName); }
+            set { ForcePropertyValue(PropertyTags.LastName, value); }
         }
 
         /// <summary>
@@ -113,8 +110,8 @@ namespace Genealogy
         /// </summary>
         public string FirstName
         {
-            get { return GetPropertyValue(PropertyTags.FIRST_NAME); }
-            set { ForcePropertyValue(PropertyTags.FIRST_NAME, value); }
+            get { return GetPropertyValue(PropertyTags.FirstName); }
+            set { ForcePropertyValue(PropertyTags.FirstName, value); }
         }
 
         /// <summary>
@@ -122,8 +119,8 @@ namespace Genealogy
         /// </summary>
         public string MiddleName
         {
-            get { return GetPropertyValue(PropertyTags.MIDDLE_NAME); }
-            set { ForcePropertyValue(PropertyTags.MIDDLE_NAME, value); }
+            get { return GetPropertyValue(PropertyTags.MiddleName); }
+            set { ForcePropertyValue(PropertyTags.MiddleName, value); }
         }
 
         /// <summary>
@@ -140,9 +137,9 @@ namespace Genealogy
             {
                 try
                 {
-                    if (PropertyExists(PropertyTags.DEATH_DATE))
-                        return DateTime.Parse(GetPropertyValue(PropertyTags.DEATH_DATE));
-                    else if (PropertyExists(PropertyTags.FILING_DATE))
+                    if (PropertyExists(PropertyTags.DeathDate))
+                        return DateTime.Parse(GetPropertyValue(PropertyTags.DeathDate));
+                    else if (PropertyExists(PropertyTags.FilingDate))
                         return FilingDate.AddDays(-1.0);
                     else
                         return DateTime.MinValue;
@@ -154,7 +151,7 @@ namespace Genealogy
             }
             set
             {
-                ForcePropertyValue(PropertyTags.DEATH_DATE, value.ToShortDateString());
+                ForcePropertyValue(PropertyTags.DeathDate, value.ToShortDateString());
             }
         }
 
@@ -170,13 +167,13 @@ namespace Genealogy
             // TODO: Need to align these values explicity to US Central time zone
             get {
                 DateTime dtFilingDate = DateTime.MinValue;
-                if ( PropertyExists( PropertyTags.FILING_DATE ) )
-                    DateTime.TryParse(GetPropertyValue(PropertyTags.FILING_DATE), out dtFilingDate);
+                if ( PropertyExists( PropertyTags.FilingDate ) )
+                    DateTime.TryParse(GetPropertyValue(PropertyTags.FilingDate), out dtFilingDate);
                 return dtFilingDate;
             }
             set
             {
-                ForcePropertyValue(PropertyTags.FILING_DATE, value.ToShortDateString());
+                ForcePropertyValue(PropertyTags.FilingDate, value.ToShortDateString());
             }
         }
 
@@ -188,12 +185,12 @@ namespace Genealogy
             get
             {
                 short iAge = -1;
-                short.TryParse(GetPropertyValue(PropertyTags.AGE_IN_YEARS), out iAge);
+                short.TryParse(GetPropertyValue(PropertyTags.AgeInYears), out iAge);
                 return iAge;
             }
             set
             {
-                ForcePropertyValue(PropertyTags.AGE_IN_YEARS, value.ToString());
+                ForcePropertyValue(PropertyTags.AgeInYears, value.ToString());
             }
         }
 
@@ -205,10 +202,10 @@ namespace Genealogy
             get 
             {
                 int iCertificate = -1;
-                int.TryParse(GetPropertyValue(PropertyTags.CERTIFICATE_NUMBER), out iCertificate);
+                int.TryParse(GetPropertyValue(PropertyTags.CertificateNumber), out iCertificate);
                 return iCertificate;
             }
-            set { ForcePropertyValue(PropertyTags.CERTIFICATE_NUMBER, value.ToString()); }
+            set { ForcePropertyValue(PropertyTags.CertificateNumber, value.ToString()); }
         }
 
         /// <summary>
@@ -218,16 +215,16 @@ namespace Genealogy
         {
             get
             {
-                if (PropertyExists(PropertyTags.GENDER))
+                if (PropertyExists(PropertyTags.Gender))
                 {
                     CustomTypes.Gender eGender;
-                    if (Enum.TryParse<CustomTypes.Gender>(GetPropertyValue(PropertyTags.GENDER), out eGender))
+                    if (Enum.TryParse<CustomTypes.Gender>(GetPropertyValue(PropertyTags.Gender), out eGender))
                         return eGender;
                 }
 
                 return CustomTypes.Gender.Unknown;
             }
-            set { ForcePropertyValue(PropertyTags.GENDER, value.ToString()); }
+            set { ForcePropertyValue(PropertyTags.Gender, value.ToString()); }
         }
 
         /// <summary>
@@ -237,16 +234,16 @@ namespace Genealogy
         {
             get
             {
-                if (PropertyExists(PropertyTags.RACE))
+                if (PropertyExists(PropertyTags.Race))
                 {
                     CustomTypes.Race eRace;
-                    if ( Enum.TryParse<CustomTypes.Race>( GetPropertyValue( PropertyTags.RACE ), out eRace ) )
+                    if ( Enum.TryParse<CustomTypes.Race>( GetPropertyValue( PropertyTags.Race ), out eRace ) )
                         return eRace;
                 }
 
                 return CustomTypes.Race.Unknown;
             }
-            set { ForcePropertyValue(PropertyTags.RACE, value.ToString()); }
+            set { ForcePropertyValue(PropertyTags.Race, value.ToString()); }
         }
 
         /// <summary>
@@ -254,8 +251,8 @@ namespace Genealogy
         /// </summary>
         public string City
         {
-            get { return GetPropertyValue(PropertyTags.CITY); }
-            set { ForcePropertyValue(PropertyTags.CITY, value); }
+            get { return GetPropertyValue(PropertyTags.City); }
+            set { ForcePropertyValue(PropertyTags.City, value); }
         }
 
         /// <summary>
@@ -263,8 +260,8 @@ namespace Genealogy
         /// </summary>
         public string County
         {
-            get { return GetPropertyValue(PropertyTags.COUNTY); }
-            set { ForcePropertyValue(PropertyTags.COUNTY, value); }
+            get { return GetPropertyValue(PropertyTags.County); }
+            set { ForcePropertyValue(PropertyTags.County, value); }
         }
 
         /// <summary>
@@ -272,8 +269,8 @@ namespace Genealogy
         /// </summary>
         public string Volume
         {
-            get { return GetPropertyValue(PropertyTags.VOLUME); }
-            set { ForcePropertyValue(PropertyTags.VOLUME, value); }
+            get { return GetPropertyValue(PropertyTags.Volume); }
+            set { ForcePropertyValue(PropertyTags.Volume, value); }
         }
 
         /// <summary>
@@ -284,10 +281,10 @@ namespace Genealogy
             get 
             {
                 short iPage = -1;
-                short.TryParse(GetPropertyValue(PropertyTags.PAGE), out iPage);
+                short.TryParse(GetPropertyValue(PropertyTags.Page), out iPage);
                 return iPage;
             }
-            set { ForcePropertyValue(PropertyTags.PAGE, value.ToString()); }
+            set { ForcePropertyValue(PropertyTags.Page, value.ToString()); }
         }
 
         #endregion

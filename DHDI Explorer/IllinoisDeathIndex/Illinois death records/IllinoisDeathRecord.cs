@@ -43,7 +43,7 @@ namespace Genealogy
 
         public static new IllinoisDeathRecord Create(string sName)
         {
-            return new IllinoisDeathRecord(new SimpleObject(sName, DEATH_RECORD_CLASS));
+            return new IllinoisDeathRecord(new SimpleObject(sName, DeathRecordClass));
         }
 
         #endregion
@@ -87,14 +87,14 @@ namespace Genealogy
                         }
                         else
                             iAge = -1;
-                        ForcePropertyValue(PropertyTags.AGE_IN_YEARS, iAge.ToString());
+                        ForcePropertyValue(PropertyTags.AgeInYears, iAge.ToString());
                     }
                     break;
                 case DeathIndexSearchTags.CITY:
-                    ForcePropertyValue(PropertyTags.CITY, sValue);
+                    ForcePropertyValue(PropertyTags.City, sValue);
                     break;
                 case DeathIndexSearchTags.COUNTY:
-                    ForcePropertyValue(PropertyTags.COUNTY, sValue);
+                    ForcePropertyValue(PropertyTags.County, sValue);
                     break;
                 case DeathIndexSearchTags.DATE_FILED:
                     // NOTE: Format of this date is typically YY-MM-DD, not YYYY-MM-DD,
@@ -105,23 +105,23 @@ namespace Genealogy
                         if (sElements[0].Length == 2)
                             sValue = "19" + sValue;
                     }
-                    ForcePropertyValue(PropertyTags.FILING_DATE, sValue);
+                    ForcePropertyValue(PropertyTags.FilingDate, sValue);
                     break;
                 case DeathIndexSearchTags.FIRST_NAME:
                     // TODO: What to do about capitalization?
-                    ForcePropertyValue(PropertyTags.FIRST_NAME, sValue);
+                    ForcePropertyValue(PropertyTags.FirstName, sValue);
                     break;
                 case DeathIndexSearchTags.FULL_NAME:
                     // TODO: What to do about capitalization?
                     {
                         string[] sElements = sValue.Split(',');
-                        ForcePropertyValue(PropertyTags.LAST_NAME, sElements[0].Trim());
+                        ForcePropertyValue(PropertyTags.LastName, sElements[0].Trim());
                         if (sElements.Length > 1)
                         {
                             string[] sGivenNames = sElements[1].Trim().Split(' ');
-                            ForcePropertyValue(PropertyTags.FIRST_NAME, sGivenNames[0].Trim());
+                            ForcePropertyValue(PropertyTags.FirstName, sGivenNames[0].Trim());
                             if (sGivenNames.Length > 1)
-                                ForcePropertyValue(PropertyTags.MIDDLE_NAME, sGivenNames[1].Trim());
+                                ForcePropertyValue(PropertyTags.MiddleName, sGivenNames[1].Trim());
                         }
                     }
                     break;
@@ -139,25 +139,25 @@ namespace Genealogy
                     break;
                 case DeathIndexSearchTags.LAST_NAME:
                     // TODO: What to do about capitalization?
-                    ForcePropertyValue(PropertyTags.LAST_NAME, sValue);
+                    ForcePropertyValue(PropertyTags.LastName, sValue);
                     break;
                 case DeathIndexSearchTags.MIDDLE_NAME:
                     // TODO: What to do about capitalization?
-                    ForcePropertyValue(PropertyTags.MIDDLE_NAME, sValue);
+                    ForcePropertyValue(PropertyTags.MiddleName, sValue);
                     break;
                 case DeathIndexSearchTags.PAGE:
-                    ForcePropertyValue(PropertyTags.PAGE, sValue);
+                    ForcePropertyValue(PropertyTags.Page, sValue);
                     break;
                 case DeathIndexSearchTags.POST1915_CERTIFICATE_NUMBER:
                 case DeathIndexSearchTags.PRE1916_CERTIFICATE_NUMBER:
-                    ForcePropertyValue(PropertyTags.CERTIFICATE_NUMBER, sValue);
+                    ForcePropertyValue(PropertyTags.CertificateNumber, sValue);
                     break;
                 case DeathIndexSearchTags.POST1915_DEATH_DATE:
                 case DeathIndexSearchTags.PRE1916_DEATH_DATE:
-                    ForcePropertyValue(PropertyTags.DEATH_DATE, sValue);
+                    ForcePropertyValue(PropertyTags.DeathDate, sValue);
                     break;
                 case DeathIndexSearchTags.VOLUME:
-                    ForcePropertyValue(PropertyTags.VOLUME, sValue);
+                    ForcePropertyValue(PropertyTags.Volume, sValue);
                     break;
             }
         }
