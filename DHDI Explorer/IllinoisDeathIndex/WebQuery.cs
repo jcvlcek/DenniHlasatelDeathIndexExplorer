@@ -103,8 +103,7 @@ namespace Genealogy
             System.IO.Stream resStream;
             try
             {
-                HttpWebResponse response = (HttpWebResponse)
-                reqNew.GetResponse();
+                var response = (HttpWebResponse)reqNew.GetResponse();
 
                 // we will read data via the response stream
                 resStream = response.GetResponseStream();
