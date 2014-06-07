@@ -283,11 +283,12 @@ namespace Genealogy
         {
             get 
             {
-                short iPage = -1;
-                short.TryParse(GetPropertyValue(PropertyTags.Page), out iPage);
-                return iPage;
+                short iPage;
+                if ( short.TryParse(GetPropertyValue(PropertyTags.Page), out iPage) )
+                    return iPage;
+                return -1;
             }
-            set { ForcePropertyValue(PropertyTags.Page, value.ToString()); }
+            set { ForcePropertyValue(PropertyTags.Page, value.ToString(CultureInfo.InvariantCulture)); }
         }
 
         #endregion
