@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using dbAccess;
+﻿using System.Globalization;
 
 namespace Genealogy
 {
@@ -15,22 +11,22 @@ namespace Genealogy
         /// </summary>
         public sealed class DeathIndexSearchTags
         {
-            public const string FULL_NAME = "Name of Deceased"; // ("LastName, FirstName")
-            public const string PRE1916_DEATH_DATE = "Date"; // (YYYY-MM-DD)
-            public const string CITY = "City";
-            public const string AGE_IN_YEARS = "Age"; // ("99 YR", "UNK")
-            public const string GENDER = "Sex"; // (Typically "U")
-            public const string VOLUME = "Volume";
-            public const string PAGE = "Page";
-            public const string PRE1916_CERTIFICATE_NUMBER = "Cert No";
-            public const string COUNTY = "County";
-            public const string LAST_NAME = "Last Name";
-            public const string FIRST_NAME = "First Name";
-            public const string MIDDLE_NAME = "Middle Name";
-            public const string GENDER_AND_RACE = "Sex/Race"; // (Format "M/W")
-            public const string POST1915_CERTIFICATE_NUMBER = "Cert No.";
-            public const string POST1915_DEATH_DATE = "Death Date"; // (YYYY-MM-DD)
-            public const string DATE_FILED = "Date Filed"; // (YY-MM-DD)
+            public const string FullName = "Name of Deceased"; // ("LastName, FirstName")
+            public const string Pre1916DeathDate = "Date"; // (YYYY-MM-DD)
+            public const string City = "City";
+            public const string AgeInYears = "Age"; // ("99 YR", "UNK")
+            public const string Gender = "Sex"; // (Typically "U")
+            public const string Volume = "Volume";
+            public const string Page = "Page";
+            public const string Pre1916CertificateNumber = "Cert No";
+            public const string County = "County";
+            public const string LastName = "Last Name";
+            public const string FirstName = "First Name";
+            public const string MiddleName = "Middle Name";
+            public const string GenderAndRace = "Sex/Race"; // (Format "M/W")
+            public const string Post1915CertificateNumber = "Cert No.";
+            public const string Post1915DeathDate = "Death Date"; // (YYYY-MM-DD)
+            public const string DateFiled = "Date Filed"; // (YY-MM-DD)
         };
 
         #endregion
@@ -59,7 +55,7 @@ namespace Genealogy
         {
             switch (sName)
             {
-                case DeathIndexSearchTags.AGE_IN_YEARS:
+                case DeathIndexSearchTags.AgeInYears:
                     {
                         // Age can be of the form
                         // Y-99
@@ -67,7 +63,7 @@ namespace Genealogy
                         // 99 MO
                         // 99 DA
                         // UNK
-                        double dAge = -1.0;
+                        double dAge;
                         short iAge = -1;
                         if (sValue == "UNK")
                             iAge = -1;
@@ -87,16 +83,16 @@ namespace Genealogy
                         }
                         else
                             iAge = -1;
-                        ForcePropertyValue(PropertyTags.AgeInYears, iAge.ToString());
+                        ForcePropertyValue(PropertyTags.AgeInYears, iAge.ToString(CultureInfo.InvariantCulture));
                     }
                     break;
-                case DeathIndexSearchTags.CITY:
+                case DeathIndexSearchTags.City:
                     ForcePropertyValue(PropertyTags.City, sValue);
                     break;
-                case DeathIndexSearchTags.COUNTY:
+                case DeathIndexSearchTags.County:
                     ForcePropertyValue(PropertyTags.County, sValue);
                     break;
-                case DeathIndexSearchTags.DATE_FILED:
+                case DeathIndexSearchTags.DateFiled:
                     // NOTE: Format of this date is typically YY-MM-DD, not YYYY-MM-DD,
                     // thus we prepend "19" if the year field is two characters in length
                     // (This property is unique to the post-1916 database, thus we always prepend "19")
@@ -107,56 +103,56 @@ namespace Genealogy
                     }
                     ForcePropertyValue(PropertyTags.FilingDate, sValue);
                     break;
-                case DeathIndexSearchTags.FIRST_NAME:
+                case DeathIndexSearchTags.FirstName:
                     // TODO: What to do about capitalization?
                     ForcePropertyValue(PropertyTags.FirstName, sValue);
                     break;
-                case DeathIndexSearchTags.FULL_NAME:
+                case DeathIndexSearchTags.FullName:
                     // TODO: What to do about capitalization?
                     {
-                        string[] sElements = sValue.Split(',');
+                        var sElements = sValue.Split(',');
                         ForcePropertyValue(PropertyTags.LastName, sElements[0].Trim());
                         if (sElements.Length > 1)
                         {
-                            string[] sGivenNames = sElements[1].Trim().Split(' ');
+                            var sGivenNames = sElements[1].Trim().Split(' ');
                             ForcePropertyValue(PropertyTags.FirstName, sGivenNames[0].Trim());
                             if (sGivenNames.Length > 1)
                                 ForcePropertyValue(PropertyTags.MiddleName, sGivenNames[1].Trim());
                         }
                     }
                     break;
-                case DeathIndexSearchTags.GENDER:
+                case DeathIndexSearchTags.Gender:
                     // TODO: Figure out a way to use CustomTypes.GetGender here instead
                     SetGender(sValue);
                     break;
-                case DeathIndexSearchTags.GENDER_AND_RACE:
+                case DeathIndexSearchTags.GenderAndRace:
                     {
-                        string[] sElements = sValue.Split('/');
+                        var sElements = sValue.Split('/');
                         SetGender(sElements[0]);
                         if (sElements.Length > 1)
                             SetRace(sElements[1]);
                     }
                     break;
-                case DeathIndexSearchTags.LAST_NAME:
+                case DeathIndexSearchTags.LastName:
                     // TODO: What to do about capitalization?
                     ForcePropertyValue(PropertyTags.LastName, sValue);
                     break;
-                case DeathIndexSearchTags.MIDDLE_NAME:
+                case DeathIndexSearchTags.MiddleName:
                     // TODO: What to do about capitalization?
                     ForcePropertyValue(PropertyTags.MiddleName, sValue);
                     break;
-                case DeathIndexSearchTags.PAGE:
+                case DeathIndexSearchTags.Page:
                     ForcePropertyValue(PropertyTags.Page, sValue);
                     break;
-                case DeathIndexSearchTags.POST1915_CERTIFICATE_NUMBER:
-                case DeathIndexSearchTags.PRE1916_CERTIFICATE_NUMBER:
+                case DeathIndexSearchTags.Post1915CertificateNumber:
+                case DeathIndexSearchTags.Pre1916CertificateNumber:
                     ForcePropertyValue(PropertyTags.CertificateNumber, sValue);
                     break;
-                case DeathIndexSearchTags.POST1915_DEATH_DATE:
-                case DeathIndexSearchTags.PRE1916_DEATH_DATE:
+                case DeathIndexSearchTags.Post1915DeathDate:
+                case DeathIndexSearchTags.Pre1916DeathDate:
                     ForcePropertyValue(PropertyTags.DeathDate, sValue);
                     break;
-                case DeathIndexSearchTags.VOLUME:
+                case DeathIndexSearchTags.Volume:
                     ForcePropertyValue(PropertyTags.Volume, sValue);
                     break;
             }
