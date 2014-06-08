@@ -51,7 +51,7 @@ namespace Genealogy
         /// <param name="sName">Name to search for (in UTF8)</param>
         /// <param name="eGivenOrSurname">Whether <see cref="sName"/> is a given name or a surname</param>
         /// <param name="browser"><see cref="WebBrowser"/> control to display results in</param>
-        public KdeJsmeWebQuery(String sName, eWhichName eGivenOrSurname, WebBrowser browser) : base( browser, eQueryMethod.GET )
+        public KdeJsmeWebQuery(String sName, eWhichName eGivenOrSurname, WebBrowser browser) : base( browser, QueryMethod.Get )
         {
             mUrl = GetUrl(sName, eGivenOrSurname);
         }

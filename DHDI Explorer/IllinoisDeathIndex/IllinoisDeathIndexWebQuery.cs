@@ -19,7 +19,7 @@ namespace Genealogy
         /// </summary>
         /// <param name="drTarg">Death record of the desired individual</param>
         /// <param name="browser"><see cref="WebBrowser"/> control to display results in</param>
-        public IllinoisDeathIndexWebQuery(IDeathRecord drTarg, WebBrowser browser) : base( browser, eQueryMethod.POST )
+        public IllinoisDeathIndexWebQuery(IDeathRecord drTarg, WebBrowser browser) : base( browser, QueryMethod.Post )
         {
             bool bBefore1916 = drTarg.FilingDate.Year < 1916;
 

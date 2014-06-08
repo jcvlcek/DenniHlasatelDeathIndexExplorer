@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Net;
 using System.Windows.Forms;
@@ -29,7 +28,7 @@ namespace Genealogy
         /// <summary>
         /// GET or POST
         /// </summary>
-        protected eQueryMethod mQueryMethod;
+        protected QueryMethod mQueryMethod;
         /// <summary>
         /// The results of the query
         /// </summary>
@@ -41,10 +40,10 @@ namespace Genealogy
         /// <summary>
         /// The HTML method to be executed by the query
         /// </summary>
-        public enum eQueryMethod
+        public enum QueryMethod
         {
-            GET,
-            POST
+            Get,
+            Post
         }
 
         #endregion
@@ -55,7 +54,8 @@ namespace Genealogy
         /// Construct a generic web query for genealogical records
         /// </summary>
         /// <param name="browser"><see cref="WebBrowser"/> control to display results in</param>
-        public WebQuery(WebBrowser browser, eQueryMethod queryMethod)
+        /// <param name="queryMethod">HTML method (e.g. GET, POST) to invoke</param>
+        protected WebQuery(WebBrowser browser, QueryMethod queryMethod)
         {
             mWebBrowser = browser;
             mQueryMethod = queryMethod;
@@ -70,26 +70,25 @@ namespace Genealogy
         /// </summary>
         public virtual void Submit()
         {
-            if (mQueryMethod == eQueryMethod.GET)
+            if (mQueryMethod == QueryMethod.Get)
                 // mUrl += "?" + mPostData;
                 mUrl += mPostData;
 
-            Uri urlTarg = new Uri(mUrl);
-            HttpWebRequest reqNew = (HttpWebRequest)WebRequest.CreateDefault(new Uri(Url));
+            var reqNew = (HttpWebRequest)WebRequest.CreateDefault(new Uri(Url));
 
             switch (mQueryMethod)
             {
-                case eQueryMethod.GET:
+                case QueryMethod.Get:
                 default:
                     reqNew.Method = "GET"; 
                     break;
-                case eQueryMethod.POST:
+                case QueryMethod.Post:
                     reqNew.Method = "POST"; 
                     reqNew.ContentType = "application/x-www-form-urlencoded";
                     break;
             }
 
-            if (mQueryMethod == eQueryMethod.POST)
+            if (mQueryMethod == QueryMethod.Post)
             {
                 byte[] bytedata = Encoding.UTF8.GetBytes(mPostData);
                 reqNew.ContentLength = bytedata.Length;
@@ -119,18 +118,14 @@ namespace Genealogy
                 if (!string.IsNullOrEmpty(ex.Message))
                     sMessage += Environment.NewLine + ex.Message;
                 if (ex.InnerException != null)
-                    sMessage += Environment.NewLine + ex.InnerException.ToString();
+                    sMessage += Environment.NewLine + ex.InnerException;
                 MessageBox.Show(sMessage, "Web Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 resStream = ex.Response.GetResponseStream();
-            }
-            catch (Exception)
-            {
-                throw;
             }
 
             System.IO.TextReader sReader = new System.IO.StreamReader(resStream);
 
-            string tempString = null; string sResponseText = string.Empty;
+            string tempString; var sResponseText = string.Empty;
             while ((tempString = sReader.ReadLine()) != null)
             {
                 sResponseText += tempString + Environment.NewLine;
@@ -143,7 +138,7 @@ namespace Genealogy
             //docNew.Domain = sDomain;
             //docNew.Write(sResponseText);
             // mWebBrowser.Document.Domain = sDomain;
-            mWebBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(mWebBrowser_DocumentCompleted);
+            mWebBrowser.DocumentCompleted += mWebBrowser_DocumentCompleted;
             mWebBrowser.DocumentText = sResponseText;
         }
 
@@ -165,12 +160,14 @@ namespace Genealogy
                     return sOriginal.ToUpper();
                 default:
                     {
-                        string sReturn = string.Empty, sPartial = string.Empty;
-                        int i = 0, iIndex = 0;
+                        string sReturn = string.Empty;
+                        int i = 0;
 
                         while (i < iLen)
                         {
-                            char cNext = sOriginal[i];
+                            var cNext = sOriginal[i];
+                            string sPartial;
+                            int iIndex = 0;
                             if ((cNext == '&') && ((iIndex = sOriginal.IndexOf(';', i )) > i ))
                             {
                                 WebChar.Cases cWeb = WebChar.ConvertCase( sOriginal.Substring(i, iIndex + 1 - i) );
@@ -232,7 +229,7 @@ namespace Genealogy
         private void mWebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             // Ensure that this object's event handler isn't called again
-            mWebBrowser.DocumentCompleted -= this.mWebBrowser_DocumentCompleted;
+            mWebBrowser.DocumentCompleted -= mWebBrowser_DocumentCompleted;
             mRecords.Clear();
             OnDocumentCompleted();
 

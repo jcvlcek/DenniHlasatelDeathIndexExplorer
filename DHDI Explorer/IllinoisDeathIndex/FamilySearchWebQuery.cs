@@ -21,7 +21,7 @@ namespace Genealogy
         /// <param name="drTarg">the death record to query for matching records on the Family Search Web site</param>
         /// <param name="browser">the web browser to use in processing the query</param>
         public FamilySearchWebQuery(IDeathRecord drTarg, WebBrowser browser)
-            : base(browser, eQueryMethod.GET)
+            : base(browser, QueryMethod.Get)
         {
             string sYear = drTarg.DeathDate.Year.ToString();
 
@@ -44,7 +44,7 @@ namespace Genealogy
         /// </summary>
         public override void Submit()
         {
-            if (mQueryMethod == eQueryMethod.GET)
+            if (mQueryMethod == QueryMethod.Get)
                 // mUrl += "?" + mPostData;
                 mUrl += mPostData;
 
