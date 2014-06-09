@@ -23,9 +23,9 @@ namespace Genealogy
         {
             bool bBefore1916 = drTarg.FilingDate.Year < 1916;
 
-            mUrl = bBefore1916 ? "http://www.ilsos.gov/isavital/deathSearch.do" : "http://www.ilsos.gov/isavital/idphDeathSearch.do";
-            // mPostData = bBefore1916 ? "name=" + drTarg.LastName + ", " + drTarg.FirstName + "&county=COOK" : "firstName=" + drTarg.FirstName + "&lastName=" + drTarg.LastName + "&middleName=&county=COOK";
-            mPostData = bBefore1916 ? "name=" + drTarg.LastName + ", " + drTarg.FirstName + "&county=STATEWIDE" : "firstName=" + drTarg.FirstName + "&lastName=" + drTarg.LastName + "&middleName=&county=STATEWIDE";
+            _Url = bBefore1916 ? "http://www.ilsos.gov/isavital/deathSearch.do" : "http://www.ilsos.gov/isavital/idphDeathSearch.do";
+            // _PostData = bBefore1916 ? "name=" + drTarg.LastName + ", " + drTarg.FirstName + "&county=COOK" : "firstName=" + drTarg.FirstName + "&lastName=" + drTarg.LastName + "&middleName=&county=COOK";
+            _PostData = bBefore1916 ? "name=" + drTarg.LastName + ", " + drTarg.FirstName + "&county=STATEWIDE" : "firstName=" + drTarg.FirstName + "&lastName=" + drTarg.LastName + "&middleName=&county=STATEWIDE";
         }
 
         #endregion
@@ -61,7 +61,7 @@ namespace Genealogy
         /// <remarks>The actual event handler is implemented in the base class; that handler calls this virtual method</remarks>
         override protected void OnDocumentCompleted()
         {
-            HtmlDocument docResponse = mWebBrowser.Document;
+            HtmlDocument docResponse = _WebBrowser.Document;
 
             HtmlElement eTable = docResponse.GetElementById("theTable");
             if (eTable == null)
@@ -99,7 +99,7 @@ namespace Genealogy
                 if (i > 0)
                 {
                     string sName = drNew.LastName + ", " + drNew.FirstName + " (" + drNew.CertificateNumber + ")";
-                    mRecords.Add(DeathRecord.Create(sName, drNew));
+                    _Records.Add(DeathRecord.Create(sName, drNew));
                 }
             }
         }

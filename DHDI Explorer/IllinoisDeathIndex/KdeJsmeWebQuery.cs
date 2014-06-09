@@ -53,7 +53,7 @@ namespace Genealogy
         /// <param name="browser"><see cref="WebBrowser"/> control to display results in</param>
         public KdeJsmeWebQuery(String sName, eWhichName eGivenOrSurname, WebBrowser browser) : base( browser, QueryMethod.Get )
         {
-            mUrl = GetUrl(sName, eGivenOrSurname);
+            _Url = GetUrl(sName, eGivenOrSurname);
         }
 
         #endregion
@@ -97,7 +97,7 @@ namespace Genealogy
         /// </summary>
         override protected void OnDocumentCompleted()
         {
-            HtmlDocument docResponse = mWebBrowser.Document;
+            HtmlDocument docResponse = _WebBrowser.Document;
 
             HtmlElementCollection lTitles = docResponse.GetElementsByTagName("title");
             if (lTitles.Count < 1)

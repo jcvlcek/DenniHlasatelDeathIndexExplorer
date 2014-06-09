@@ -26,12 +26,12 @@ namespace Genealogy
             string sYear = drTarg.DeathDate.Year.ToString();
 
             // https://familysearch.org/search/records/index#count=20&query=%2Bgivenname%3AFrank~%20%2Bsurname%3AUlcek~%20%2Bdeath_place%3AIllinois~%20%2Bdeath_year%3A1918-1918
-            // mUrl = "https://www.familysearch.org/search/records/index#count=20&query=%2B";
-            // mPostData = "givenname%3A" + drTarg.FirstName + "~%20%2Bsurname%3A" + drTarg.LastName + "~%20%2Bdeath_place%3AIllinois~%20%2Bdeath_year%3A" + sYear + "-" + sYear;
-            mUrl = "https://www.familysearch.org/search/records/index#count=20&query=+";
-            mPostData = "givenname:" + drTarg.FirstName + "~ +surname:" + drTarg.LastName + "~ +death_place:Illinois~ +death_year:" + sYear + "-" + sYear;
-            // mUrl = "https://www.familysearch.org/search/index/record-search";
-            // mPostData = "searchType=records&filtered=false&fed=true&collectionId=&collectionName=&givenname=" + drTarg.FirstName + "&surname=" + drTarg.LastName;
+            // _Url = "https://www.familysearch.org/search/records/index#count=20&query=%2B";
+            // _PostData = "givenname%3A" + drTarg.FirstName + "~%20%2Bsurname%3A" + drTarg.LastName + "~%20%2Bdeath_place%3AIllinois~%20%2Bdeath_year%3A" + sYear + "-" + sYear;
+            _Url = "https://www.familysearch.org/search/records/index#count=20&query=+";
+            _PostData = "givenname:" + drTarg.FirstName + "~ +surname:" + drTarg.LastName + "~ +death_place:Illinois~ +death_year:" + sYear + "-" + sYear;
+            // _Url = "https://www.familysearch.org/search/index/record-search";
+            // _PostData = "searchType=records&filtered=false&fed=true&collectionId=&collectionName=&givenname=" + drTarg.FirstName + "&surname=" + drTarg.LastName;
             System.Net.Security.RemoteCertificateValidationCallback ServerCertificateValidationCallback = delegate { return true; };
         }
 
@@ -44,12 +44,12 @@ namespace Genealogy
         /// </summary>
         public override void Submit()
         {
-            if (mQueryMethod == QueryMethod.Get)
-                // mUrl += "?" + mPostData;
-                mUrl += mPostData;
+            if (_QueryMethod == QueryMethod.Get)
+                // _Url += "?" + _PostData;
+                _Url += _PostData;
 
-            Uri urlTarg = new Uri(mUrl);
-            mWebBrowser.Url = urlTarg;
+            Uri urlTarg = new Uri(_Url);
+            _WebBrowser.Url = urlTarg;
         }
 
         #endregion
@@ -81,7 +81,7 @@ namespace Genealogy
         /// </summary>
         protected override void OnDocumentCompleted()
         {
-            WriteOutFrame( mWebBrowser );
+            WriteOutFrame( _WebBrowser );
         }
 
         #endregion

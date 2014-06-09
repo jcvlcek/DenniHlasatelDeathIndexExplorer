@@ -16,23 +16,23 @@ namespace Genealogy
         /// <summary>
         /// The Uniform Resource Locater of the web query
         /// </summary>
-        protected string mUrl;
+        protected string _Url;
         /// <summary>
         /// Data to be supplied to a POST request
         /// </summary>
-        protected string mPostData;
+        protected string _PostData;
         /// <summary>
         /// A Web Browser to process the query
         /// </summary>
-        protected WebBrowser mWebBrowser;
+        protected WebBrowser _WebBrowser;
         /// <summary>
         /// GET or POST
         /// </summary>
-        protected QueryMethod mQueryMethod;
+        protected QueryMethod _QueryMethod;
         /// <summary>
         /// The results of the query
         /// </summary>
-        protected List<IDeathRecord> mRecords = new List<IDeathRecord>();
+        protected List<IDeathRecord> _Records = new List<IDeathRecord>();
         #endregion
 
         #region Public members
@@ -57,8 +57,8 @@ namespace Genealogy
         /// <param name="queryMethod">HTML method (e.g. GET, POST) to invoke</param>
         protected WebQuery(WebBrowser browser, QueryMethod queryMethod)
         {
-            mWebBrowser = browser;
-            mQueryMethod = queryMethod;
+            _WebBrowser = browser;
+            _QueryMethod = queryMethod;
         }
 
         #endregion
@@ -70,27 +70,29 @@ namespace Genealogy
         /// </summary>
         public virtual void Submit()
         {
-            if (mQueryMethod == QueryMethod.Get)
-                // mUrl += "?" + mPostData;
-                mUrl += mPostData;
+            if (_QueryMethod == QueryMethod.Get)
+                // _Url += "?" + _PostData;
+                _Url += _PostData;
 
             var reqNew = (HttpWebRequest)WebRequest.CreateDefault(new Uri(Url));
 
-            switch (mQueryMethod)
+            switch (_QueryMethod)
             {
                 case QueryMethod.Get:
-                default:
                     reqNew.Method = "GET"; 
                     break;
                 case QueryMethod.Post:
                     reqNew.Method = "POST"; 
                     reqNew.ContentType = "application/x-www-form-urlencoded";
                     break;
+                default:
+                    reqNew.Method = "GET";
+                    break;
             }
 
-            if (mQueryMethod == QueryMethod.Post)
+            if (_QueryMethod == QueryMethod.Post)
             {
-                byte[] bytedata = Encoding.UTF8.GetBytes(mPostData);
+                byte[] bytedata = Encoding.UTF8.GetBytes(_PostData);
                 reqNew.ContentLength = bytedata.Length;
 
                 System.IO.Stream requestStream = reqNew.GetRequestStream();
@@ -132,14 +134,14 @@ namespace Genealogy
             }
             resStream.Close();
 
-            //mWebBrowser.Url = urlTarg;
+            //_WebBrowser.Url = urlTarg;
             //string sDomain = urlTarg.GetComponents(UriComponents.Host, UriFormat.SafeUnescaped);
-            //HtmlDocument docNew = mWebBrowser.Document.OpenNew(true);
+            //HtmlDocument docNew = _WebBrowser.Document.OpenNew(true);
             //docNew.Domain = sDomain;
             //docNew.Write(sResponseText);
-            // mWebBrowser.Document.Domain = sDomain;
-            mWebBrowser.DocumentCompleted += mWebBrowser_DocumentCompleted;
-            mWebBrowser.DocumentText = sResponseText;
+            // _WebBrowser.Document.Domain = sDomain;
+            _WebBrowser.DocumentCompleted += WebBrowserDocumentCompleted;
+            _WebBrowser.DocumentText = sResponseText;
         }
 
         /// <summary>
@@ -203,8 +205,8 @@ namespace Genealogy
         /// </summary>
         virtual public string Url
         {
-            get { return mUrl; }
-            protected set { mUrl = value; }
+            get { return _Url; }
+            protected set { _Url = value; }
         }
 
         #endregion
@@ -226,15 +228,15 @@ namespace Genealogy
         /// </summary>
         /// <param name="sender">The object originating the event</param>
         /// <param name="e">The arguments passed by the web browser upon document completion</param>
-        private void mWebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void WebBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             // Ensure that this object's event handler isn't called again
-            mWebBrowser.DocumentCompleted -= mWebBrowser_DocumentCompleted;
-            mRecords.Clear();
+            _WebBrowser.DocumentCompleted -= WebBrowserDocumentCompleted;
+            _Records.Clear();
             OnDocumentCompleted();
 
             if ( QueryCompleted != null )
-                QueryCompleted( this, new WebQueryEventArgs( mRecords ));
+                QueryCompleted( this, new WebQueryEventArgs( _Records ));
         }
 
         /// <summary>
