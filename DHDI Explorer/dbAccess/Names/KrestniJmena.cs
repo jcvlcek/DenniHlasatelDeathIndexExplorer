@@ -1,17 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace dbAccess
 {
+    /// <summary>
+    /// Represents a Czech first (given, Christian) name in the SQL Server database
+    /// </summary>
     public partial class KrestniJmena : IJmeno
     {
         #region IJmeno interface implementation
 
-        public String Native { get { return this.CodePage; } }
+        /// <summary>
+        /// Native form of the first / given / Christian name (with diacriticals), as stored in the SQL Server database
+        /// </summary>
+        /// <remarks>The native form may be in code page, but will be made into UTF-8 ultimately</remarks>
+        public String Native { get { return CodePage; } }
 
-        public int Count { get { return this.MaleCount + this.FemaleCount; } }
+        public int Count { get { return MaleCount + FemaleCount; } }
 
         /// <summary>
         /// Rank of this given name in a list of all given names
