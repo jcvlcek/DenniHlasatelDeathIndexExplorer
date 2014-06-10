@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace dbAccess
 {
+    /// <summary>
+    /// Represents an individual death notice record in the Denni Hlasatel death index database.
+    /// </summary>
     public partial class DHDeathIndex : IDeathRecord
     {
         #region Constructors
 
+        /// <summary>
+        /// Copies pertinent fields from a generic death record to a Denni Hlasatel death index record
+        /// </summary>
+        /// <param name="drSource">the (generic) death record to copy</param>
+        /// <param name="drTarg">the Denni Hlasatel death index record <paramref name="drSource"/> is to be copied into</param>
+        /// <remarks>This method copies only the <see cref="FilingDate"/>, <see cref="FirstName"/>, <see cref="MiddleName"/> and <see cref="LastName"/> properties.
+        /// These are all that are supported by records in the Denni Hlasatel death index database.</remarks>
         private static void Initialize(IDeathRecord drSource, DHDeathIndex drTarg)
         {
             // The commented-out properties simply don't exist in the Denni Hlasatel index
@@ -27,6 +36,11 @@ namespace dbAccess
             //drTarg.Volume = drSource.Volume;
         }
 
+        /// <summary>
+        /// Create a new Denni Hlasatel death index record by copying an existing, generic death record
+        /// </summary>
+        /// <param name="drSource">the existing death record to copy</param>
+        /// <returns>A Denni Hlasatel death index record containing the supported vital statistics from <paramref name="drSource"/></returns>
         public static DHDeathIndex Create(IDeathRecord drSource)
         {
             DHDeathIndex drNew = new DHDeathIndex();
@@ -56,6 +70,15 @@ namespace dbAccess
 
         #region Public methods
 
+        /// <summary>
+        /// Tests a death record for a match to a specified name / filing date pattern.
+        /// </summary>
+        /// <param name="drQuery">the death record to test for a possible match</param>
+        /// <param name="drMatch">a death record containing the fields to be matched (null or empty fields are interpreted as "matches any")</param>
+        /// <returns><code>true</code> if <paramref name="drQuery"/> matches the pattern <paramref name="drMatch"/>, otherwise <code>false</code></returns>
+        /// <remarks>This method tests only the <see cref="FilingDate"/>, <see cref="FirstName"/> and <see cref="LastName"/> properties for equality.
+        /// Name properties that are empty or <code>null</code> in <paramref name="drMatch"/> are treated as "matches any" wildcards.
+        /// A reporting date of <see cref="DateTime.MinValue"/> is also treated as a "matches any" wildcard.</remarks>
         public static bool DefaultFilter( IDeathRecord drQuery, IDeathRecord drMatch )
         {
             bool bMatchSurname = true, bMatchGivenName = true, bMatchDate = true;
@@ -70,34 +93,37 @@ namespace dbAccess
             return bMatchDate && bMatchGivenName && bMatchSurname;
         }
 
+        /// <summary>
+        /// Constructs a list of all Denni Hlasatel death index records,
+        /// in an enumerable list, that match a specified pattern
+        /// </summary>
+        /// <param name="lIndices">the database table to search</param>
+        /// <param name="drMatch">a death record containing properties to be matches</param>
+        /// <param name="filter">the filter function that tests each record in the table against the matching record <paramref name="drMatch"/></param>
+        /// <returns>a list of matching death records</returns>
         public static List<IDeathRecord> Matches( IEnumerable<DHDeathIndex> lIndices, IDeathRecord drMatch, Func<IDeathRecord, IDeathRecord, bool> filter)
         {
-            List<IDeathRecord> lMatches = new List<IDeathRecord>();
-
-            var query = from c in lIndices
-                        where filter( c, drMatch )
-                        select c;
-
-            foreach (DHDeathIndex indxNext in query)
-                lMatches.Add(indxNext);
-
-            return lMatches;
+            return (from c in lIndices
+                where filter(c, drMatch)
+                select (c as IDeathRecord)).ToList();
         }
 
+        /// <summary>
+        /// Constructs a list of all Denni Hlasatel death index records
+        /// in a queryable table, that match a specified pattern
+        /// </summary>
+        /// <param name="lIndices">the table whose records are to be searched</param>
+        /// <param name="drMatch">a death record containing the <see cref="FirstName"/> and <see cref="LastName"/> to be matched</param>
+        /// <param name="dtStart">the earliest date of any matching death record</param>
+        /// <param name="dtEnd">the latest date of any matching death record</param>
+        /// <returns>a list of matching death records</returns>
         public static List<IDeathRecord> Matches( IQueryable<DHDeathIndex> lIndices, IDeathRecord drMatch, DateTime dtStart, DateTime dtEnd )
         {
-            List<IDeathRecord> lMatches = new List<IDeathRecord>();
-
-            var query = from c in lIndices 
-                        where ( string.IsNullOrEmpty(drMatch.FirstName ) || ( c.GivenName.Contains( drMatch.FirstName ) ) ) &&
-                        ( string.IsNullOrEmpty(drMatch.LastName) || ( c.Surname.Contains( drMatch.LastName ) ) ) &&
-                        ( ( c.ReportDate >= dtStart ) && ( c.ReportDate <= dtEnd ) )
-                        select c;
-
-            foreach (DHDeathIndex indxNext in query)
-                lMatches.Add(indxNext);
-
-            return lMatches;
+            return (from c in lIndices
+                where (string.IsNullOrEmpty(drMatch.FirstName) || (c.GivenName.Contains(drMatch.FirstName))) &&
+                      (string.IsNullOrEmpty(drMatch.LastName) || (c.Surname.Contains(drMatch.LastName))) &&
+                      ((c.ReportDate >= dtStart) && (c.ReportDate <= dtEnd))
+                select (c as IDeathRecord)).ToList();
         }
 
         #endregion
