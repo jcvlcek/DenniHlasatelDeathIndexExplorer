@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace dbAccess
 {
+    /// <summary>
+    /// Represents a database record of a post-1915 death occurring in the state of Illinois
+    /// </summary>
     public partial class IllinoisDeathIndexPost1915 : IDeathRecord
     {
         public string Volume
