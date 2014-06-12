@@ -2,6 +2,11 @@
 
 namespace Genealogy
 {
+    /// <summary>
+    /// Represents an Illinois vital statics death record.
+    /// </summary>
+    /// This class largely serves to map <see cref="DeathIndexSearchTags"/> values
+    /// to the column names used in the Illinois death index search results web pages.
     public class IllinoisDeathRecord : DeathRecord
     {
         #region Public members
