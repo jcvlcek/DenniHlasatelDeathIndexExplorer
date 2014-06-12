@@ -5,6 +5,9 @@ using System.Text;
 
 namespace dbAccess
 {
+    /// <summary>
+    /// Represents a database record of a pre-1916 death occurring in the state of Illinois
+    /// </summary>
     public partial class IllinoisDeathIndexPre1916 : IDeathRecord
     {
         #region Public properties
