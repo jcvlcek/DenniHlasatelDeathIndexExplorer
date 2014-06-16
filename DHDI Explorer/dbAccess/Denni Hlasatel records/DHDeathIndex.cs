@@ -43,7 +43,7 @@ namespace dbAccess
         /// <returns>A Denni Hlasatel death index record containing the supported vital statistics from <paramref name="drSource"/></returns>
         public static DHDeathIndex Create(IDeathRecord drSource)
         {
-            DHDeathIndex drNew = new DHDeathIndex();
+            var drNew = new DHDeathIndex();
             Initialize(drSource, drNew);
             return drNew;
         }
@@ -53,7 +53,7 @@ namespace dbAccess
         #region Public properties
 
         public short AgeInYears { get {return -1; } set { } }
-        public int CertificateNumber { get { return this.serial; } set { } }
+        public int CertificateNumber { get { return serial; } set { } }
         public string City { get { return string.Empty; } set { } }
         public string County { get { return string.Empty; } set { } }
         public DateTime DeathDate { get { return DateTime.MinValue; } set { } }
