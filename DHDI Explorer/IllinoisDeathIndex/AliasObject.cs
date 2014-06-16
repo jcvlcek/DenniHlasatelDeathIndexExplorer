@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace Genealogy
 {
@@ -18,7 +15,7 @@ namespace Genealogy
         /// <summary>
         /// The underlying object being wrapped
         /// </summary>
-        private IObject mTarget = null;
+        private readonly IObject _mTarget;
 
         #endregion
 
@@ -28,24 +25,24 @@ namespace Genealogy
         /// Create an alias wrapper around a specified target object
         /// </summary>
         /// <param name="target">The target object to alias (wrap)</param>
-        public AliasObject(IObject target)
+        protected AliasObject(IObject target)
         {
-            mTarget = target;
+            _mTarget = target;
         }
 
         #endregion
 
         #region Public properties
 
-        public string Name { get { return mTarget.Name; } }
+        public string Name { get { return _mTarget.Name; } }
 
-        public string Class { get { return mTarget.Class; } }
+        public string Class { get { return _mTarget.Class; } }
 
-        public int PropertyCount { get { return mTarget.PropertyCount; } }
+        public int PropertyCount { get { return _mTarget.PropertyCount; } }
 
-        public int ChildCount { get { return mTarget.ChildCount; } }
+        public int ChildCount { get { return _mTarget.ChildCount; } }
 
-        public IEnumerable<IObject> Children { get { return mTarget.Children; } }
+        public IEnumerable<IObject> Children { get { return _mTarget.Children; } }
 
         #endregion
 
@@ -53,57 +50,57 @@ namespace Genealogy
 
         public bool PropertyExists(string sName)
         {
-            return mTarget.PropertyExists(sName);
+            return _mTarget.PropertyExists(sName);
         }
 
         public void AddProperty(string sName, string sValue)
         {
-            mTarget.AddProperty(sName, sValue);
+            _mTarget.AddProperty(sName, sValue);
         }
 
         public string GetPropertyValue(string sName)
         {
-            return mTarget.GetPropertyValue(sName);
+            return _mTarget.GetPropertyValue(sName);
         }
 
         public void SetPropertyValue(string sName, string sValue)
         {
-            mTarget.SetPropertyValue(sName, sValue);
+            _mTarget.SetPropertyValue(sName, sValue);
         }
 
         public IProperty GetProperty(int i)
         {
-            return mTarget.GetProperty(i);
+            return _mTarget.GetProperty(i);
         }
 
         public bool ChildExists(string sName)
         {
-            return mTarget.ChildExists(sName);
+            return _mTarget.ChildExists(sName);
         }
 
         public void AddChild(IObject oNew)
         {
-            mTarget.AddChild(oNew);
+            _mTarget.AddChild(oNew);
         }
 
         public IObject GetChild(string sName)
         {
-            return mTarget.GetChild(sName);
+            return _mTarget.GetChild(sName);
         }
 
         public IObject GetChild(int iIndex)
         {
-            return mTarget.GetChild(iIndex);
+            return _mTarget.GetChild(iIndex);
         }
 
         public void RemoveChild(string sName)
         {
-            mTarget.RemoveChild(sName);
+            _mTarget.RemoveChild(sName);
         }
 
         public void RemoveChild(int iIndex)
         {
-            mTarget.RemoveChild(iIndex);
+            _mTarget.RemoveChild(iIndex);
         }
         #endregion
 
