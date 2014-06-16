@@ -37,11 +37,21 @@ namespace Genealogy
         #endregion
 
         #region Constructors
-        public IllinoisDeathRecord(IObject oTarg)
+
+        /// <summary>
+        /// Creates an Illinois death record by wrapping an existing in-memory object
+        /// </summary>
+        /// <param name="oTarg">the object containing the death record information</param>
+        private IllinoisDeathRecord(IObject oTarg)
             : base(oTarg)
         {
         }
 
+        /// <summary>
+        /// Creates a new Illinois death record, initialized with a decedent's name
+        /// </summary>
+        /// <param name="sName">the name of the decedent</param>
+        /// <returns>a new Illinois death record, initialized with the decedent's name <paramref name="sName"/></returns>
         public static new IllinoisDeathRecord Create(string sName)
         {
             return new IllinoisDeathRecord(new SimpleObject(sName, DeathRecordClass));
