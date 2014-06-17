@@ -10,20 +10,44 @@ namespace Genealogy
     /// </summary>
     class CharEquivalents
     {
-
+        /// <summary>
+        /// Represents a character transliterated amongst three possible representations:
+        /// UTF-8, HTML entity, and ASCII
+        /// </summary>
+        /// <remarks>The UTF-8 representation may actually be code page, but will ultimately be converted to UTF-8</remarks>
         private class TransChar : Tuple<String, string, string>
         {
-            public TransChar(String Native, string Web, string PlainText)
-                : base(Native, Web, PlainText)
+            /// <summary>
+            /// Creates a TransChar from its constituent components
+            /// </summary>
+            /// <param name="Native">the UTF-8 representation of the character</param>
+            /// <param name="Web">the HTML entity representing the character</param>
+            /// <param name="asciiText">the ASCII character most commonly used to represent the character</param>
+            public TransChar(String Native, string Web, string asciiText)
+                : base(Native, Web, asciiText)
             {
             }
 
+            /// <summary>
+            /// The UTF-8 representation of the character
+            /// </summary>
             public String Native { get { return this.Item1; } }
+
+            /// <summary>
+            /// The HTML entity representing the character
+            /// </summary>
             public string Web { get { return this.Item2; } }
-            public string PlainText { get { return this.Item3; } }
+
+            /// <summary>
+            /// The ASCII character most commonly used to represent the character
+            /// </summary>
+            public string AsciiText { get { return this.Item3; } }
         }
 
-        private static List<TransChar> lChars = new List<TransChar>(new TransChar[] {
+        /// <summary>
+        /// The list of supported Eastern European characters
+        /// </summary>
+        private static readonly List<TransChar> CharList = new List<TransChar>(new TransChar[] {
                 new TransChar( "´", "&#180;", "'" ),
                 new TransChar( "Á", "&Aacute;", "A" ),
                 new TransChar( "á", "&aacute;", "a" ),
@@ -109,7 +133,10 @@ namespace Genealogy
                 new TransChar( "ż", "&#380;", "z" )
         });
 
-        private static Dictionary<String, TransChar> mDictionary = null;
+        /// <summary>
+        /// Lookup table of transliterated characters, referenced by their UTF-8 representation
+        /// </summary>
+        private static Dictionary<String, TransChar> _charLookupTable = null;
 
         /// <summary>
         /// <para>Transliterate a "native" (UTF) code form of a string into both</para>
@@ -117,17 +144,17 @@ namespace Genealogy
         /// <para>2. A "plain text" form, removing all diacritical marks</para>
         /// </summary>
         /// <param name="sNative">the original UTF text</param>
-        /// <param name="WebReturn">[out] a web-page compatible form that displays equivalent to <paramref name="sNative"/></param>
-        /// <param name="PlainTextReturn">[out] a plain-text version of <paramref name="sNative"/>, with all diacritical marks removed</param>
-        /// <returns>true if <paramref name="sNative"/> differs on return, in a byte-for-byte comparison, from either <paramref name="WebReturn"/> or <paramref name="PlainTextReturn"/></returns>
-        public static bool Transliterate( String sNative, out string WebReturn, out string PlainTextReturn )
+        /// <param name="webReturn">[out] a web-page compatible form that displays equivalent to <paramref name="sNative"/></param>
+        /// <param name="plainTextReturn">[out] a plain-text version of <paramref name="sNative"/>, with all diacritical marks removed</param>
+        /// <returns>true if <paramref name="sNative"/> differs on return, in a byte-for-byte comparison, from either <paramref name="webReturn"/> or <paramref name="plainTextReturn"/></returns>
+        public static bool Transliterate( String sNative, out string webReturn, out string plainTextReturn )
         {
-            if (mDictionary == null)
+            if (_charLookupTable == null)
             {
-                mDictionary = new Dictionary<String, TransChar>();
-                foreach (TransChar tNext in lChars)
+                _charLookupTable = new Dictionary<String, TransChar>();
+                foreach (TransChar tNext in CharList)
                 {
-                    mDictionary.Add(tNext.Native, tNext);
+                    _charLookupTable.Add(tNext.Native, tNext);
                 }
             }
 
@@ -137,11 +164,11 @@ namespace Genealogy
             {
                 String cNext = sNative.Substring(i, 1);
                 TransChar tVal;
-                if (mDictionary.TryGetValue(cNext, out tVal))
+                if (_charLookupTable.TryGetValue(cNext, out tVal))
                 {
                     bModified = true;
                     sWeb += tVal.Web;
-                    sPlainText += tVal.PlainText;
+                    sPlainText += tVal.AsciiText;
                 }
                 else
                 {
@@ -150,8 +177,8 @@ namespace Genealogy
                 }
             }
 
-            WebReturn = sWeb;
-            PlainTextReturn = sPlainText;
+            webReturn = sWeb;
+            plainTextReturn = sPlainText;
             return bModified;
         }
     }
