@@ -41,6 +41,12 @@ namespace Genealogy
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Constructs a death record around an existing object,
+        /// adding death record properties (with default values) as necessary.
+        /// </summary>
+        /// <param name="target">the object containing / to contain the death record information</param>
         protected DeathRecord(IObject target)
             : base(target)
         {
@@ -299,6 +305,12 @@ namespace Genealogy
 
         #region Private methods
 
+        /// <summary>
+        /// Sets a property to a specified value,
+        /// creating the property if it does not already exist
+        /// </summary>
+        /// <param name="sName">the name of the property to be set</param>
+        /// <param name="sValue">the desired value for the property</param>
         protected void ForcePropertyValue(string sName, string sValue)
         {
             if (PropertyExists(sName))
@@ -307,6 +319,11 @@ namespace Genealogy
                 AddProperty(sName, sValue);
         }
 
+        /// <summary>
+        /// Sets the decedent's gender to a value specified by a string representation.
+        /// The decedent's gender is set to <see cref="CustomTypes.Gender.Unknown"/> if the string value is not recognized.
+        /// </summary>
+        /// <param name="sValue">the string representation of the decedent's gender</param>
         protected void SetGender(string sValue)
         {
             switch (sValue.ToUpper())
@@ -325,6 +342,11 @@ namespace Genealogy
             }
         }
 
+        /// <summary>
+        /// Sets the decedent's race to a value specified by a string representation.
+        /// The decedent's race is set to <see cref="CustomTypes.Race.Unknown"/> if the string value is not recognized.
+        /// </summary>
+        /// <param name="sValue">the string representation of the decedent's race</param>
         protected void SetRace(string sValue)
         {
             switch (sValue.ToUpper())
