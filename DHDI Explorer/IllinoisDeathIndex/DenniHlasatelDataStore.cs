@@ -18,7 +18,7 @@ namespace Genealogy
         /// <summary>
         /// The XML document containing the Denni Hlasatel death index
         /// </summary>
-        private XDocument mXmlRecords = null;
+        private readonly XDocument _mXmlRecords;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace Genealogy
         /// <param name="sDocumentPath">the XML document containing the Denni Hlasatel death index</param>
         public DenniHlasatelDataStore(string sDocumentPath)
         {
-            mXmlRecords = XDocument.Load(sDocumentPath);
+            _mXmlRecords = XDocument.Load(sDocumentPath);
         }
 
         #endregion
@@ -42,7 +42,7 @@ namespace Genealogy
         /// </summary>
         public XDocument XmlDocument
         {
-            get { return mXmlRecords; }
+            get { return _mXmlRecords; }
         }
 
         #endregion
