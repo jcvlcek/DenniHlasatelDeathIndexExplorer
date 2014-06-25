@@ -51,8 +51,7 @@ namespace Genealogy
         {
             string sMessage = sBaseMessage;
             var items = lQuery.AllKeys.SelectMany(lQuery.GetValues, (k, v) => new { key = k, value = v });
-            foreach (var item in items)
-                sMessage += item.key + " = " + item.value + "<br>" + Environment.NewLine;
+            sMessage = items.Aggregate(sMessage, (current, item) => current + (item.key + " = " + item.value + "<br>" + Environment.NewLine));
             // MessageBox.Show(sMessage, "DH Death Index URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
             elemTarg.InnerHtml = sMessage;
         }
@@ -74,13 +73,7 @@ namespace Genealogy
                         where c.PlainText == sSurname
                         select c;
 
-                foreach (var surNext in q)
-                {
-                    sHtml +=
-                        surNext.Web + "<br>" + Environment.NewLine +
-                        "Count: " + surNext.Count.ToString() + "<br>" + Environment.NewLine +
-                        "Rank: " + surNext.Rank.ToString() + "<br>" + Environment.NewLine;
-                }
+                sHtml = Enumerable.Aggregate(q, sHtml, (current, surNext) => current + (surNext.Web + "<br>" + Environment.NewLine + "Count: " + surNext.Count.ToString() + "<br>" + Environment.NewLine + "Rank: " + surNext.Rank.ToString() + "<br>" + Environment.NewLine));
 
                 elemTarg.InnerHtml = sHtml;
             }
