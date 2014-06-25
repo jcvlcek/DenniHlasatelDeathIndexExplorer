@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Collections.Specialized;
 using System.Windows.Forms;
@@ -49,7 +50,7 @@ namespace Genealogy
         /// <param name="sBaseMessage">a header string that will be prepended to the list output</param>
         private static void ListQueryParameters(HtmlElement elemTarg, string sPath, NameValueCollection lQuery, string sBaseMessage)
         {
-            string sMessage = sBaseMessage;
+            var sMessage = sBaseMessage + "Path: " + sPath + "<br>" + Environment.NewLine;
             var items = lQuery.AllKeys.SelectMany(lQuery.GetValues, (k, v) => new { key = k, value = v });
             sMessage = items.Aggregate(sMessage, (current, item) => current + (item.key + " = " + item.value + "<br>" + Environment.NewLine));
             // MessageBox.Show(sMessage, "DH Death Index URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -73,7 +74,7 @@ namespace Genealogy
                         where c.PlainText == sSurname
                         select c;
 
-                sHtml = Enumerable.Aggregate(q, sHtml, (current, surNext) => current + (surNext.Web + "<br>" + Environment.NewLine + "Count: " + surNext.Count.ToString() + "<br>" + Environment.NewLine + "Rank: " + surNext.Rank.ToString() + "<br>" + Environment.NewLine));
+                sHtml = Enumerable.Aggregate(q, sHtml, (current, surNext) => current + (surNext.Web + "<br>" + Environment.NewLine + "Count: " + surNext.Count.ToString(CultureInfo.InvariantCulture) + "<br>" + Environment.NewLine + "Rank: " + surNext.Rank.ToString(CultureInfo.InvariantCulture) + "<br>" + Environment.NewLine));
 
                 elemTarg.InnerHtml = sHtml;
             }
