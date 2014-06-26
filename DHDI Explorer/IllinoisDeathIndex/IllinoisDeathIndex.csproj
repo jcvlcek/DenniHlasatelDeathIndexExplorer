@@ -61,7 +61,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DhdiScheme.cs" />
-    <Compile Include="DHExcel.cs" />
+    <Compile Include="DenniHlasatelExcelFile.cs" />
     <Compile Include="ExcelFile.cs" />
     <Compile Include="FamilySearchWebQuery.cs" />
     <Compile Include="Form1.cs">
