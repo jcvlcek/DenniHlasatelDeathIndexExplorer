@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Genealogy
@@ -13,9 +9,9 @@ namespace Genealogy
     public class ExcelFile
     {
         #region Private members
-        private Excel.Application mXlApp = null;
-        private Excel.Workbook mXlWorkBook = null;
-        private Excel.Worksheet mXlDefaultWorkSheet = null;
+        private readonly Excel.Application _xlApp;
+        private readonly Excel.Workbook _xlWorkbook;
+        private readonly Excel.Worksheet _xlDefaultWorkSheet;
         #endregion
 
         #region Constructors
@@ -26,10 +22,10 @@ namespace Genealogy
         /// <param name="sPath">the file path name of the Excel spreadsheet</param>
         public ExcelFile(string sPath)
         {
-            if (mXlApp == null)
-                mXlApp = new Excel.Application();
-            Excel.Workbooks workBooks = mXlApp.Workbooks;
-            mXlWorkBook = workBooks.Open(sPath,
+            if (_xlApp == null)
+                _xlApp = new Excel.Application();
+            var workBooks = _xlApp.Workbooks;
+            _xlWorkbook = workBooks.Open(sPath,
                 Excel.XlUpdateLinks.xlUpdateLinksAlways,
                 true, 
                 5, // Excel.XlFileFormat.xlWorkbookDefault,
@@ -41,7 +37,7 @@ namespace Genealogy
                 //        oWB = oXL.Workbooks.Open(path, 0, false, 5, "", "",
                 //false, Excel.XlPlatform.xlWindows, "", true, false,
                 //0, true, false, false);
-            mXlDefaultWorkSheet = mXlWorkBook.Worksheets[1];
+            _xlDefaultWorkSheet = _xlWorkbook.Worksheets[1];
         }
 
         /// <summary>
@@ -49,11 +45,11 @@ namespace Genealogy
         /// </summary>
         public ExcelFile()
         {
-            if (mXlApp == null)
-                mXlApp = new Excel.Application();
-            Excel.Workbooks workBooks = mXlApp.Workbooks;
-            mXlWorkBook = workBooks.Add();
-            mXlDefaultWorkSheet = mXlWorkBook.Worksheets[1];
+            if (_xlApp == null)
+                _xlApp = new Excel.Application();
+            var workBooks = _xlApp.Workbooks;
+            _xlWorkbook = workBooks.Add();
+            _xlDefaultWorkSheet = _xlWorkbook.Worksheets[1];
         }
         #endregion
 
@@ -68,7 +64,7 @@ namespace Genealogy
         {
             try
             {
-                return mXlDefaultWorkSheet.Cells[where.Y, where.X].Value2.ToString();
+                return _xlDefaultWorkSheet.Cells[where.Y, where.X].Value2.ToString();
             }
             catch
             {
@@ -83,7 +79,7 @@ namespace Genealogy
         /// <param name="sValue">the value to be written to the cell at <paramref name="where"/></param>
         public void SetValueAt(Point where, string sValue)
         {
-            mXlDefaultWorkSheet.Cells[where.Y, where.X].Value2 = sValue;
+            _xlDefaultWorkSheet.Cells[where.Y, where.X].Value2 = sValue;
         }
 
         /// <summary>
@@ -92,7 +88,7 @@ namespace Genealogy
         /// <param name="sPath">the file path to which the spreadsheet is to be saved</param>
         public void SaveAs(string sPath)
         {
-            mXlWorkBook.SaveAs(sPath, Excel.XlFileFormat.xlExcel8);
+            _xlWorkbook.SaveAs(sPath, Excel.XlFileFormat.xlExcel8);
         }
 
         /// <summary>
@@ -102,8 +98,8 @@ namespace Genealogy
         /// This method also attempts to quit the Excel application object</remarks>
         public void Close()
         {
-            mXlWorkBook.Close();
-            mXlApp.Quit();
+            _xlWorkbook.Close();
+            _xlApp.Quit();
         }
         #endregion
     }
