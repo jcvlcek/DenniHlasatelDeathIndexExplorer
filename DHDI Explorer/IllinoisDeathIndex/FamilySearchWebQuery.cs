@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 using System.Windows.Forms;
-using System.Net;
 using dbAccess;
 
 namespace Genealogy
@@ -23,7 +20,7 @@ namespace Genealogy
         public FamilySearchWebQuery(IDeathRecord drTarg, WebBrowser browser)
             : base(browser, QueryMethod.Get)
         {
-            string sYear = drTarg.DeathDate.Year.ToString();
+            string sYear = drTarg.DeathDate.Year.ToString(CultureInfo.InvariantCulture);
 
             // https://familysearch.org/search/records/index#count=20&query=%2Bgivenname%3AFrank~%20%2Bsurname%3AUlcek~%20%2Bdeath_place%3AIllinois~%20%2Bdeath_year%3A1918-1918
             // _Url = "https://www.familysearch.org/search/records/index#count=20&query=%2B";
@@ -32,7 +29,7 @@ namespace Genealogy
             _PostData = "givenname:" + drTarg.FirstName + "~ +surname:" + drTarg.LastName + "~ +death_place:Illinois~ +death_year:" + sYear + "-" + sYear;
             // _Url = "https://www.familysearch.org/search/index/record-search";
             // _PostData = "searchType=records&filtered=false&fed=true&collectionId=&collectionName=&givenname=" + drTarg.FirstName + "&surname=" + drTarg.LastName;
-            System.Net.Security.RemoteCertificateValidationCallback ServerCertificateValidationCallback = delegate { return true; };
+            // System.Net.Security.RemoteCertificateValidationCallback ServerCertificateValidationCallback = delegate { return true; };
         }
 
         #endregion
@@ -48,7 +45,7 @@ namespace Genealogy
                 // _Url += "?" + _PostData;
                 _Url += _PostData;
 
-            Uri urlTarg = new Uri(_Url);
+            var urlTarg = new Uri(_Url);
             _WebBrowser.Url = urlTarg;
         }
 
@@ -66,14 +63,22 @@ namespace Genealogy
             fOut.Write(browser.DocumentText);
             fOut.WriteLine();
             fOut.WriteLine();
-            for (int i = 0; i < browser.Document.Window.Frames.Count; i++)
+            if ((browser.Document != null) && (browser.Document.Window != null) && (browser.Document.Window.Frames != null))
             {
-                fOut.WriteLine("Frame[ " + i.ToString() + " ]:");
-                HtmlWindow frame = browser.Document.Window.Frames[0];
-                string str = frame.Document.Body.OuterHtml;
-                fOut.WriteLine(str);
-                
-            } fOut.Close();
+                var i = 1;
+                foreach (HtmlWindow nextFrame in browser.Document.Window.Frames)
+                {
+                    fOut.WriteLine("Frame[ " + i + " ]:");
+                    if ((nextFrame.Document != null) && (nextFrame.Document.Body != null))
+                        fOut.WriteLine(nextFrame.Document.Body.OuterHtml);
+                    else
+                        fOut.WriteLine("Null document or body...");
+                    ++i;
+                }
+            }
+            else
+                fOut.WriteLine("Browser, document, window or frames collection is null...");
+            fOut.Close();
         }
 
         /// <summary>
