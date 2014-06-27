@@ -155,7 +155,7 @@ namespace Genealogy
                     if (!int.TryParse(sId, out iId ))
                         txtResponse.AppendText( "Invalid ID \"" + sId + "\" found at row " + iRow.ToString() + Environment.NewLine);
 
-                    KrestniJmena q = (from jmNext in mdB.KrestniJmenas
+                    KrestniJmena q = (from jmNext in _mdB.KrestniJmenas
                                       where jmNext.CodePage == sNative 
                                       select jmNext).FirstOrDefault();
 
@@ -203,11 +203,11 @@ namespace Genealogy
                         }
 
                         if ( bIsNewRecord )
-                            mdB.KrestniJmenas.InsertOnSubmit(q);
+                            _mdB.KrestniJmenas.InsertOnSubmit(q);
 
                         try
                         {
-                            mdB.SubmitChanges();
+                            _mdB.SubmitChanges();
                         }
                         catch (Exception ex)
                         {

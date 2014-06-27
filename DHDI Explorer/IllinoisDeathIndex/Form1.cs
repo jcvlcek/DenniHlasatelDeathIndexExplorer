@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
-using System.Net;
 using System.Linq;
 using dbAccess;
 
@@ -10,16 +10,16 @@ namespace Genealogy
     /// <summary>
     /// Main form for the Denni Hlasatel / Illinois Death Index Explorer program
     /// </summary>
-    public partial class Form1 : Form
+    public partial class Form1
     {
         #region Private members
-        private List<string> mGivenNamesCache = new List<string>();
-        private List<string> mSurnamesCache = new List<string>();
-        private static string[] MonthAbbreviations = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-        System.Data.SqlClient.SqlConnection mdbConnection;
-        TreeViewWrapper mTreeView;
-        Linq2SqlDataContext mdB;
-        List<IllinoisDeathIndexWebQuery> mPendingWebQueries = new List<IllinoisDeathIndexWebQuery>();
+        private readonly List<string> _mGivenNamesCache = new List<string>();
+        private readonly List<string> _mSurnamesCache = new List<string>();
+        private static readonly string[] MonthAbbreviations = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        System.Data.SqlClient.SqlConnection _mdbConnection;
+        readonly TreeViewWrapper _mTreeView;
+        Linq2SqlDataContext _mdB;
+        readonly List<IllinoisDeathIndexWebQuery> _mPendingWebQueries = new List<IllinoisDeathIndexWebQuery>();
         #endregion
 
         #region Constructors
@@ -32,8 +32,8 @@ namespace Genealogy
         public Form1()
         {
             InitializeComponent();
-            mdbConnection = new System.Data.SqlClient.SqlConnection();
-            mTreeView = new TreeViewWrapper(tvDocument);
+            _mdbConnection = new System.Data.SqlClient.SqlConnection();
+            _mTreeView = new TreeViewWrapper(tvDocument);
             webBrowser1.DocumentText = "<HTML></HTML>";
         }
 
@@ -49,13 +49,10 @@ namespace Genealogy
         /// <returns>a two-character day-of-the-week/month string, padded with a leading "0" as necessary</returns>
         private string FormalDay(string sInformalDay)
         {
-            if (sInformalDay.Length < 2)
-                return "0" + sInformalDay;
-            else
-                return sInformalDay;
+            return sInformalDay.Length < 2 ? "0" + sInformalDay : sInformalDay;
         }
 
-        static List<string> lMonths = new List<string>(new string[] { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" });
+        static readonly List<string> MonthList = new List<string>(new[] { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" });
 
         /// <summary>
         /// Converts a three-character month abbreviation to a two-character month index (1-referenced).
@@ -66,11 +63,8 @@ namespace Genealogy
         /// <remarks>Accepts only the US English month abbreviations</remarks>
         private string FormalMonth(string sInformalMonth)
         {
-            int iMonth = lMonths.IndexOf(sInformalMonth.ToUpper()) + 1;
-            if (iMonth < 10)
-                return "0" + iMonth.ToString();
-            else
-                return iMonth.ToString();
+            var iMonth = MonthList.IndexOf(sInformalMonth.ToUpper()) + 1;
+            return iMonth < 10 ? "0" + iMonth : iMonth.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -80,13 +74,13 @@ namespace Genealogy
         /// <param name="bsTarg">the new binding source (database table) to display in the grid view</param>
         private void ChangeBindingSource(BindingSource bsTarg)
         {
-            this.dataGridView1.Columns.Clear();
-            this.dataGridView1.AutoGenerateColumns = true;
-            this.dataGridView1.Enabled = false;
-            this.dataGridView1.Invalidate();
-            this.dataGridView1.Enabled = true;
+            dataGridView1.Columns.Clear();
+            dataGridView1.AutoGenerateColumns = true;
+            dataGridView1.Enabled = false;
+            dataGridView1.Invalidate();
+            dataGridView1.Enabled = true;
             dataGridView1.DataSource = bsTarg;
-            this.dataGridView1.Refresh();
+            dataGridView1.Refresh();
         }
 
         /// <summary>
@@ -99,25 +93,22 @@ namespace Genealogy
         private void OnWebQueryCompleted(object sender, WebQueryEventArgs e)
         {
             HtmlDocument docResponse = webBrowser1.Document;
-            mTreeView.DisplayInTree(docResponse);
+            _mTreeView.DisplayInTree(docResponse);
             txtResponse.Text = webBrowser1.DocumentText;
-            DateTime dtTarg = DateTime.MinValue;
-            bool bAnyDate = true;
-
-            if ( DateTime.TryParse(txtDate.Text.Replace(',', ' '), out dtTarg) )
-                bAnyDate = false;
+            DateTime dtTarg;
+            var bAnyDate = !DateTime.TryParse(txtDate.Text.Replace(',', ' '), out dtTarg);
 
             // Display the results list contents in both the tree and list views
             DisplayRecords(e.Results, false);
             foreach (IDeathRecord recNext in e.Results)
             {
                 if ( recNext is IObject )
-                    mTreeView.DisplayInTree((IObject)recNext);
+                    _mTreeView.DisplayInTree((IObject)recNext);
             }
 
             foreach (ListViewItem itmNext in lvHits.Items)
             {
-                IDeathRecord recNext = (IDeathRecord)itmNext.Tag;
+                var recNext = (IDeathRecord)itmNext.Tag;
                 if (bAnyDate)
                     itmNext.ImageKey = "Match";
                 else if ((dtTarg >= recNext.DeathDate) &&
@@ -127,11 +118,11 @@ namespace Genealogy
                     itmNext.ImageKey = "NoMatch";
             }
 
-            if (mPendingWebQueries.Count > 0)
+            if (_mPendingWebQueries.Count > 0)
             {
-                IllinoisDeathIndexWebQuery qNext = mPendingWebQueries[0];
-                mPendingWebQueries.RemoveAt(0);
-                qNext.QueryCompleted += new EventHandler<WebQueryEventArgs>(OnWebQueryCompleted);
+                IllinoisDeathIndexWebQuery qNext = _mPendingWebQueries[0];
+                _mPendingWebQueries.RemoveAt(0);
+                qNext.QueryCompleted += OnWebQueryCompleted;
                 qNext.Submit();
             }
         }
@@ -153,18 +144,18 @@ namespace Genealogy
             try
             {
                 // TODO: This line of code loads data into the 'genealogyDataSet.KrestniJmena' table. You can move, or remove it, as needed.
-                this.krestniJmenaTableAdapter.Fill(this.genealogyDataSet.KrestniJmena);
+                krestniJmenaTableAdapter.Fill(genealogyDataSet.KrestniJmena);
                 // TODO: This line of code loads data into the 'genealogyDataSet.Prijmeni' table. You can move, or remove it, as needed.
-                this.prijmeniTableAdapter.Fill(this.genealogyDataSet.Prijmeni);
+                prijmeniTableAdapter.Fill(genealogyDataSet.Prijmeni);
                 // TODO: This line of code loads data into the 'genealogyDataSet.GivenNameEquivalents' table. You can move, or remove it, as needed.
-                this.givenNameEquivalentsTableAdapter.Fill(this.genealogyDataSet.GivenNameEquivalents);
+                givenNameEquivalentsTableAdapter.Fill(genealogyDataSet.GivenNameEquivalents);
                 // TODO: This line of code loads data into the 'genealogyDataSet.DHDeathIndex' table. You can move, or remove it, as needed.
-                this.dHDeathIndexTableAdapter.Fill(this.genealogyDataSet.DHDeathIndex);
+                dHDeathIndexTableAdapter.Fill(genealogyDataSet.DHDeathIndex);
 
-                mdB = new Linq2SqlDataContext();
-                Utilities.dB = mdB;
+                _mdB = new Linq2SqlDataContext();
+                Utilities.dB = _mdB;
 
-                var query = from c in mdB.DHDeathIndexes
+                var query = from c in _mdB.DHDeathIndexes
                             select c.GivenName;
 
                 foreach (string sNext in query)
@@ -178,7 +169,7 @@ namespace Genealogy
                 MessageBox.Show( "Unable to load/fill database table adapters:" + Environment.NewLine + ex.Message, "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             }
 
-            webBrowser1.Navigating += new WebBrowserNavigatingEventHandler(webBrowser1_Navigating);
+            webBrowser1.Navigating += webBrowser1_Navigating;
         }
 
         /// <summary>
@@ -195,11 +186,39 @@ namespace Genealogy
             {
                 string sFunction = e.Url.AbsolutePath;
                 string sQuery = e.Url.IsAbsoluteUri ? e.Url.Query : string.Empty;
+                string unableToExecute = "Unable to execute function \"" + sFunction + @"\";
 
                 System.Collections.Specialized.NameValueCollection lQuery =
                     System.Web.HttpUtility.ParseQueryString(sQuery);
 
-                DhdiScheme.NavigateTo(webBrowser1.Document.Window.Frames["Display_Area"].Document.Body, sFunction, lQuery);
+                if (webBrowser1.Document == null)
+                {
+                    MessageBox.Show("No browser document loaded", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (webBrowser1.Document.Window == null)
+                {
+                    MessageBox.Show("Browser document window is not set", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (webBrowser1.Document.Window.Frames == null)
+                {
+                    MessageBox.Show("Browser document window contains no frames", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (webBrowser1.Document.Window.Frames["Display_Area"] == null)
+                {
+                    MessageBox.Show("Frame \"Display_Area\" not found in the browser document window", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (webBrowser1.Document.Window.Frames["Display_Area"].Document == null)
+                {
+                    MessageBox.Show("Frame \"Display_Area\" has no document associated with it", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (webBrowser1.Document.Window.Frames["Display_Area"].Document.Body == null)
+                {
+                    MessageBox.Show("Document associated with frame \"Display_Area\" has no body", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else 
+                {
+                    DhdiScheme.NavigateTo(webBrowser1.Document.Window.Frames["Display_Area"].Document.Body, sFunction, lQuery);
+                } 
                 e.Cancel = true;
             }
         }
@@ -217,7 +236,7 @@ namespace Genealogy
         {
             DateTime dtWhen = DateTime.Parse( txtDate.Text.Replace( ',', ' ' ));
 
-            var query = from c in mdB.DHDeathIndexes
+            var query = from c in _mdB.DHDeathIndexes
                         where ( c.GivenName == txtFirstName.Text ) &&
                             ( c.Surname == txtLastName.Text ) &&
                             ( c.ReportDate.Year == dtWhen.Year ) &&
@@ -227,8 +246,6 @@ namespace Genealogy
 
             foreach ( var q in query )
             {
-                int iDhSerial = q.serial;
-
                 foreach (ListViewItem itmNext in lvHits.SelectedItems)
                 {
                     IDeathRecord drTarg = (IDeathRecord)itmNext.Tag;
@@ -236,10 +253,10 @@ namespace Genealogy
                     if (drTarg.DeathDate.Year > 1915)
                     {
                         IllinoisDeathIndexPost1915 indxNew = IllinoisDeathIndex.CreatePost1915(drTarg);
-                        mdB.IllinoisDeathIndexPost1915s.InsertOnSubmit(indxNew);
+                        _mdB.IllinoisDeathIndexPost1915s.InsertOnSubmit(indxNew);
                         try
                         {
-                            mdB.SubmitChanges();
+                            _mdB.SubmitChanges();
                             MessageBox.Show("Added to Illinois post-1915 db as serial #" + indxNew.Serial.ToString(), "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch (Exception ex)
@@ -250,10 +267,10 @@ namespace Genealogy
                     else
                     {
                         IllinoisDeathIndexPre1916 indxNew = IllinoisDeathIndex.CreatePre1916(drTarg);
-                        mdB.IllinoisDeathIndexPre1916s.InsertOnSubmit(indxNew);
+                        _mdB.IllinoisDeathIndexPre1916s.InsertOnSubmit(indxNew);
                         try
                         {
-                            mdB.SubmitChanges();
+                            _mdB.SubmitChanges();
                             MessageBox.Show("Added to Illinois pre-1916 db as serial #" + indxNew.serial.ToString(), "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch (Exception ex)
@@ -332,7 +349,7 @@ namespace Genealogy
         /// <param name="e">additional details on the event</param>
         private void illinoisDeathIndexToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mPendingWebQueries.Clear();
+            _mPendingWebQueries.Clear();
             txtResponse.Clear();
             ClearRecords();
 
@@ -365,11 +382,11 @@ namespace Genealogy
 	            {
                     IDeathRecord drNext = DenniHlasatelDataStore.CreateFromRecord(sNextName + "," + txtLastName.Text + "," + txtDate.Text);
                     IllinoisDeathIndexWebQuery qNext = new IllinoisDeathIndexWebQuery( drNext, webBrowser1 );
-                    mPendingWebQueries.Add(qNext);
+                    _mPendingWebQueries.Add(qNext);
                     if (drTarg.FilingDate.Year < 1700)
                     {
                         drNext = DenniHlasatelDataStore.CreateFromRecord(sNextName + "," + txtLastName.Text + "," + "1,Jan,1916");
-                        mPendingWebQueries.Add(new IllinoisDeathIndexWebQuery(drNext, webBrowser1));
+                        _mPendingWebQueries.Add(new IllinoisDeathIndexWebQuery(drNext, webBrowser1));
                     }
 	            }
             }
@@ -378,7 +395,7 @@ namespace Genealogy
             if (drTarg.FilingDate.Year < 1700)
             {
                 drTarg = DenniHlasatelDataStore.CreateFromRecord(txtFirstName.Text + "," + txtLastName.Text + "," + "1,Jan,1916");
-                mPendingWebQueries.Add(new IllinoisDeathIndexWebQuery(drTarg, webBrowser1));
+                _mPendingWebQueries.Add(new IllinoisDeathIndexWebQuery(drTarg, webBrowser1));
             }
             qNew.QueryCompleted += new EventHandler<WebQueryEventArgs>(OnWebQueryCompleted);
             qNew.Submit();
@@ -569,7 +586,7 @@ namespace Genealogy
         /// <param name="e">additional details on the event</param>
         private void txtLastName_TextChanged(object sender, EventArgs e)
         {
-            if (mdB != null)
+            if (_mdB != null)
                 DisplayDenniHlasatelResultsInBrowser(OnLastNameChanged);
         }
 
@@ -589,7 +606,7 @@ namespace Genealogy
 
             if (iLen >= 3)
             {
-                var query = (from c in mdB.DHDeathIndexes
+                var query = (from c in _mdB.DHDeathIndexes
                             where c.Surname.StartsWith(sName)
                             select c.Surname).ToList().Distinct();
 
@@ -660,14 +677,14 @@ namespace Genealogy
             //             select c.GivenName).ToList<string>().Distinct<string>();
             List<string> lAllGivenNames = new List<string>();
 
-            var q1 = from tK in mdB.KrestniJmenas
+            var q1 = from tK in _mdB.KrestniJmenas
                      select tK.PlainText;
 
             foreach (string sNext in q1 )
                 if ( !lAllGivenNames.Contains( sNext ) )
                     lAllGivenNames.Add( sNext );
 
-            var q2 = from tG in mdB.GivenNameEquivalents
+            var q2 = from tG in _mdB.GivenNameEquivalents
                      select tG.English;
 
             foreach (string sNext in q2 )
@@ -688,7 +705,7 @@ namespace Genealogy
             //            select t1.GivenName).ToList().Distinct();
 
             // The following query gets a list of given names in DH but not in our "standard names" list
-            var dhNames = (from t1 in mdB.DHDeathIndexes
+            var dhNames = (from t1 in _mdB.DHDeathIndexes
                           select t1.GivenName).ToList().Distinct();
 
             var rows = from s1 in dhNames
@@ -704,7 +721,7 @@ namespace Genealogy
             {
                 int iCount = 0;
 
-                var oddNames = from d1 in mdB.DHDeathIndexes
+                var oddNames = from d1 in _mdB.DHDeathIndexes
                                where d1.GivenName == sNext
                                select d1;
                 foreach (DHDeathIndex dNext in oddNames)
@@ -737,8 +754,8 @@ namespace Genealogy
             //             select c.Surname).ToList<string>().Distinct<string>();
 
             // Example of join that finds records in B not occurring in A
-            var query = (from t1 in mdB.DHDeathIndexes
-                        join t2 in mdB.Prijmenis
+            var query = (from t1 in _mdB.DHDeathIndexes
+                        join t2 in _mdB.Prijmenis
                         on t1.Surname equals t2.PlainText into tg
                         from tcheck in tg.DefaultIfEmpty()
                         where tcheck.PlainText == null
@@ -795,7 +812,7 @@ namespace Genealogy
                     //if (!int.TryParse(sCount, out iCount))
                     //    MessageBox.Show("Invalid count at row " + iRow.ToString() + ": " + sCount, "Not a valid integer", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    var q = (from jmNext in mdB.KrestniJmenas
+                    var q = (from jmNext in _mdB.KrestniJmenas
                              where jmNext.CodePage == sNative
                              select jmNext).FirstOrDefault();
 
@@ -894,7 +911,7 @@ namespace Genealogy
                 dtStart = DateTime.MinValue;
                 dtEnd = DateTime.MaxValue;
             }
-            mDhMatches = DHDeathIndex.Matches(mdB.DHDeathIndexes, drMatch, dtStart, dtEnd );
+            mDhMatches = DHDeathIndex.Matches(_mdB.DHDeathIndexes, drMatch, dtStart, dtEnd );
             DisplayRecords(mDhMatches);
             if (!string.IsNullOrEmpty(Utilities.DataFilesFolder))
             {
@@ -996,13 +1013,13 @@ namespace Genealogy
                 if (sCurrentFullName != sLastFullName)
                 {
                     sInnerHtml += "<h1>" + sCurrentFullName + "</h1>";
-                    if (mdB != null)
+                    if (_mdB != null)
                     {
                         List<AlternateName> lAlternateNames = new List<AlternateName>();
-                        List<GivenName> lGivenNames = GivenName.MatchToPlainTextName(drNext.FirstName, mdB);
+                        List<GivenName> lGivenNames = GivenName.MatchToPlainTextName(drNext.FirstName, _mdB);
                         Surname snPrimary = Surname.Get(drNext.LastName);
                         List<Surname.NativeForm> lSurnames = snPrimary.AlternateForms;
-                        var qSurname = (from sn in mdB.Prijmenis
+                        var qSurname = (from sn in _mdB.Prijmenis
                                         where sn.PlainText == drNext.LastName
                                         select sn.Web).ToList<string>();
                         if ((lGivenNames.Count > 0) || (qSurname.Count > 0))
@@ -1079,7 +1096,7 @@ namespace Genealogy
         /// <param name="e">additional details on the event</param>
         private void txtFirstName_TextChanged(object sender, EventArgs e)
         {
-            if ( mdB != null )
+            if ( _mdB != null )
                 DisplayDenniHlasatelResultsInBrowser(OnFirstNameChanged);
         }
 
@@ -1100,7 +1117,7 @@ namespace Genealogy
 
             if (iLen >= 3)
             {
-                var query = (from c in mdB.DHDeathIndexes
+                var query = (from c in _mdB.DHDeathIndexes
                              where c.GivenName.StartsWith(sName)
                              select c.GivenName).ToList().Distinct();
 
@@ -1184,14 +1201,14 @@ namespace Genealogy
         /// User interaction with the search dialog causes the actual results to be displayed.</remarks>
         private void searchGivenNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (mGivenNamesCache.Count < 1)
+            if (_mGivenNamesCache.Count < 1)
             {
-                var query = (from c in mdB.DHDeathIndexes
+                var query = (from c in _mdB.DHDeathIndexes
                              select c.GivenName).ToList<string>().Distinct();
-                mGivenNamesCache.AddRange(query);
+                _mGivenNamesCache.AddRange(query);
             }
 
-            _fGivenNameSearchForm.Search(mGivenNamesCache, txtResponse);
+            _fGivenNameSearchForm.Search(_mGivenNamesCache, txtResponse);
         }
 
         private SearchForm _fSurnameSearchForm = new SearchForm();
@@ -1206,14 +1223,14 @@ namespace Genealogy
         /// User interaction with the search dialog causes the actual results to be displayed.</remarks>
         private void searchSurnamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (mSurnamesCache.Count < 1)
+            if (_mSurnamesCache.Count < 1)
             {
-                var query = (from c in mdB.DHDeathIndexes
+                var query = (from c in _mdB.DHDeathIndexes
                              select c.Surname).ToList<string>().Distinct();
-                mSurnamesCache.AddRange(query);
+                _mSurnamesCache.AddRange(query);
             }
 
-            _fSurnameSearchForm.Search(mSurnamesCache, txtResponse);
+            _fSurnameSearchForm.Search(_mSurnamesCache, txtResponse);
         }
 
         private void convertToJSONToolStripMenuItem_Click(object sender, EventArgs e)
