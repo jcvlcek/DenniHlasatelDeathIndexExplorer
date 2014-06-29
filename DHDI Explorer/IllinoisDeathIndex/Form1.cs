@@ -639,9 +639,18 @@ namespace Genealogy
                 sInnerHtml = "<h2>Not enough characters to get a last name</h2>";
             }
 
-            // webBrowser1.Document.Body.InnerHtml = sInnerHtml;
-            HtmlWindow frame = webBrowser1.Document.Window.Frames["Display_Area"];
-            frame.Document.Body.InnerHtml = sInnerHtml;
+            // It's lousy to use try/catch in this way, but the alternative is really stupidly painful
+            // (particularly given that there's no way to test if Frame "Display_Area" exists or not...
+            try
+            {
+                HtmlWindow frame = webBrowser1.Document.Window.Frames["Display_Area"];
+                if ((frame.Document != null) && (frame.Document.Body != null))
+                    frame.Document.Body.InnerHtml = sInnerHtml;
+            }
+            catch
+            {
+                // Do nothing
+            }
         }
 
         /// <summary>
@@ -1150,9 +1159,18 @@ namespace Genealogy
                 sInnerHtml = "<h2>Not enough <a href=\"dhdi://localhost/SurnameSearch?Surname=Vlcek&Gender=Male\">characters</a> to get a given name</h2>";
             }
 
-            // webBrowser1.Document.Body.InnerHtml = sInnerHtml;
-            HtmlWindow frame = webBrowser1.Document.Window.Frames["Display_Area"];
-            frame.Document.Body.InnerHtml = sInnerHtml;
+            // It's lousy to use try/catch in this way, but the alternative is really stupidly painful
+            // (particularly given that there's no way to test if Frame "Display_Area" exists or not...
+            try
+            {
+                HtmlWindow frame = webBrowser1.Document.Window.Frames["Display_Area"];
+                if ((frame.Document != null) && (frame.Document.Body != null))
+                    frame.Document.Body.InnerHtml = sInnerHtml;
+            }
+            catch
+            {
+                // Do nothing
+            }
         }
 
         /// <summary>
@@ -1163,7 +1181,7 @@ namespace Genealogy
         /// <remarks>The contents of the <see cref="txtLastName"/> text box are submitted to the web query.</remarks>
         private void kdeJsmeSurnameSearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            KdeJsmeWebQuery kjQ = new KdeJsmeWebQuery(txtLastName.Text, KdeJsmeWebQuery.eWhichName.SURNAME, webBrowser1);
+            var kjQ = new KdeJsmeWebQuery(txtLastName.Text, KdeJsmeWebQuery.eWhichName.SURNAME, webBrowser1);
             MessageBox.Show(kjQ.Url, "URL of Kde Jsme search", MessageBoxButtons.OK, MessageBoxIcon.Information);
             kjQ.Submit();
         }
