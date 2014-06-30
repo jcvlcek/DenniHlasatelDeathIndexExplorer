@@ -155,6 +155,8 @@ namespace Genealogy
                     // If _still_ no matches found, simply add the original value
                     if (mAlternateForms.Count < 1)
                         mAlternateForms.Add(new NativeForm(Value, Value, Value));
+
+                    mAlternateForms = mAlternateForms.Distinct().ToList();
                 }
 
                 return mAlternateForms;

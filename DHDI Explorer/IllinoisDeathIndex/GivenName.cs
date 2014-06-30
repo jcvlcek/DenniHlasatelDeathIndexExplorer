@@ -174,6 +174,8 @@ namespace Genealogy
                             }
                         }
                     }
+
+                    mAlternateForms = mAlternateForms.Distinct().ToList();
                 }
 
                 return mAlternateForms;
