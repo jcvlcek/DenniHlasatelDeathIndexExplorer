@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Net;
 using System.Linq;
 using System.Xml.Linq;
 using dbAccess;
@@ -25,9 +25,9 @@ namespace Genealogy
 
             if (DialogResult.OK != Utilities.CheckForDataFile("GivenNamesMaleTransliterated-2.xls", out sGivenNames))
                 return;
-            ExcelFile fNames = new ExcelFile(sGivenNames);
-            List<char> lSpecialChars = new List<char>();
-            List<int> lBogusCounts = new List<int>();
+            var fNames = new ExcelFile(sGivenNames);
+            var lSpecialChars = new List<char>();
+            var lBogusCounts = new List<int>();
 
             txtResponse.Clear();
             int iBlanks, iNames, iRow;
@@ -41,7 +41,7 @@ namespace Genealogy
 
                 if ((iRow % 1000) == 0)
                 {
-                    txtResponse.AppendText("Row " + iRow.ToString() + ": Name \"" + sNative + "\"" + Environment.NewLine);
+                    txtResponse.AppendText("Row " + iRow + ": Name \"" + sNative + "\"" + Environment.NewLine);
                     Application.DoEvents();
                 }
 
@@ -52,7 +52,7 @@ namespace Genealogy
                     int iCount;
                     if (!int.TryParse(sCount, out iCount))
                     {
-                        txtResponse.AppendText("Invalid count \"" + sCount + "\" found at row " + iRow.ToString() + Environment.NewLine);
+                        txtResponse.AppendText("Invalid count \"" + sCount + "\" found at row " + iRow + Environment.NewLine);
                         lBogusCounts.Add(iRow);
                     }
 
@@ -68,7 +68,7 @@ namespace Genealogy
                     }
                     if (bFoundSpecialChar)
                     {
-                        txtResponse.AppendText("Special char at row " + iRow.ToString() + ": Web=\"" + sHtml + "\", PlainText=\"" + sPlainText + "\"" + Environment.NewLine);
+                        txtResponse.AppendText("Special char at row " + iRow + ": Web=\"" + sHtml + "\", PlainText=\"" + sPlainText + "\"" + Environment.NewLine);
                         //txtResponse.AppendText("Web=\"" + sHtml + "\", PlainText=\"" + sPlainText + "\" -> ");
                         //CharEquivalents.Transliterate(sNative, out sHtml, out sPlainText);
                         //fNames.SetValueAt(new Point(3, iRow), sHtml);
@@ -100,14 +100,14 @@ namespace Genealogy
                 }
             }
 
-            txtResponse.AppendText(iNames.ToString() + " names found in spreadsheet" + Environment.NewLine);
+            txtResponse.AppendText(iNames + " names found in spreadsheet" + Environment.NewLine);
             foreach (char cNext in lSpecialChars)
             {
-                txtResponse.AppendText("new TransChar( \"" + cNext + "\", \"&#" + ((int)cNext).ToString() + ";\", \"\" )," + Environment.NewLine);
+                txtResponse.AppendText("new TransChar( \"" + cNext + "\", \"&#" + ((int)cNext) + ";\", \"\" )," + Environment.NewLine);
             }
             foreach (int iNextRow in lBogusCounts)
             {
-                txtResponse.AppendText("Bogus count at row " + iNextRow.ToString() + Environment.NewLine);
+                txtResponse.AppendText("Bogus count at row " + iNextRow + Environment.NewLine);
             }
             // fNames.SaveAs(System.IO.Path.Combine(Utilities.DataFilesFolder, "GivenNamesFemaleTransliterated-2.xls"));
             fNames.Close();
@@ -140,7 +140,7 @@ namespace Genealogy
 
                 if ((iRow % 1000) == 0)
                 {
-                    txtResponse.AppendText("Row " + iRow.ToString() + ": Name \"" + sNative + "\"" + Environment.NewLine);
+                    txtResponse.AppendText("Row " + iRow + ": Name \"" + sNative + "\"" + Environment.NewLine);
                     Application.DoEvents();
                     // break;
                 }
@@ -149,11 +149,11 @@ namespace Genealogy
                     ++iBlanks;
                 else
                 {
-                    int iCount = -1, iId = -1;
+                    int iCount, iId;
                     if (!int.TryParse(sCount, out iCount))
-                        txtResponse.AppendText("Invalid count \"" + sCount + "\" found at row " + iRow.ToString() + Environment.NewLine);
+                        txtResponse.AppendText(string.Format("Invalid count \"{0}\" found at row {1}{2}", sCount, iRow, Environment.NewLine));
                     if (!int.TryParse(sId, out iId ))
-                        txtResponse.AppendText( "Invalid ID \"" + sId + "\" found at row " + iRow.ToString() + Environment.NewLine);
+                        txtResponse.AppendText( string.Format("Invalid ID \"{0}\" found at row {1}{2}", sId, iRow, Environment.NewLine));
 
                     KrestniJmena q = (from jmNext in _mdB.KrestniJmenas
                                       where jmNext.CodePage == sNative 
@@ -198,8 +198,6 @@ namespace Genealogy
                                 q.FemaleIndex = iId;
                                 q.FemaleCount = iCount;
                                 break;
-                            default:
-                                break;
                         }
 
                         if ( bIsNewRecord )
@@ -211,7 +209,7 @@ namespace Genealogy
                         }
                         catch (Exception ex)
                         {
-                            txtResponse.AppendText("Database error at row " + iRow.ToString() + ": " + ex.ToString() + Environment.NewLine);
+                            txtResponse.AppendText(string.Format("Database error at row {0}: {1}{2}", iRow, ex, Environment.NewLine));
                         }
                     }
 
@@ -220,9 +218,9 @@ namespace Genealogy
                 }
             }
 
-            txtResponse.AppendText(iNames.ToString() + " names found in spreadsheet" + Environment.NewLine);
-            txtResponse.AppendText(iNew.ToString() + " records added" + Environment.NewLine);
-            txtResponse.AppendText(iModified.ToString() + " records modified" + Environment.NewLine);
+            txtResponse.AppendText(iNames + " names found in spreadsheet" + Environment.NewLine);
+            txtResponse.AppendText(iNew + " records added" + Environment.NewLine);
+            txtResponse.AppendText(iModified + " records modified" + Environment.NewLine);
             fNames.Close();
         }
 
@@ -234,9 +232,9 @@ namespace Genealogy
         /// Reads in all the original Denni Hlasatel death index data files
         /// and writes the data into a single comma-separated values file
         /// </summary>
-        private void CombineDhFilesIntoSingleCSV()
+        private void CombineDhFilesIntoSingleCsv()
         {
-            char[] cSeparators = new char[] { ',' };
+            char[] cSeparators = { ',' };
             string sDhFolder, sDhOriginalsFolder;
 
             if ((DialogResult.OK != Utilities.CheckForDataFile("DH files", out sDhFolder)) ||
@@ -269,7 +267,7 @@ namespace Genealogy
                         try
                         {
                             DateTime dtWhen = new DateTime(int.Parse(sYear), int.Parse(sMonth), int.Parse(sDay));
-                            txtDate.Text = dtWhen.ToString();
+                            txtDate.Text = dtWhen.ToString(CultureInfo.CurrentCulture);
                         }
                         catch
                         {
@@ -305,15 +303,15 @@ namespace Genealogy
         /// </summary>
         private void CombineDhFilesIntoXml()
         {
-            char[] cSeparators = new char[] { ',' };
+            char[] cSeparators = { ',' };
             string sDhFolder;
 
             if (DialogResult.OK != Utilities.CheckForDataFile("DH files", out sDhFolder))
                 return;
 
             int iRecords = 0;
-            XDocument xmlOut = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), new XElement("Root", "DenniHlasatelDeathIndices"));
-            XElement xRoot = xmlOut.Element("Root");
+            var xRoot = new XElement("Root", "DenniHlasatelDeathIndices");
+            var xmlOut = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), xRoot);
             xRoot.Add(new XComment("Attribute meanings:"));
             xRoot.Add(new XComment("\"gn\" == Given name"));
             xRoot.Add(new XComment("\"fn\" == Family name"));
@@ -321,7 +319,7 @@ namespace Genealogy
 
             foreach (string sNextFile in System.IO.Directory.EnumerateFiles(sDhFolder, "DH-*.TXT"))
             {
-                System.IO.StreamReader fIn = new System.IO.StreamReader(sNextFile);
+                var fIn = new System.IO.StreamReader(sNextFile);
 
                 while (!fIn.EndOfStream)
                 {
@@ -333,11 +331,11 @@ namespace Genealogy
                         string sDay = FormalDay(sParsedLine[2]);
                         string sMonth = FormalMonth(sParsedLine[3]);
                         string sYear = sParsedLine[4];
-                        XElement xNext = new XElement( "dr" );
+                        var xNext = new XElement( "dr" );
                         xNext.Add(new XAttribute("gn", sParsedLine[0] ?? string.Empty));
                         xNext.Add(new XAttribute("fn", sParsedLine[1] ?? string.Empty));
                         xNext.Add(new XAttribute("fd", sDay + " " + sMonth + " " + sYear));
-                        xNext.Add(new XAttribute("id", iRecords.ToString()));
+                        xNext.Add(new XAttribute("id", iRecords.ToString(CultureInfo.InvariantCulture)));
                         xRoot.Add(xNext);
                         txtFirstName.Text = sParsedLine[0];
                         txtLastName.Text = sParsedLine[1];
@@ -363,7 +361,7 @@ namespace Genealogy
             xmlOut.Save(System.IO.Path.Combine(sDhFolder, "DH-ZZ-All.xml"));
         }
 
-        private DenniHlasatelDataStore dsDenniHlasatel = null;
+        private DenniHlasatelDataStore _dsDenniHlasatel;
 
         /// <summary>
         /// Searches the XML Denni Hlasatel death index data store
@@ -373,32 +371,30 @@ namespace Genealogy
         /// <param name="e">additional details on the event</param>
         private void denniHlasatelXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dsDenniHlasatel == null)
+            if (_dsDenniHlasatel == null)
             {
                 string sPath;
                 
                 if ( DialogResult.OK != Utilities.CheckForDataFile( @"DH files\DH-ZZ-All.xml", out sPath ) )
                     return;
 
-                dsDenniHlasatel = new DenniHlasatelDataStore( sPath );
+                _dsDenniHlasatel = new DenniHlasatelDataStore( sPath );
             }
 
-            var query = from dr in dsDenniHlasatel.XmlDocument.Descendants("dr")
+            var query = from dr in _dsDenniHlasatel.XmlDocument.Descendants("dr")
                         where dr.Attribute("gn").Value.Contains( txtFirstName.Text ) && 
                         dr.Attribute("fn").Value.Contains( txtLastName.Text )
                         select dr;
 
-            if (mDhMatches == null)
-                mDhMatches = new List<IDeathRecord>();
-            else
-                mDhMatches = new List<IDeathRecord>();
+            mDhMatches = new List<IDeathRecord>();
             txtResponse.Clear();
-            txtResponse.AppendText(query.Count().ToString() + " matches found:" + Environment.NewLine);
-            foreach (var drNext in query)
+            var xElements = query as IList<XElement> ?? query.ToList();
+            txtResponse.AppendText(xElements.Count() + " matches found:" + Environment.NewLine);
+            foreach (var drNext in xElements)
             {
                 string sId = drNext.Attribute("id").Value, sGivenName = drNext.Attribute("gn").Value, sFamilyName = drNext.Attribute("fn").Value;
                 string sFilingDate = drNext.Attribute("fd").Value;
-                string[] sDateParts = sFilingDate.Split(new char[] { ' ' });
+                string[] sDateParts = sFilingDate.Split(new[] { ' ' });
                 sFilingDate = sDateParts[1] + "/" + sDateParts[0] + "/" + sDateParts[2];
                 txtResponse.AppendText("[" + sId + "] ");
                 txtResponse.AppendText(sGivenName + " ");
