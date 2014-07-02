@@ -1253,7 +1253,7 @@ namespace Genealogy
 
         private void convertToJSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DeathRecord drSample = DeathRecord.Create("GrandfathersDeath");
+            var drSample = DeathRecord.Create("GrandfathersDeath");
             drSample.AgeInYears = 30;
             drSample.CertificateNumber = 12345;
             drSample.City = "Chicago";
@@ -1266,14 +1266,19 @@ namespace Genealogy
             drSample.Gender = CustomTypes.Gender.Male;
             drSample.DeathDate = new DateTime(1918, 4, 26, 12, 0, 0);
 
-            SimpleObject oChild = new SimpleObject("Cross-Reference", "Reference");
+            var oChild = new SimpleObject("Cross-Reference", "Reference");
             oChild.AddProperty("SampleProperty", "SampleValue");
             drSample.AddChild(oChild);
 
-            System.IO.StreamWriter txtOut = new System.IO.StreamWriter(@"C:\users\james\FrantisekVlcek.json");
-            JsonSaveFormat jsFmt = new JsonSaveFormat();
+            var txtOut = new System.IO.StreamWriter(@"C:\users\james\FrantisekVlcek.json");
+            var jsFmt = new JsonSaveFormat();
             jsFmt.Stream(txtOut, drSample);
             txtOut.Close();
+        }
+
+        private void unrecognizedGivenNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // TODO: Move code here (from "list given names" menu event handler) to generate list of unmatched given names
         }
     }
 }
