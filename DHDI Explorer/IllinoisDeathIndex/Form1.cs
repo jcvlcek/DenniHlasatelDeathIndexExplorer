@@ -257,7 +257,7 @@ namespace Genealogy
                         try
                         {
                             _mdB.SubmitChanges();
-                            MessageBox.Show("Added to Illinois post-1915 db as serial #" + indxNew.Serial.ToString(), "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Added to Illinois post-1915 db as serial #" + indxNew.Serial, "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch (Exception ex)
                         {
@@ -361,17 +361,14 @@ namespace Genealogy
 
             if (lAlternateGivenNames.Count > 0)
             {
-                string sAlternateForms = txtFirstName.Text + " "; ;
+                string sAlternateForms = txtFirstName.Text + " ";
                 if (lAlternateGivenNameSpelling.Length > 0)
                 {
                     sAlternateForms += "(" + lAlternateGivenNameSpelling + ") ";
                 }
                 sAlternateForms += txtLastName.Text + Environment.NewLine;
 
-                foreach (string sNext in lAlternateGivenNames)
-                {
-                    sAlternateForms += sNext + " " + txtLastName.Text + Environment.NewLine;
-                }
+                sAlternateForms = lAlternateGivenNames.Aggregate(sAlternateForms, (current, sNext) => current + (sNext + " " + txtLastName.Text + Environment.NewLine));
 
                 MessageBox.Show("All possible forms of this name:" + Environment.NewLine + sAlternateForms, "Alternate names possible", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -381,7 +378,7 @@ namespace Genealogy
                 foreach (string sNextName in lAlternateGivenNames)
 	            {
                     IDeathRecord drNext = DenniHlasatelDataStore.CreateFromRecord(sNextName + "," + txtLastName.Text + "," + txtDate.Text);
-                    IllinoisDeathIndexWebQuery qNext = new IllinoisDeathIndexWebQuery( drNext, webBrowser1 );
+                    var qNext = new IllinoisDeathIndexWebQuery( drNext, webBrowser1 );
                     _mPendingWebQueries.Add(qNext);
                     if (drTarg.FilingDate.Year < 1700)
                     {
@@ -391,13 +388,13 @@ namespace Genealogy
 	            }
             }
 
-            IllinoisDeathIndexWebQuery qNew = new IllinoisDeathIndexWebQuery(drTarg, webBrowser1);
+            var qNew = new IllinoisDeathIndexWebQuery(drTarg, webBrowser1);
             if (drTarg.FilingDate.Year < 1700)
             {
                 drTarg = DenniHlasatelDataStore.CreateFromRecord(txtFirstName.Text + "," + txtLastName.Text + "," + "1,Jan,1916");
                 _mPendingWebQueries.Add(new IllinoisDeathIndexWebQuery(drTarg, webBrowser1));
             }
-            qNew.QueryCompleted += new EventHandler<WebQueryEventArgs>(OnWebQueryCompleted);
+            qNew.QueryCompleted += OnWebQueryCompleted;
             qNew.Submit();
         }
 
@@ -413,8 +410,8 @@ namespace Genealogy
 
             // IDeathRecord drTarg = DenniHlasatelDataStore.CreateFromRecord(txtFirstName.Text + "," + txtLastName.Text + "," + txtDate.Text);
             IDeathRecord drTarg = DenniHlasatelDataStore.CreateFromNameAndDate(txtFirstName.Text, txtLastName.Text, txtDate.Text);
-            FamilySearchWebQuery qNew = new FamilySearchWebQuery(drTarg, webBrowser1);
-            qNew.QueryCompleted += new EventHandler<WebQueryEventArgs>(OnWebQueryCompleted);
+            var qNew = new FamilySearchWebQuery(drTarg, webBrowser1);
+            qNew.QueryCompleted += OnWebQueryCompleted;
             qNew.Submit();
         }
 
@@ -440,20 +437,20 @@ namespace Genealogy
 
             if (DialogResult.OK != Utilities.CheckForDataFile("prijmeni.xls", out sPrijmeniPath))
                 return;
-            ExcelFile fNames = new ExcelFile(sPrijmeniPath);
-            ExcelFile fNamesOut = new ExcelFile();
+            var fNames = new ExcelFile(sPrijmeniPath);
+            var fNamesOut = new ExcelFile();
 
-            System.Drawing.Point pTarg = new System.Drawing.Point(5, 1);
-            System.Drawing.Point pHtml = new System.Drawing.Point(4, 1);
+            var pTarg = new System.Drawing.Point(5, 1);
+            var pHtml = new System.Drawing.Point(4, 1);
             int iBlanks, iNames, iRow;
             for (iBlanks = 0, iNames = 0, iRow = 2; iBlanks < 5; ++iRow)
             {
                 string sValue = string.Empty;
                 string sHtml = string.Empty;
 
-                foreach (int iNext in new int[] { 1, 2, 3, 4, 5, 6 })
+                foreach (var iNext in new[] { 1, 2, 3, 4, 5, 6 })
                 {
-                    System.Drawing.Point pNext = new System.Drawing.Point(iNext, iRow);
+                    var pNext = new System.Drawing.Point(iNext, iRow);
                     string sNextValue = fNames.ValueAt(pNext);
                     if (iNext == 4)
                         sHtml = sNextValue;
@@ -468,7 +465,7 @@ namespace Genealogy
                 if ((iRow % 100) == 0)
                 {
                     txtLastName.Text = sValue;
-                    txtFirstName.Text = iRow.ToString();
+                    txtFirstName.Text = iRow.ToString(CultureInfo.InvariantCulture);
                     Application.DoEvents();
                 }
 
@@ -496,7 +493,7 @@ namespace Genealogy
                 }
             }
 
-            MessageBox.Show(iNames.ToString() + " names found in spreadsheet", "Prijmeni scan", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(iNames + " names found in spreadsheet", "Prijmeni scan", MessageBoxButtons.OK, MessageBoxIcon.Information);
             fNames.Close();
             fNamesOut.SaveAs(System.IO.Path.Combine(Utilities.DataFilesFolder, "prijmeni lowercased.xls"));
             fNamesOut.Close();
@@ -515,14 +512,14 @@ namespace Genealogy
                 IDeathRecord drNew = DenniHlasatelDataStore.Next();
                 txtFirstName.Text = drNew.FirstName;
                 txtLastName.Text = drNew.LastName;
-                txtDate.Text = drNew.FilingDate.Day.ToString() + "," + MonthAbbreviations[drNew.FilingDate.Month - 1] + "," + drNew.FilingDate.Year.ToString();
+                txtDate.Text = drNew.FilingDate.Day + "," + MonthAbbreviations[drNew.FilingDate.Month - 1] + "," + drNew.FilingDate.Year;
                 DisplayRecord(drNew);
                 MessageBox.Show(drNew.FirstName + " " + drNew.LastName + "'s death notice was published" + Environment.NewLine
                     + drNew.FilingDate.ToLongDateString(), "Denni Hlasatel record", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message + Environment.NewLine + ex.ToString(), "Unable to find next Denni Hlasatel death record", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message + Environment.NewLine + ex, "Unable to find next Denni Hlasatel death record", MessageBoxButtons.OK, MessageBoxIcon.Error );
             }
         }
 
