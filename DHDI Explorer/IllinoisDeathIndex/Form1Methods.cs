@@ -33,7 +33,7 @@ namespace Genealogy
             int iBlanks, iNames, iRow;
             for (iBlanks = 0, iNames = 0, iRow = 2; iBlanks < 5; ++iRow)
             {
-                string sId = fNames.ValueAt( new Point( 1, iRow ) ).Trim();
+                // string sId = fNames.ValueAt( new Point( 1, iRow ) ).Trim();
                 string sNative = fNames.ValueAt(new Point(2, iRow)).Trim();
                 string sHtml = fNames.ValueAt(new Point(3, iRow)).Trim();
                 string sPlainText = fNames.ValueAt(new Point(4, iRow)).Trim();
@@ -126,7 +126,7 @@ namespace Genealogy
 
             if (DialogResult.OK != Utilities.CheckForDataFile("GivenNames" + sGender + "Transliterated-2.xls", out sGivenNames))
                 return;
-            ExcelFile fNames = new ExcelFile(sGivenNames);
+            var fNames = new ExcelFile(sGivenNames);
 
             txtResponse.Clear();
             int iBlanks, iNames, iNew, iModified, iRow;
@@ -178,10 +178,7 @@ namespace Genealogy
                         {
                             ++iNew;
                             // txtResponse.AppendText("Adding new entry \"" + sNative + "\" with ID=" + sId + " and Count=" + sCount + Environment.NewLine);
-                            q = new KrestniJmena();
-                            q.CodePage = sNative;
-                            q.Web = sHtml;
-                            q.PlainText = sPlainText;
+                            q = new KrestniJmena {CodePage = sNative, Web = sHtml, PlainText = sPlainText};
                             // Application.DoEvents();
                         }
                     }
@@ -232,27 +229,30 @@ namespace Genealogy
         /// Reads in all the original Denni Hlasatel death index data files
         /// and writes the data into a single comma-separated values file
         /// </summary>
-        private void CombineDhFilesIntoSingleCsv()
+        /// <returns>the number of records read</returns>
+        private int CombineDhFilesIntoSingleCsv()
         {
             char[] cSeparators = { ',' };
             string sDhFolder, sDhOriginalsFolder;
 
             if ((DialogResult.OK != Utilities.CheckForDataFile("DH files", out sDhFolder)) ||
                 (DialogResult.OK != Utilities.CheckForDataFile(@"DH files\Originals", out sDhOriginalsFolder)))
-                return;
+                return 0;
             int iRecords = 0;
-            System.IO.StreamWriter fOut = new System.IO.StreamWriter(System.IO.Path.Combine(sDhFolder, "DH-ZZ-All.txt"));
+            var fOut = new System.IO.StreamWriter(System.IO.Path.Combine(sDhFolder, "DH-ZZ-All.txt"));
 
             fOut.WriteLine("GivenName,Surname,ReportDate");
 
             foreach (string sNextFile in System.IO.Directory.EnumerateFiles(sDhOriginalsFolder, "DH-*.TXT"))
             {
-                System.IO.StreamReader fIn = new System.IO.StreamReader(sNextFile);
-                string sPathOut = System.IO.Path.Combine(sDhFolder, System.IO.Path.GetFileName(sNextFile));
+                var fIn = new System.IO.StreamReader(sNextFile);
+                // string sPathOut = System.IO.Path.Combine(sDhFolder, System.IO.Path.GetFileName(sNextFile));
 
                 while (!fIn.EndOfStream)
                 {
                     string sNextLine = fIn.ReadLine();
+                    if (sNextLine == null)
+                        break;
                     ++iRecords;
                     string[] sParsedLine = sNextLine.Split(cSeparators);
                     if (sParsedLine.Length >= 5)
@@ -266,7 +266,7 @@ namespace Genealogy
                         txtLastName.Text = sParsedLine[1];
                         try
                         {
-                            DateTime dtWhen = new DateTime(int.Parse(sYear), int.Parse(sMonth), int.Parse(sDay));
+                            var dtWhen = new DateTime(int.Parse(sYear), int.Parse(sMonth), int.Parse(sDay));
                             txtDate.Text = dtWhen.ToString(CultureInfo.CurrentCulture);
                         }
                         catch
@@ -295,6 +295,7 @@ namespace Genealogy
             fOut.Close();
             //xlOut.SaveAs(System.IO.Path.Combine(sDhFolder, "DH-ZZ-Part" + iFilePart.ToString() + ".xls"));
             //xlOut.Close();
+            return iRecords;
         }
 
         /// <summary>
@@ -324,6 +325,8 @@ namespace Genealogy
                 while (!fIn.EndOfStream)
                 {
                     string sNextLine = fIn.ReadLine();
+                    if (sNextLine == null)
+                        break;
                     string[] sParsedLine = sNextLine.Split(cSeparators);
                     if (sParsedLine.Length >= 5)
                     {
@@ -339,7 +342,7 @@ namespace Genealogy
                         xRoot.Add(xNext);
                         txtFirstName.Text = sParsedLine[0];
                         txtLastName.Text = sParsedLine[1];
-                        txtDate.Text = sDay + " " + sMonth + " " + sYear;
+                        txtDate.Text = string.Format("{0} {1} {2}", sDay, sMonth, sYear);
                         // txtDate.Text = sParsedLine[2] + " " + sParsedLine[3] + " " + sParsedLine[4];
 
                         //xlOut.WriteRecord(sParsedLine[0], sParsedLine[1], sParsedLine[2] + " " + sParsedLine[3] + " " + sParsedLine[4]);
