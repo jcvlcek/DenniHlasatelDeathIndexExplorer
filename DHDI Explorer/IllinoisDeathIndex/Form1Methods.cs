@@ -389,7 +389,7 @@ namespace Genealogy
                         dr.Attribute("fn").Value.Contains( txtLastName.Text )
                         select dr;
 
-            mDhMatches = new List<IDeathRecord>();
+            _denniHlasatelMatches = new List<IDeathRecord>();
             txtResponse.Clear();
             var xElements = query as IList<XElement> ?? query.ToList();
             txtResponse.AppendText(xElements.Count() + " matches found:" + Environment.NewLine);
@@ -405,10 +405,10 @@ namespace Genealogy
                 txtResponse.AppendText(sFilingDate + Environment.NewLine);
                 IDeathRecord drNew = DeathRecord.Create(sFamilyName + ", " + sGivenName);
                 drNew.FirstName = sGivenName; drNew.LastName = sFamilyName; drNew.CertificateNumber = int.Parse(sId); drNew.FilingDate = DateTime.Parse(sFilingDate); drNew.DeathDate = DateTime.MinValue;
-                mDhMatches.Add(drNew);
+                _denniHlasatelMatches.Add(drNew);
             }
 
-            DisplayRecords(mDhMatches);
+            DisplayRecords(_denniHlasatelMatches);
             DisplayDenniHlasatelResultsInBrowser( OnDhDocumentLoaded );
         }
 

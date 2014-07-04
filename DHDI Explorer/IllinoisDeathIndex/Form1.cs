@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
@@ -440,8 +441,8 @@ namespace Genealogy
             var fNames = new ExcelFile(sPrijmeniPath);
             var fNamesOut = new ExcelFile();
 
-            var pTarg = new System.Drawing.Point(5, 1);
-            var pHtml = new System.Drawing.Point(4, 1);
+            var pTarg = new Point(5, 1);
+            var pHtml = new Point(4, 1);
             int iBlanks, iNames, iRow;
             for (iBlanks = 0, iNames = 0, iRow = 2; iBlanks < 5; ++iRow)
             {
@@ -450,7 +451,7 @@ namespace Genealogy
 
                 foreach (var iNext in new[] { 1, 2, 3, 4, 5, 6 })
                 {
-                    var pNext = new System.Drawing.Point(iNext, iRow);
+                    var pNext = new Point(iNext, iRow);
                     string sNextValue = fNames.ValueAt(pNext);
                     if (iNext == 4)
                         sHtml = sNextValue;
@@ -535,16 +536,16 @@ namespace Genealogy
 
             if (DialogResult.OK != Utilities.CheckForDataFile("prijmeni rank-sorted.xls", out sPrijmeniPath))
                 return;
-            ExcelFile fNames = new ExcelFile(sPrijmeniPath);
+            var fNames = new ExcelFile(sPrijmeniPath);
 
             int iBlanks, iNames, iRow, iPreviousRank = -1;
-            string sPreviousName = string.Empty;
-            List<int> lRanks = new List<int>();
+            var sPreviousName = string.Empty;
+            var lRanks = new List<int>();
 
             for (iBlanks = 0, iNames = 0, iRow = 2; iBlanks < 5; ++iRow)
             {
-                System.Drawing.Point pTarg = new System.Drawing.Point(1, iRow);
-                System.Drawing.Point pName = new System.Drawing.Point(5, iRow);
+                var pTarg = new Point(1, iRow);
+                var pName = new Point(5, iRow);
                 string sRank = fNames.ValueAt(pTarg);
                 string sName = fNames.ValueAt(pName);
 
@@ -785,18 +786,18 @@ namespace Genealogy
 
             if (DialogResult.OK != Utilities.CheckForDataFile("GivenNamesMaleTransliterated.xls", out sGivenNames))
                 return;
-            ExcelFile fNames = new ExcelFile(sGivenNames);
+            var fNames = new ExcelFile(sGivenNames);
 
             int iRow = 2, iBlankRows = 0, iModified = 0, iNew = 0;
 
             txtResponse.Clear();
             while (iBlankRows < 1)
             {
-                string sId = fNames.ValueAt(new System.Drawing.Point(1, iRow)).Trim();
-                String sNative = fNames.ValueAt(new System.Drawing.Point(2, iRow)).Trim();
-                string sWeb = fNames.ValueAt(new System.Drawing.Point(3, iRow)).Trim();
-                string sPlainText = fNames.ValueAt(new System.Drawing.Point(4, iRow)).Trim();
-                string sCount = fNames.ValueAt(new System.Drawing.Point(5, iRow)).Trim();
+                string sId = fNames.ValueAt(new Point(1, iRow)).Trim();
+                String sNative = fNames.ValueAt(new Point(2, iRow)).Trim();
+                string sWeb = fNames.ValueAt(new Point(3, iRow)).Trim();
+                string sPlainText = fNames.ValueAt(new Point(4, iRow)).Trim();
+                string sCount = fNames.ValueAt(new Point(5, iRow)).Trim();
 
                 //if ((iRow % 100) == 0)
                 //{
@@ -811,7 +812,7 @@ namespace Genealogy
                     ++iBlankRows;
                 else if ( !string.IsNullOrEmpty(sNative) )
                 {
-                    int iCount = 0, iIndex = -1;
+                    int iCount, iIndex;
 
                     int.TryParse(sCount, out iCount);
                     int.TryParse(sId, out iIndex);
@@ -834,7 +835,7 @@ namespace Genealogy
                         {
                             ++iNew;
                             txtResponse.AppendText("Adding new entry \"" + sNative + "\"" + Environment.NewLine);
-                            KrestniJmena jmNew = new KrestniJmena();
+                            //var jmNew = new KrestniJmena();
                             //jmNew.CodePage = sNative;
                             //jmNew.Web = sWeb;
                             //jmNew.PlainText = sPlainText;
@@ -847,15 +848,13 @@ namespace Genealogy
                 ++iRow;
             }
 
-            txtResponse.AppendText(">>> Totals: " + iRow.ToString() +
-                " rows, " + iNew.ToString() + " records added, " +
-                iModified.ToString() + " records modified <<<" + Environment.NewLine);
+            txtResponse.AppendText(string.Format(">>> Totals: {0} rows, {1} records added, {2} records modified <<<{3}", iRow, iNew, iModified, Environment.NewLine));
 
             // fNames.SaveAs(System.IO.Path.Combine(Utilities.DataFilesFolder, "GivenNamesFemaleTransliterated.xls"));
             fNames.Close();
         }
 
-        private List<IDeathRecord> mDhMatches;
+        private List<IDeathRecord> _denniHlasatelMatches;
 
         /// <summary>
         /// Search the Denni Hlasatel death index database table
@@ -872,7 +871,7 @@ namespace Genealogy
             drMatch.LastName = txtLastName.Text;
             drMatch.MiddleName = string.Empty;
             string sDate = txtDate.Text.Replace(',', ' ');
-            DateTime FilingDate, dtStart, dtEnd;
+            DateTime filingDate, dtStart, dtEnd;
             int iYear;
             if (int.TryParse(sDate, out iYear))
             {
@@ -880,22 +879,22 @@ namespace Genealogy
                 dtStart = new DateTime(iYear, 1, 1, 0, 0, 0);
                 dtEnd = new DateTime(iYear, 12, 31, 23, 59, 59);
             }
-            else if (DateTime.TryParse("1 " + sDate, out FilingDate))
+            else if (DateTime.TryParse("1 " + sDate, out filingDate))
             {
-                drMatch.FilingDate = FilingDate;
-                dtStart = FilingDate;
-                iYear = FilingDate.Year;
-                int iMonth = FilingDate.Month;
+                drMatch.FilingDate = filingDate;
+                dtStart = filingDate;
+                iYear = filingDate.Year;
+                int iMonth = filingDate.Month;
                 switch (iMonth)
                 {
                     case 1: case 3: case 5: case 7: case 8: case 10: case 12:
                         dtEnd = new DateTime(iYear, iMonth, 31, 23, 59, 59);
                         break;
-                    case 4: case 6: case 9: case 11: default:
+                    default: // Applies to 4 (April), 6 (June), 9 (September) and 11 (November)
                         dtEnd = new DateTime(iYear, iMonth, 30, 23, 59, 59);
                         break;
                     case 2:
-                        iYear = FilingDate.Year;
+                        iYear = filingDate.Year;
                         if ((iYear % 4) != 0)
                             dtEnd = new DateTime(iYear, iMonth, 28, 23, 59, 59);
                         else if (((iYear % 100) != 0) || ((iYear % 400) == 0))
@@ -905,10 +904,10 @@ namespace Genealogy
                         break;
                 }
             }
-            else if (DateTime.TryParse(sDate, out FilingDate))
+            else if (DateTime.TryParse(sDate, out filingDate))
             {
-                drMatch.FilingDate = FilingDate;
-                dtStart = FilingDate;
+                drMatch.FilingDate = filingDate;
+                dtStart = filingDate;
                 dtEnd = dtStart.AddSeconds( 86399.0 );
             }
             else 
@@ -917,12 +916,12 @@ namespace Genealogy
                 dtStart = DateTime.MinValue;
                 dtEnd = DateTime.MaxValue;
             }
-            mDhMatches = DHDeathIndex.Matches(_mdB.DHDeathIndexes, drMatch, dtStart, dtEnd );
-            DisplayRecords(mDhMatches);
+            _denniHlasatelMatches = DHDeathIndex.Matches(_mdB.DHDeathIndexes, drMatch, dtStart, dtEnd );
+            DisplayRecords(_denniHlasatelMatches);
             if (!string.IsNullOrEmpty(Utilities.DataFilesFolder))
             {
                 //System.IO.StreamWriter fOut = new System.IO.StreamWriter(System.IO.Path.Combine(Utilities.DataFilesFolder, @"DH files\results.txt"));
-                //foreach (IDeathRecord drNext in mDhMatches)
+                //foreach (IDeathRecord drNext in _denniHlasatelMatches)
                 //{
                 //    fOut.WriteLine(drNext.FirstName + " " + drNext.LastName + ": " + drNext.FilingDate.ToLongDateString());
                 //}
@@ -934,7 +933,7 @@ namespace Genealogy
 
         #endregion
 
-        private Uri mBaseUri = null;
+        private Uri _baseUri;
 
         /// <summary>
         /// Loads the empty Denni Hlasatal death index HTML file, and populates it with the results of a web query
@@ -945,20 +944,20 @@ namespace Genealogy
         /// The web query event handler is then executed, and its results are inserted into the body of the basic HTML document.</remarks>
         private void DisplayDenniHlasatelResultsInBrowser( Action< object, WebBrowserDocumentCompletedEventArgs> target )
         {
-            if (mBaseUri == null)
+            if (_baseUri == null)
             {
                 string sUri = "file://" + System.IO.Path.Combine(Utilities.DataFilesFolder, @"DH files\Denni-Hlasatel-Obituary-Index.htm");
-                mBaseUri = new Uri(sUri);
+                _baseUri = new Uri(sUri);
             }
-            if (webBrowser1.Url != mBaseUri)
+            if (webBrowser1.Url != _baseUri)
             {
-                mDocumentCompleted = target;
-                webBrowser1.Url = mBaseUri;
+                _onDocumentCompleted = target;
+                webBrowser1.Url = _baseUri;
             }
             else
             {
-                mDocumentCompleted = null;
-                target( webBrowser1, new WebBrowserDocumentCompletedEventArgs( mBaseUri ) );
+                _onDocumentCompleted = null;
+                target( webBrowser1, new WebBrowserDocumentCompletedEventArgs( _baseUri ) );
             }
         }
 
@@ -1011,17 +1010,17 @@ namespace Genealogy
         /// <remarks>This method is used to display the results of the <see cref="mnuDenniHlasatelSearch_Click"/> event handler</remarks>
         void OnDhDocumentLoaded(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            string sInnerHtml = string.Empty, sLastFullName = string.Empty, sCurrentFullName;
+            string sInnerHtml = string.Empty, sLastFullName = string.Empty;
 
-            foreach (IDeathRecord drNext in mDhMatches)
+            foreach (IDeathRecord drNext in _denniHlasatelMatches)
             {
-                sCurrentFullName = drNext.FirstName + " " + drNext.LastName;
+                string sCurrentFullName = drNext.FirstName + " " + drNext.LastName;
                 if (sCurrentFullName != sLastFullName)
                 {
                     sInnerHtml += "<h1>" + sCurrentFullName + "</h1>";
                     if (_mdB != null)
                     {
-                        List<AlternateName> lAlternateNames = new List<AlternateName>();
+                        var lAlternateNames = new List<AlternateName>();
                         List<GivenName> lGivenNames = GivenName.MatchToPlainTextName(drNext.FirstName, _mdB);
                         Surname snPrimary = Surname.Get(drNext.LastName);
                         List<Surname.NativeForm> lSurnames = snPrimary.AlternateForms;
@@ -1035,11 +1034,11 @@ namespace Genealogy
                             if (qSurname.Count < 1)
                                 qSurname.Add(drNext.LastName);
 
-                            foreach (GivenName gnNext in lGivenNames)
+                            foreach (var gnNext in lGivenNames)
                             {
                                 foreach (string sSurname in qSurname)
                                 {
-                                    AlternateName altNext = new AlternateName(gnNext.Value, sSurname);
+                                    var altNext = new AlternateName(gnNext.Value, sSurname);
                                     lAlternateNames.Add(altNext);
                                     altNext.GivenNameCount = gnNext.MaleCount + gnNext.FemaleCount;
                                 }
@@ -1053,18 +1052,14 @@ namespace Genealogy
                             {
                                 string sNext = altNext.GivenName + " " + altNext.Surname;
                                 if (altNext.GivenNameCount > 0)
-                                    sNext += " (" + altNext.GivenNameCount.ToString() + " individuals with this given name)";
+                                    sNext += " (" + altNext.GivenNameCount + " individuals with this given name)";
                                 sInnerHtml += sNext + "<br>";
                             }
                         }
 
                         if (lSurnames.Count > 1)
                         {
-                            sInnerHtml += "<h2>Alternate forms of the surname:</h2>";
-                            foreach (Surname.NativeForm nfNext in lSurnames)
-                            {
-                                sInnerHtml += nfNext.Web + ", ";
-                            }
+                            sInnerHtml = lSurnames.Aggregate("<h2>Alternate forms of the surname:</h2>", (current, nfNext) => current + (nfNext.Web + ", "));
                             sInnerHtml += "<br>";
                         }
                     }
@@ -1072,16 +1067,27 @@ namespace Genealogy
                 }
 
                 sLastFullName = sCurrentFullName;
-                sInnerHtml += "<a target=\"_blank\" href=\"" + IllinoisDeathIndexWebQuery.GetUrl(drNext) + "\">" + "#" + drNext.CertificateNumber.ToString() + "</a>: " 
+                sInnerHtml += "<a target=\"_blank\" href=\"" + IllinoisDeathIndexWebQuery.GetUrl(drNext) + "\">" + "#" + drNext.CertificateNumber + "</a>: " 
                 // sInnerHtml += "<a href=\"" + IllinoisDeathIndexWebQuery.GetUrl(drNext) + "\">" + "#" + drNext.CertificateNumber.ToString() + "</a>: " 
                     + Utilities.CzechDate( drNext.FilingDate ) + " (" + drNext.FilingDate.ToLongDateString() + ")<br>";
             }
 
             // HtmlElement frame = webBrowser1.Document.GetElementsByTagName("iframe")[0];
-            HtmlWindow frame = webBrowser1.Document.Window.Frames[ "Display_Area" ];
-            // frame.InnerHtml = sInnerHtml;
-            // frame.InnerText = sInnerHtml;
-            frame.Document.Body.InnerHtml = sInnerHtml;
+            try
+            {
+                var frame = webBrowser1.Document.Window.Frames["Display_Area"];
+                // frame.InnerHtml = sInnerHtml;
+                // frame.InnerText = sInnerHtml;
+                frame.Document.Body.InnerHtml = sInnerHtml;
+            }
+            catch (Exception ex )
+            {
+                txtResponse.AppendText(
+                    "Exception when attempting to write to document frame.  The HTML to be displayed is:" + Environment.NewLine +
+                    sInnerHtml + Environment.NewLine +
+                    "The exception text is:" +
+                    ex);
+            }
         }
 
         /// <summary>
@@ -1164,9 +1170,13 @@ namespace Genealogy
                 if ((frame.Document != null) && (frame.Document.Body != null))
                     frame.Document.Body.InnerHtml = sInnerHtml;
             }
-            catch
+            catch (Exception ex)
             {
-                // Do nothing
+                txtResponse.AppendText(
+                    "Exception when attempting to write to document frame.  The HTML to be displayed is:" + Environment.NewLine +
+                    sInnerHtml + Environment.NewLine +
+                    "The exception text is:" +
+                    ex);
             }
         }
 
@@ -1188,20 +1198,20 @@ namespace Genealogy
         /// This member is used when sequentially processing web queries that "stack"
         /// (one query triggering another, etc.)
         /// </summary>
-        private Action<object, WebBrowserDocumentCompletedEventArgs> mDocumentCompleted = null;
+        private Action<object, WebBrowserDocumentCompletedEventArgs> _onDocumentCompleted = null;
 
         /// <summary>
-        /// <para>Directly handles the <see cref="DocumentCompleted"/> event of the web browser.</para>
+        /// <para>Directly handles the <see cref="WebBrowser.DocumentCompleted"/> event of the web browser.</para>
         /// This event handler forwards the event to the "next document completed event handler"
-        /// (stored in the member variable <see cref="mDocumentCompleted"/>, if that member is not null.
+        /// (stored in the member variable <see cref="_onDocumentCompleted"/>, if that member is not null.
         /// </summary>
         /// <param name="sender">originator of the event</param>
         /// <param name="e">additional details on the event</param>
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            if ( mDocumentCompleted != null )
-                mDocumentCompleted(sender, e);
-            mDocumentCompleted = null;
+            if ( _onDocumentCompleted != null )
+                _onDocumentCompleted(sender, e);
+            _onDocumentCompleted = null;
         }
 
         private SearchForm _fGivenNameSearchForm = new SearchForm();
