@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using System.Linq;
 using dbAccess;
+using Genealogy.Properties;
 
 namespace Genealogy
 {
@@ -17,7 +18,6 @@ namespace Genealogy
         private readonly List<string> _mGivenNamesCache = new List<string>();
         private readonly List<string> _mSurnamesCache = new List<string>();
         private static readonly string[] MonthAbbreviations = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-        System.Data.SqlClient.SqlConnection _mdbConnection;
         readonly TreeViewWrapper _mTreeView;
         Linq2SqlDataContext _mdB;
         readonly List<IllinoisDeathIndexWebQuery> _mPendingWebQueries = new List<IllinoisDeathIndexWebQuery>();
@@ -33,7 +33,6 @@ namespace Genealogy
         public Form1()
         {
             InitializeComponent();
-            _mdbConnection = new System.Data.SqlClient.SqlConnection();
             _mTreeView = new TreeViewWrapper(tvDocument);
             webBrowser1.DocumentText = "<HTML></HTML>";
         }
@@ -111,12 +110,12 @@ namespace Genealogy
             {
                 var recNext = (IDeathRecord)itmNext.Tag;
                 if (bAnyDate)
-                    itmNext.ImageKey = "Match";
+                    itmNext.ImageKey = Resources.Form1_OnWebQueryCompleted_Match;
                 else if ((dtTarg >= recNext.DeathDate) &&
                     (dtTarg <= recNext.DeathDate.AddDays(4.0)))
-                    itmNext.ImageKey = "Match";
+                    itmNext.ImageKey = Resources.Form1_OnWebQueryCompleted_Match;
                 else
-                    itmNext.ImageKey = "NoMatch";
+                    itmNext.ImageKey = Resources.Form1_OnWebQueryCompleted_NoMatch;
             }
 
             if (_mPendingWebQueries.Count > 0)

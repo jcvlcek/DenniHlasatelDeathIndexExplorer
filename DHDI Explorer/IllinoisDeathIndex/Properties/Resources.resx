@@ -114,4 +114,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Form1_OnWebQueryCompleted_Match" xml:space="preserve">
+    <value>Match</value>
+    <comment>The string literal "Match", meaning a correspondence (two or more items being similar) rather than a device to start a fire</comment>
+  </data>
+  <data name="Form1_OnWebQueryCompleted_NoMatch" xml:space="preserve">
+    <value>NoMatch</value>
+    <comment>The string literal "Match", meaning a non-correspondence (two or more items being dissimilar)</comment>
+  </data>
 </root>
