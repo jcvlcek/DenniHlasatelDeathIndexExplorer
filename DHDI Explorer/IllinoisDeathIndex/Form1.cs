@@ -110,12 +110,12 @@ namespace Genealogy
             {
                 var recNext = (IDeathRecord)itmNext.Tag;
                 if (bAnyDate)
-                    itmNext.ImageKey = Resources.Form1_OnWebQueryCompleted_Match;
+                    itmNext.ImageKey = Resources.SearchMatchString;
                 else if ((dtTarg >= recNext.DeathDate) &&
                     (dtTarg <= recNext.DeathDate.AddDays(4.0)))
-                    itmNext.ImageKey = Resources.Form1_OnWebQueryCompleted_Match;
+                    itmNext.ImageKey = Resources.SearchMatchString;
                 else
-                    itmNext.ImageKey = Resources.Form1_OnWebQueryCompleted_NoMatch;
+                    itmNext.ImageKey = Resources.SearchNoMatchString;
             }
 
             if (_mPendingWebQueries.Count > 0)

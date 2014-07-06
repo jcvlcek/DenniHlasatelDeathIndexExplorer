@@ -63,7 +63,7 @@ namespace Genealogy.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Match.
         /// </summary>
-        internal static string Form1_OnWebQueryCompleted_Match {
+        internal static string SearchMatchString {
             get {
                 return ResourceManager.GetString("Form1_OnWebQueryCompleted_Match", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Genealogy.Properties {
         /// <summary>
         ///   Looks up a localized string similar to NoMatch.
         /// </summary>
-        internal static string Form1_OnWebQueryCompleted_NoMatch {
+        internal static string SearchNoMatchString {
             get {
                 return ResourceManager.GetString("Form1_OnWebQueryCompleted_NoMatch", resourceCulture);
             }
