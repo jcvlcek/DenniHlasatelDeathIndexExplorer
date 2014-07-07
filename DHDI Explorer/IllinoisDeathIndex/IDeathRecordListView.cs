@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 using dbAccess;
 
@@ -49,20 +47,20 @@ namespace Genealogy
                 itmNext.SubItems.Add(drNext.FirstName);
                 itmNext.SubItems.Add(drNext.MiddleName);
                 itmNext.SubItems.Add(drNext.LastName);
-                itmNext.SubItems.Add(drNext.AgeInYears.ToString());
+                itmNext.SubItems.Add(drNext.AgeInYears.ToString(CultureInfo.InvariantCulture));
                 itmNext.SubItems.Add(drNext.Gender.ToString());
                 itmNext.SubItems.Add(drNext.Race.ToString());
-                itmNext.SubItems.Add(drNext.CertificateNumber.ToString());
+                itmNext.SubItems.Add(drNext.CertificateNumber.ToString(CultureInfo.InvariantCulture));
                 itmNext.SubItems.Add(drNext.City);
                 itmNext.SubItems.Add(drNext.County);
                 itmNext.SubItems.Add(drNext.Volume);
-                itmNext.SubItems.Add(drNext.PageNumber.ToString());
+                itmNext.SubItems.Add(drNext.PageNumber.ToString(CultureInfo.InvariantCulture));
             }
         }
 
         public void DisplayRecord(IDeathRecord drTarg, bool bClearBeforeDisplaying = true)
         {
-            DisplayRecords(new List<IDeathRecord>(new IDeathRecord[] { drTarg }), bClearBeforeDisplaying);
+            DisplayRecords(new List<IDeathRecord>(new[] { drTarg }), bClearBeforeDisplaying);
         }
 
         #endregion
