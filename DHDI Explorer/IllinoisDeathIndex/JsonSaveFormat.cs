@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Genealogy
 {
@@ -21,7 +18,7 @@ namespace Genealogy
             {
                 Newtonsoft.Json.JsonWriter jw = new Newtonsoft.Json.JsonTextWriter(stream);
                 jw.Formatting = Newtonsoft.Json.Formatting.Indented;
-                Newtonsoft.Json.JsonSerializer js = new Newtonsoft.Json.JsonSerializer();
+                var js = new Newtonsoft.Json.JsonSerializer();
                 js.Serialize(jw, o);
             }
             catch (Exception)
@@ -39,7 +36,7 @@ namespace Genealogy
         {
             try
             {
-                Newtonsoft.Json.JsonSerializer jsonSerializer = Newtonsoft.Json.JsonSerializer.CreateDefault();
+                var jsonSerializer = Newtonsoft.Json.JsonSerializer.CreateDefault();
                 jsonSerializer.Serialize(stream, p);
             }
             catch (Exception)
