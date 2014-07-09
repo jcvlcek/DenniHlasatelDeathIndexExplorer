@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using dbAccess;
 
 namespace Genealogy
@@ -9,7 +7,8 @@ namespace Genealogy
     /// <summary>
     /// Represents the last (family) name of a person
     /// </summary>
-    public class Surname : PersonName<Surname>
+    /// <remarks>Surname is sealed only because its constructor references virtual methods/properties (such as <see cref="Surname.TotalCount"/>)</remarks>
+    public sealed class Surname : PersonName<Surname>
     {
         #region Private members
         #endregion
@@ -17,7 +16,7 @@ namespace Genealogy
         #region Constructors
 
         /// <summary>
-        /// Creates a <see cref="Surame"/> object corresponding to the argument string,
+        /// Creates a <see cref="Surname"/> object corresponding to the argument string,
         /// and binds that object into the surname cache
         /// </summary>
         /// <param name="sName">the native (code page) form of the name</param>
@@ -67,7 +66,7 @@ namespace Genealogy
         /// A comprehensive list of all available alternate forms of this name.
         /// This includes forms that match either a plain text or a "native" spelling of the name.
         /// The returned list will always have at least one entry, and the first entry in the list
-        /// will always have a <see cref="NativeForm.PlainText"/> property equal to <see cref="Value"/>
+        /// will always have a <see cref="PersonName{T}.NativeForm.PlainText"/> property equal to <see cref="PersonName{T}.NativeForm.Value"/>
         /// </summary>
         public override List<NativeForm> AlternateForms
         {
@@ -175,17 +174,11 @@ namespace Genealogy
         /// <remarks>Multiple surnames may match the same plain-text representation, as a result of differing applications of diacriticals</remarks>
         public static new List<Surname> MatchToPlainTextName(string sPlainTextName)
         {
-            List<Surname> lMatches = new List<Surname>();
-
             var qSurnames = from sn in Utilities.dB.Prijmenis
                              where sn.PlainText == sPlainTextName
                              select sn;
-            foreach (var snNext in qSurnames)
-            {
-                lMatches.Add(Surname.Get(snNext.Windows));
-            }
 
-            return lMatches;
+            return qSurnames.Select(snNext => Get(snNext.Windows)).ToList();
         }
 
         #endregion
@@ -205,15 +198,13 @@ namespace Genealogy
                          select c;
 
             // Add all of the "hits" on the query
-            int iHits = 0;
+            var iHits = 0;
             foreach (Prijmeni qNext in query1)
             {
-                NativeForm nfNew = new NativeForm(qNext.Windows, qNext.Web, qNext.PlainText);
-                if (!AlternateFormsList.Contains(nfNew))
-                {
-                    AlternateFormsList.Add(nfNew);
-                    ++iHits;
-                }
+                var nfNew = new NativeForm(qNext.Windows, qNext.Web, qNext.PlainText);
+                if (AlternateFormsList.Contains(nfNew)) continue;
+                AlternateFormsList.Add(nfNew);
+                ++iHits;
             }
 
             return iHits;
