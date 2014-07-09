@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using dbAccess;
 
 namespace Genealogy
 {
@@ -54,33 +52,32 @@ namespace Genealogy
         #endregion
 
         #region Private members
-        protected static Dictionary<string, PersonName< T >> mCache = new Dictionary<string, PersonName< T >>();
-        private string mOriginal;
-        protected List<string> mEquivalents = null;
-        protected List<String> mNativeForms = null;
-        protected List<NativeForm> mAlternateForms = null;
-        private int mCount = 0;
+        protected static Dictionary<string, PersonName< T >> NameCache = new Dictionary<string, PersonName< T >>();
+        private readonly string _originalName;
+        protected List<string> Equivalents = null;
+        protected List<String> NativeFormsList = null;
+        protected List<NativeForm> AlternateFormsList = null;
+
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Creates a <see cref="PersonName"/> object corresponding to the argument string,
+        /// Creates a <see cref="PersonName{T}"/> object corresponding to the argument string,
         /// and binds that object into the name cache
         /// </summary>
-        /// <param name="dcTarg">The data context to search for forms equivalent to this name</param>
         /// <param name="sName"></param>
         protected PersonName(string sName)
         {
-            mOriginal = sName;
+            _originalName = sName;
         }
 
         /// <summary>
-        /// Gets a <see cref="PersonName"/> corresponding to argument string
+        /// Gets a PersonName corresponding to argument string
         /// </summary>
         /// <param name="sName">The name to search for</param>
-        /// <returns>A cached <see cref="PersonName"/>, if one has already been created for <see cref="sName"/>,
-        /// otherwise a new <see cref="PersonName"/> created for the argument string</returns>
+        /// <returns>A cached <see cref="PersonName{T}"/>, if one has already been created for <see cref="sName"/>,
+        /// otherwise a new <see cref="PersonName{T}"/> created for the argument string</returns>
         public static PersonName< T > Get( string sName )
         {
             throw new NotImplementedException("Get method not implemented in the base class PersonName< T>");
@@ -95,7 +92,7 @@ namespace Genealogy
         /// </summary>
         public string Value
         {
-            get { return mOriginal; }
+            get { return _originalName; }
         }
 
         /// <summary>
@@ -106,19 +103,19 @@ namespace Genealogy
         {
             get
             {
-                if (mNativeForms == null)
+                if (NativeFormsList == null)
                 {
-                    mNativeForms = new List<String>();
+                    NativeFormsList = new List<String>();
 
                     foreach (NativeForm nfNext in AlternateForms)
                     {
                         string sNative = nfNext.Value;
-                        if ( !( string.IsNullOrEmpty( sNative ) || mNativeForms.Contains( nfNext.Value ) ) )
-                            mNativeForms.Add(nfNext.Value);
+                        if ( !( string.IsNullOrEmpty( sNative ) || NativeFormsList.Contains( nfNext.Value ) ) )
+                            NativeFormsList.Add(nfNext.Value);
                     }
                 }
 
-                return new List<String>(mNativeForms.AsEnumerable<String>());
+                return new List<String>(NativeFormsList.AsEnumerable());
             }
         }
 
@@ -130,18 +127,18 @@ namespace Genealogy
         {
             get 
             {
-                if (mEquivalents == null)
+                if (Equivalents == null)
                 {
-                    mEquivalents = new List<string>();
+                    Equivalents = new List<string>();
 
                     foreach (NativeForm nfNext in AlternateForms)
                     {
-                        if (!mEquivalents.Contains(nfNext.PlainText))
-                            mEquivalents.Add(nfNext.PlainText);
+                        if (!Equivalents.Contains(nfNext.PlainText))
+                            Equivalents.Add(nfNext.PlainText);
                     }
                 }
 
-                return new List<string>(mEquivalents.AsEnumerable<string>());
+                return new List<string>(Equivalents.AsEnumerable());
             }
         }
 
@@ -158,11 +155,7 @@ namespace Genealogy
         /// <summary>
         /// Total number of individuals in the census with this name
         /// </summary>
-        virtual public int TotalCount
-        {
-            get { return mCount; }
-            protected set { mCount = value; }
-        }
+        public virtual int TotalCount { get; protected set; }
 
         #endregion
 

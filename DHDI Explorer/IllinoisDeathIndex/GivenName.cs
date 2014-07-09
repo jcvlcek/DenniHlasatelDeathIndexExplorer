@@ -47,7 +47,7 @@ namespace Genealogy
                     FemaleCount += gn.FemaleCount;
                 }
             }
-            mCache.Add(sName, this);
+            NameCache.Add(sName, this);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Genealogy
         {
             PersonName<GivenName> gnTarg;
 
-            if (!mCache.TryGetValue(sName, out gnTarg))
+            if (!NameCache.TryGetValue(sName, out gnTarg))
                 gnTarg = new GivenName(sName);
 
             return (GivenName)gnTarg;
@@ -98,9 +98,9 @@ namespace Genealogy
         {
             get
             {
-                if (mAlternateForms != null) return mAlternateForms;
+                if (AlternateFormsList != null) return AlternateFormsList;
 
-                mAlternateForms = new List<NativeForm>();
+                AlternateFormsList = new List<NativeForm>();
 
                 // First, assemble a query to get all direct matches
                 var query1 = from c in Utilities.dB.KrestniJmenas
@@ -110,21 +110,21 @@ namespace Genealogy
                 // Add all of the "hits" on the direct match query
                 foreach (KrestniJmena qNext in query1)
                 {
-                    mAlternateForms.Add(new NativeForm(qNext.CodePage, qNext.Web, qNext.PlainText));
+                    AlternateFormsList.Add(new NativeForm(qNext.CodePage, qNext.Web, qNext.PlainText));
                 }
 
                 // If no direct matches found, add a record for the original value
                 // with the native form set to an empty string to flag 
                 // that there is no direct equivalent
-                if (mAlternateForms.Count < 1)
-                    mAlternateForms.Add(new NativeForm(string.Empty, Value, Value));
+                if (AlternateFormsList.Count < 1)
+                    AlternateFormsList.Add(new NativeForm(string.Empty, Value, Value));
 
                 var lNatives = new List<String>();
                 var lPlainTexts = new List<string>();
 
                 // Organize lists of matches for native and plain text forms of the name
                 // based on the original query
-                foreach (NativeForm nfNext in mAlternateForms)
+                foreach (NativeForm nfNext in AlternateFormsList)
                 {
                     if (!lNatives.Contains(nfNext.Value))
                         lNatives.Add(nfNext.Value);
@@ -147,22 +147,22 @@ namespace Genealogy
 
                     string sWeb = query3.Any() ? query3.First().Web : geNext.English;
                     var nfNew = new NativeForm(geNext.Native, geNext.English, sWeb);
-                    if (!mAlternateForms.Contains(nfNew))
+                    if (!AlternateFormsList.Contains(nfNew))
                     {
-                        mAlternateForms.Add(nfNew);
+                        AlternateFormsList.Add(nfNew);
 
                         foreach (KrestniJmena kjNext in query3)
                         {
                             var nfRecursive = new NativeForm(kjNext.CodePage, kjNext.PlainText, kjNext.Web);
-                            if (!mAlternateForms.Contains(nfRecursive))
-                                mAlternateForms.Add(nfRecursive);
+                            if (!AlternateFormsList.Contains(nfRecursive))
+                                AlternateFormsList.Add(nfRecursive);
                         }
                     }
                 }
 
-                mAlternateForms = mAlternateForms.Distinct().ToList();
+                AlternateFormsList = AlternateFormsList.Distinct().ToList();
 
-                return mAlternateForms;
+                return AlternateFormsList;
             }
         }
 

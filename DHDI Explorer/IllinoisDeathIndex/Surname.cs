@@ -40,7 +40,7 @@ namespace Genealogy
                     TotalCount += gn.Count;
                 }
             }
-            mCache.Add(sName, this);
+            NameCache.Add(sName, this);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Genealogy
         {
            PersonName<Surname> gnTarg;
 
-            if (!mCache.TryGetValue(sName, out gnTarg))
+            if (!NameCache.TryGetValue(sName, out gnTarg))
                 gnTarg = new Surname(sName);
 
             return (Surname)gnTarg;
@@ -73,15 +73,15 @@ namespace Genealogy
         {
             get
             {
-                if (mAlternateForms == null)
+                if (AlternateFormsList == null)
                 {
-                    mAlternateForms = new List<NativeForm>();
+                    AlternateFormsList = new List<NativeForm>();
 
                     AddAlternateForms(Value);
                     // If no direct matches found, add a record for the original value
                     // with the native form set to an empty string to flag 
                     // that there is no direct equivalent
-                    if ( true ) // mAlternateForms.Count < 1)
+                    if ( true ) // AlternateFormsList.Count < 1)
                     {
                         int iAdditions;
 
@@ -92,11 +92,11 @@ namespace Genealogy
                             string sBase = Value.Substring(0, Value.Length - 3);
                             if ((iAdditions = AddAlternateForms(sBase)) > 0)
                             {
-                                for (int iCount = mAlternateForms.Count, i = iCount - iAdditions; i < iCount; ++i)
+                                for (int iCount = AlternateFormsList.Count, i = iCount - iAdditions; i < iCount; ++i)
                                 {
-                                    NativeForm nfNext = mAlternateForms[i];
+                                    NativeForm nfNext = AlternateFormsList[i];
                                     if (nfNext.Value != nfNext.PlainText)
-                                        mAlternateForms.Add(new NativeForm(nfNext.Value + "ová", nfNext.Web + "ov&aacute;", nfNext.PlainText + "ova"));
+                                        AlternateFormsList.Add(new NativeForm(nfNext.Value + "ová", nfNext.Web + "ov&aacute;", nfNext.PlainText + "ova"));
                                 }
                             }
 
@@ -104,11 +104,11 @@ namespace Genealogy
                             // the "a" (no diacritical) suffix of the masculine form
                             if ((iAdditions = AddAlternateForms(sBase + "a")) > 0)
                             {
-                                for (int iCount = mAlternateForms.Count, i = iCount - iAdditions; i < iCount; ++i)
+                                for (int iCount = AlternateFormsList.Count, i = iCount - iAdditions; i < iCount; ++i)
                                 {
-                                    NativeForm nfNext = mAlternateForms[i];
+                                    NativeForm nfNext = AlternateFormsList[i];
                                     if (nfNext.Value != nfNext.PlainText)
-                                        mAlternateForms.Add(new NativeForm(
+                                        AlternateFormsList.Add(new NativeForm(
                                             nfNext.Value.Substring( 0, nfNext.Value.Length - 1 ) + "ová", 
                                             nfNext.Web.Substring(0, nfNext.Web.Length - 1) + "ov&aacute;", 
                                             nfNext.PlainText.Substring(0, nfNext.PlainText.Length - 1) + "ova"));
@@ -123,11 +123,11 @@ namespace Genealogy
                                 if ((iAdditions = AddAlternateForms(sBase.Substring(0, sBase.Length - 1)
                                     + "e" + sBase.Substring(sBase.Length - 1, 1))) > 0)
                                 {
-                                    for (int iCount = mAlternateForms.Count, i = iCount - iAdditions; i < iCount; ++i)
+                                    for (int iCount = AlternateFormsList.Count, i = iCount - iAdditions; i < iCount; ++i)
                                     {
-                                        NativeForm nfNext = mAlternateForms[i];
+                                        NativeForm nfNext = AlternateFormsList[i];
                                         if (nfNext.Value != nfNext.PlainText)
-                                            mAlternateForms.Add(new NativeForm(
+                                            AlternateFormsList.Add(new NativeForm(
                                                 nfNext.Value.Substring(0, nfNext.Value.Length - 2) + nfNext.Value.Substring( nfNext.Value.Length - 1, 1 ) + "ová",
                                                 nfNext.Web.Substring(0, nfNext.Web.Length - 2) + nfNext.Web.Substring( nfNext.Web.Length - 1, 1 ) + "ov&aacute;",
                                                 nfNext.PlainText.Substring(0, nfNext.PlainText.Length - 2) + nfNext.PlainText.Substring( nfNext.PlainText.Length - 1, 1 ) + "ova"));
@@ -139,11 +139,11 @@ namespace Genealogy
                         {
                             if ((iAdditions = AddAlternateForms(Value.Substring(0, Value.Length - 1) + "y")) > 0)
                             {
-                                for (int iCount = mAlternateForms.Count, i = iCount - iAdditions; i < iCount; ++i)
+                                for (int iCount = AlternateFormsList.Count, i = iCount - iAdditions; i < iCount; ++i)
                                 {
-                                    NativeForm nfNext = mAlternateForms[i];
+                                    NativeForm nfNext = AlternateFormsList[i];
                                     if ((nfNext.Value != nfNext.PlainText) && nfNext.Web.EndsWith( "&yacute;" ) )
-                                        mAlternateForms.Add(new NativeForm(
+                                        AlternateFormsList.Add(new NativeForm(
                                             nfNext.Value.Substring(0, nfNext.Value.Length - 1) + "á",
                                             nfNext.Web.Substring(0, nfNext.Web.Length - 1) + "&aacute;",
                                             nfNext.PlainText.Substring(0, nfNext.PlainText.Length - 1) + "a"));
@@ -153,13 +153,13 @@ namespace Genealogy
                     }
 
                     // If _still_ no matches found, simply add the original value
-                    if (mAlternateForms.Count < 1)
-                        mAlternateForms.Add(new NativeForm(Value, Value, Value));
+                    if (AlternateFormsList.Count < 1)
+                        AlternateFormsList.Add(new NativeForm(Value, Value, Value));
 
-                    mAlternateForms = mAlternateForms.Distinct().ToList();
+                    AlternateFormsList = AlternateFormsList.Distinct().ToList();
                 }
 
-                return mAlternateForms;
+                return AlternateFormsList;
             }
         }
 
@@ -209,9 +209,9 @@ namespace Genealogy
             foreach (Prijmeni qNext in query1)
             {
                 NativeForm nfNew = new NativeForm(qNext.Windows, qNext.Web, qNext.PlainText);
-                if (!mAlternateForms.Contains(nfNew))
+                if (!AlternateFormsList.Contains(nfNew))
                 {
-                    mAlternateForms.Add(nfNew);
+                    AlternateFormsList.Add(nfNew);
                     ++iHits;
                 }
             }
