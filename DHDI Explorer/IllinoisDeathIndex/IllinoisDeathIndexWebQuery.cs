@@ -62,12 +62,14 @@ namespace Genealogy
         override protected void OnDocumentCompleted()
         {
             HtmlDocument docResponse = _WebBrowser.Document;
+            if (docResponse == null)
+                return;
 
             HtmlElement eTable = docResponse.GetElementById("theTable");
             if (eTable == null)
                 return;
             HtmlElementCollection cRows = eTable.GetElementsByTagName("TR");
-            List<string> lPropertyNames = new List<string>();
+            var lPropertyNames = new List<string>();
 
             for (int i = 0; i < cRows.Count; ++i)
             {
@@ -79,10 +81,7 @@ namespace Genealogy
                 foreach (HtmlElement eField in cFields)
                 {
                     string sValue = eField.InnerText;
-                    if (string.IsNullOrEmpty(sValue))
-                        sValue = string.Empty;
-                    else
-                        sValue = sValue.Trim();
+                    sValue = string.IsNullOrEmpty(sValue) ? string.Empty : sValue.Trim();
 
                     if (i == 0)
                     {
