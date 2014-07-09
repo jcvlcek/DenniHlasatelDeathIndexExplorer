@@ -1187,7 +1187,7 @@ namespace Genealogy
         /// <remarks>The contents of the <see cref="txtLastName"/> text box are submitted to the web query.</remarks>
         private void kdeJsmeSurnameSearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var kjQ = new KdeJsmeWebQuery(txtLastName.Text, KdeJsmeWebQuery.eWhichName.SURNAME, webBrowser1);
+            var kjQ = new KdeJsmeWebQuery(txtLastName.Text, KdeJsmeWebQuery.NameComponent.Surname, webBrowser1);
             MessageBox.Show(kjQ.Url, "URL of Kde Jsme search", MessageBoxButtons.OK, MessageBoxIcon.Information);
             kjQ.Submit();
         }

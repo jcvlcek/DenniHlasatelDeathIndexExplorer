@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using dbAccess;
 
 namespace Genealogy
 {
@@ -14,32 +11,27 @@ namespace Genealogy
     {
         #region Private members
 
-        /// <summary>
-        /// Count of individuals bearing a specified name
-        /// </summary>
-        int mCount = 0;
-
         #endregion
 
         #region Public members
         /// <summary>
         /// Identifies a specific component of a person's full name
         /// </summary>
-        public enum eWhichName {
+        public enum NameComponent {
             /// <summary>
             /// First (or "given") name
             /// </summary>
-            GIVEN_NAME,
+            GivenName,
 
             /// <summary>
             /// Last (or family) name
             /// </summary>
-            SURNAME,
+            Surname,
 
             /// <summary>
             /// Unspecified whether first or last name
             /// </summary>
-            UNKNOWN
+            Unknown
         };
         #endregion
 
@@ -51,8 +43,9 @@ namespace Genealogy
         /// <param name="sName">Name to search for (in UTF8)</param>
         /// <param name="eGivenOrSurname">Whether <see cref="sName"/> is a given name or a surname</param>
         /// <param name="browser"><see cref="WebBrowser"/> control to display results in</param>
-        public KdeJsmeWebQuery(String sName, eWhichName eGivenOrSurname, WebBrowser browser) : base( browser, QueryMethod.Get )
+        public KdeJsmeWebQuery(String sName, NameComponent eGivenOrSurname, WebBrowser browser) : base( browser, QueryMethod.Get )
         {
+            Count = 0;
             _Url = GetUrl(sName, eGivenOrSurname);
         }
 
@@ -67,15 +60,15 @@ namespace Genealogy
         /// <param name="sName">the name to query</param>
         /// <param name="eGivenOrSurname">which component of a full name <paramref name="sName"/> corresponds to</param>
         /// <returns></returns>
-        public static string GetUrl(String sName, eWhichName eGivenOrSurname)
+        public static string GetUrl(String sName, NameComponent eGivenOrSurname)
         {
             string sDatabase;
 
             switch ( eGivenOrSurname )
             {
-                case eWhichName.GIVEN_NAME:
+                case NameComponent.GivenName:
                     sDatabase = "jmeno"; break ;
-                case eWhichName.SURNAME:
+                case NameComponent.Surname:
                     sDatabase = "prijmeni"; break;
                 default:
                     throw new ArgumentException( "Cannot construct a Kde Jsme web query for a name unless we know if it's a given name or a surname" );
@@ -88,6 +81,11 @@ namespace Genealogy
 
         #region Public properties
 
+        /// <summary>
+        /// Count of individuals with the specified name
+        /// </summary>
+        public int Count { get; private set; }
+
         #endregion
 
         #region Event handlers
@@ -98,24 +96,26 @@ namespace Genealogy
         override protected void OnDocumentCompleted()
         {
             HtmlDocument docResponse = _WebBrowser.Document;
+            if (docResponse == null)
+                return;
 
             HtmlElementCollection lTitles = docResponse.GetElementsByTagName("title");
             if (lTitles.Count < 1)
                 return;
             HtmlElement eTitle = lTitles[0];
             String sValue = eTitle.InnerText;
-            String[] sItems = sValue.Split(new char[] { '|' });
+            String[] sItems = sValue.Split(new[] { '|' });
             if (sItems.Count() < 2)
                 return;
             String sDatum = sItems[1].Trim();
-            String[] sNameValuePair = sDatum.Split(new char[] { ':' });
+            String[] sNameValuePair = sDatum.Split(new[] { ':' });
             if (sNameValuePair.Count() < 2)
                 return;
-            String sName = sNameValuePair[0];
+            // String sName = sNameValuePair[0];
             String sCount = sNameValuePair[1];
-            int iCount = 0;
+            int iCount;
             if (int.TryParse(sCount, out iCount))
-                mCount = iCount;
+                Count = iCount;
         }
 
         #endregion
