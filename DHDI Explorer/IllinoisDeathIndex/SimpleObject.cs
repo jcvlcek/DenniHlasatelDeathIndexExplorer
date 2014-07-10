@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace Genealogy
 {
@@ -14,13 +12,13 @@ namespace Genealogy
     class SimpleObject : IObject
     {
         #region Private members
-        private string mName;
-        private Dictionary<string, IProperty> mProperties = new Dictionary<string, IProperty>();
-        private Dictionary<string, IObject> mChildren = new Dictionary<string, IObject>();
-        private List<string> mPropertyNames = new List<string>();
-        private List<string> mChildNames = new List<string>();
-        private const string OBJECT_TAG = "object";
-        private const string CLASS_TAG = "Class";
+        private string _name;
+        private readonly Dictionary<string, IProperty> _propertiesList = new Dictionary<string, IProperty>();
+        private readonly Dictionary<string, IObject> _childrenList = new Dictionary<string, IObject>();
+        private readonly List<string> _propertiesNameList = new List<string>();
+        private readonly List<string> _childNamesList = new List<string>();
+        private const string ObjectTag = "object";
+        private const string ClassTag = "Class";
         #endregion
 
         #region Constructors
@@ -40,9 +38,9 @@ namespace Genealogy
                 throw new ArgumentNullException("Null string cannot be used as an object name");
             if (sName.Length < 1)
                 throw new ArgumentOutOfRangeException("Empty string cannot be used as an object name");
-            mName = sName;
+            _name = sName;
             if (!string.IsNullOrEmpty(sClass))
-                AddProperty(CLASS_TAG, sClass);
+                AddProperty(ClassTag, sClass);
         }
 
         /// <summary>
@@ -103,8 +101,8 @@ namespace Genealogy
         [DefaultValue("ObjectName")]
         public string Name
         { 
-            get { return mName; }
-            protected set { mName = value; }
+            get { return _name; }
+            protected set { _name = value; }
         }
 
         /// <summary>
@@ -112,15 +110,15 @@ namespace Genealogy
         /// </summary>
         [Description("Name of the class that this object implements")]
         [Browsable(true)]
-        [DefaultValue(OBJECT_TAG)]
+        [DefaultValue(ObjectTag)]
         public string Class
         {
             get
             {
-                if (PropertyExists(CLASS_TAG))
-                    return GetPropertyValue(CLASS_TAG);
+                if (PropertyExists(ClassTag))
+                    return GetPropertyValue(ClassTag);
                 else
-                    return OBJECT_TAG;
+                    return ObjectTag;
             }
         }
 
@@ -130,7 +128,7 @@ namespace Genealogy
         [Description("Number of properties defined on this object")]
         public int PropertyCount
         {
-            get { return mProperties.Count; }
+            get { return _propertiesList.Count; }
         }
 
         /// <summary>
@@ -139,7 +137,7 @@ namespace Genealogy
         [Description("Number of child objects contained by this object")]
         public int ChildCount 
         {
-            get { return mChildren.Count; }
+            get { return _childrenList.Count; }
         }
 
         /// <summary>
@@ -147,7 +145,7 @@ namespace Genealogy
         /// </summary>
         public IEnumerable<IObject> Children
         {
-            get { return mChildren.Values; }
+            get { return _childrenList.Values; }
         }
 
         #endregion
@@ -165,22 +163,22 @@ namespace Genealogy
         {
             if ( PropertyExists( sName ) )
                 throw new ArgumentException( "Property \"" + sName + "\" already exists in object \"" + Name + "\"" );
-            mProperties.Add( sName, new SimpleProperty( sName, sValue ) );
-            mPropertyNames.Add(sName);
+            _propertiesList.Add( sName, new SimpleProperty( sName, sValue ) );
+            _propertiesNameList.Add(sName);
         }
 
         /// <summary>
         /// Indicates whether the object contains a property with the specified name
         /// </summary>
         /// <param name="sName">The name to search for</param>
-        /// <returns><see cref="false"/> if sName is null or empty
-        /// <see cref="true"/> if the object contains a property with the name <see cref="sName"/>
-        /// <see cref="false"/>otherwise</returns>
+        /// <returns><code>false</code> if sName is null or empty
+        /// <code>true</code> if the object contains a property with the name <see cref="sName"/>
+        /// <code>false</code>otherwise</returns>
         public bool PropertyExists(string sName)
         {
             if (string.IsNullOrEmpty(sName))
                 return false;
-            return mProperties.ContainsKey(sName);
+            return _propertiesList.ContainsKey(sName);
         }
 
         /// <summary>
@@ -192,7 +190,7 @@ namespace Genealogy
         public string GetPropertyValue(string sName)
         {
             if (PropertyExists(sName))
-                return mProperties[sName].Value;
+                return _propertiesList[sName].Value;
             else
                 return string.Empty;
         }
@@ -206,7 +204,7 @@ namespace Genealogy
         /// or if <see cref="iIndex"/> is >= <see cref="PropertyCount"/></exception>
         public IProperty GetProperty(int iIndex)
         {
-            return mProperties[mPropertyNames[iIndex]];
+            return _propertiesList[_propertiesNameList[iIndex]];
         }
 
         /// <summary>
@@ -217,7 +215,7 @@ namespace Genealogy
         /// <exception cref="ArgumentException">If no property exists with name <see cref="sName"/></exception>
         public void SetPropertyValue(string sName, string sValue)
         {
-            mProperties[sName].Value = sValue;
+            _propertiesList[sName].Value = sValue;
         }
 
         // Child object support
@@ -230,7 +228,7 @@ namespace Genealogy
         /// False otherwise</returns>
         public bool ChildExists(string sName)
         {
-            return mChildren.ContainsKey(sName);
+            return _childrenList.ContainsKey(sName);
         }
 
         /// <summary>
@@ -242,7 +240,7 @@ namespace Genealogy
         /// <exception cref="ArgumentNullException">If <see cref="sName"/> is null</exception>
         public IObject GetChild(string sName)
         {
-            return mChildren[sName];
+            return _childrenList[sName];
         }
 
         /// <summary>
@@ -254,7 +252,7 @@ namespace Genealogy
         /// or >= <see cref="ChildCount"/></exception>
         public IObject GetChild(int iIndex)
         {
-            return GetChild(mChildNames[iIndex]);
+            return GetChild(_childNamesList[iIndex]);
         }
 
         /// <summary>
@@ -266,10 +264,10 @@ namespace Genealogy
         /// <exception cref="ArgumentException">If a child object with the same name as <see cref="oNew"/> already exists</exception>
         public void AddChild(IObject oNew)
         {
-            if (mChildren.ContainsKey(oNew.Name))
+            if (_childrenList.ContainsKey(oNew.Name))
                 throw new ArgumentException("Cannot add child object: A child object with name \"" + oNew.Name + "\" already exists in object \"" + Name + "\"");
-            mChildren.Add(oNew.Name, oNew);
-            mChildNames.Add(oNew.Name);
+            _childrenList.Add(oNew.Name, oNew);
+            _childNamesList.Add(oNew.Name);
         }
 
         /// <summary>
@@ -279,8 +277,8 @@ namespace Genealogy
         /// <exception cref="ArgumentException">If no child named <see cref="sName"/> exists</exception>
         public void RemoveChild(string sName)
         {
-            mChildren.Remove(sName);
-            mChildNames.Remove(sName);
+            _childrenList.Remove(sName);
+            _childNamesList.Remove(sName);
         }
 
         /// <summary>
@@ -290,7 +288,7 @@ namespace Genealogy
         /// <exception cref="ArgumentOutOfRangeException">If <see cref="iIndex"/> is less than zero or >= <see cref="ChildCount"/></exception>
         public void RemoveChild(int iIndex)
         {
-            RemoveChild( mChildNames[ iIndex ] );
+            RemoveChild( _childNamesList[ iIndex ] );
         }
 
         /// <summary>
