@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Genealogy
 {
@@ -17,7 +13,7 @@ namespace Genealogy
         /// <summary>
         /// The underlying tree view control
         /// </summary>
-        private TreeView mTree;
+        private readonly TreeView _treeView;
         #endregion
 
         #region Constructors
@@ -29,7 +25,7 @@ namespace Genealogy
         /// <param name="tvTarg">the tree view to wrap</param>
         public TreeViewWrapper(TreeView tvTarg)
         {
-            mTree = tvTarg;
+            _treeView = tvTarg;
         }
         #endregion
 
@@ -39,17 +35,16 @@ namespace Genealogy
         /// Display an HTML document in the tree view, organizing the tree
         /// in accordance with the Document Object Model (DOM)
         /// </summary>
-        /// <param name="elemColl">HTMLElement collection with the "HTML" tag as its root</param>
+        /// <param name="docResponse">the document to display</param>
         /// <remarks><para>Called by the thread.start to set up for filling the DOM tree</para>
         /// Has to be passed as an object for the ParameterizedThreadStart</remarks>
         public void DisplayInTree(HtmlDocument docResponse)
         {
             HtmlElementCollection elemColl = docResponse.GetElementsByTagName("html");
 
-            mTree.Nodes.Clear();
-            TreeNode rootNode = new TreeNode("Web response");
-            rootNode.Tag = -1;
-            mTree.Nodes.Add(rootNode);
+            _treeView.Nodes.Clear();
+            var rootNode = new TreeNode("Web response") {Tag = -1};
+            _treeView.Nodes.Add(rootNode);
             FillDomTree(elemColl, rootNode, 0);
         }
 
@@ -72,6 +67,7 @@ namespace Genealogy
         /// </summary>
         /// <param name="currentEle">collection of elements</param>
         /// <param name="tn">tree node. currently not used</param>
+        /// <param name="nodeTracker">incremental count of the nodes in the tree</param>
         /// <remarks>The treenode was used prior to placing this function on its own thread
         /// at that point, I was nesting the nodes. right now, i am having trouble doing this across threads</remarks>
         private static void FillDomTree(HtmlElementCollection currentEle, TreeNode tn, int nodeTracker)
@@ -83,21 +79,21 @@ namespace Genealogy
 
                 var tag = element.TagName;
 
-                if (tag.CompareTo("!") == 0)
+                if (System.String.Compare(tag, "!", System.StringComparison.Ordinal) == 0)
                 {
                     tempNode = tn.Nodes.Add("<Comment>");
                 }
                 else
                 {
                     string sNodeText = "<" + element.TagName;
-                    if ((element.Name != null) && (element.Name.Length > 0))
+                    if (!string.IsNullOrEmpty(element.Name))
                         sNodeText += " name=\"" + element.Name + "\"";
-                    if ((element.Id != null) && (element.Id.Length > 0))
+                    if (!string.IsNullOrEmpty(element.Id))
                         sNodeText += " id=\"" + element.Id + "\"";
                     sNodeText += ">";
                     tempNode = tn.Nodes.Add(sNodeText);
-                    int iInnerTextLength = element.InnerText != null ? element.InnerText.Length : 0;
-                    if (iInnerTextLength > 0)
+                    int iInnerTextLength;
+                    if ((element.InnerText != null ) && ((iInnerTextLength = element.InnerText.Length) > 0))
                     {
                         string sInnerText;
                         if (iInnerTextLength > 20)
@@ -124,9 +120,9 @@ namespace Genealogy
         /// <param name="nodParent">the top-level tree node, to associate with <paramref name="oTarg"/></param>
         private void FillTree(IObject oTarg, TreeNode nodParent)
         {
-            TreeNode tvNew = new TreeNode(oTarg.Name);
+            var tvNew = new TreeNode(oTarg.Name);
             if (nodParent == null)
-                mTree.Nodes.Add(tvNew);
+                _treeView.Nodes.Add(tvNew);
             else
                 nodParent.Nodes.Add(tvNew);
 
