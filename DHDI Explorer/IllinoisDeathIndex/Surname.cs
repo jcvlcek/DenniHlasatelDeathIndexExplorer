@@ -22,7 +22,7 @@ namespace Genealogy
         /// <param name="sName">the native (code page) form of the name</param>
         private Surname(string sName) : base( sName )
         {
-            var queryNative = (from cNative in Utilities.dB.Prijmenis
+            var queryNative = (from cNative in Utilities.DataContext.Prijmenis
                                where cNative.Windows == sName
                                select cNative).FirstOrDefault();
             if (queryNative != null)
@@ -31,7 +31,7 @@ namespace Genealogy
             }
             else
             {
-                var queryPlainText = from cPlainText in Utilities.dB.Prijmenis
+                var queryPlainText = from cPlainText in Utilities.DataContext.Prijmenis
                                      where cPlainText.PlainText == sName
                                      select cPlainText;
                 foreach (var gn in queryPlainText)
@@ -174,7 +174,7 @@ namespace Genealogy
         /// <remarks>Multiple surnames may match the same plain-text representation, as a result of differing applications of diacriticals</remarks>
         public static new List<Surname> MatchToPlainTextName(string sPlainTextName)
         {
-            var qSurnames = from sn in Utilities.dB.Prijmenis
+            var qSurnames = from sn in Utilities.DataContext.Prijmenis
                              where sn.PlainText == sPlainTextName
                              select sn;
 
@@ -193,7 +193,7 @@ namespace Genealogy
         private int AddAlternateForms(string sPlainText)
         {
             // First, assemble a query to get all direct matches
-            var query1 = from c in Utilities.dB.Prijmenis
+            var query1 = from c in Utilities.DataContext.Prijmenis
                          where (c.PlainText == sPlainText) || (c.Windows == sPlainText)
                          select c;
 

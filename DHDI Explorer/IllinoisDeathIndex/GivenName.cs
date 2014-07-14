@@ -28,7 +28,7 @@ namespace Genealogy
         {
             FemaleCount = 0;
             MaleCount = 0;
-            var queryNative = (from cNative in Utilities.dB.KrestniJmenas
+            var queryNative = (from cNative in Utilities.DataContext.KrestniJmenas
                                where cNative.CodePage == sName
                                select cNative).FirstOrDefault();
             if (queryNative != null)
@@ -38,7 +38,7 @@ namespace Genealogy
             }
             else
             {
-                var queryPlainText = from cPlainText in Utilities.dB.KrestniJmenas
+                var queryPlainText = from cPlainText in Utilities.DataContext.KrestniJmenas
                                      where cPlainText.PlainText == sName
                                      select cPlainText;
                 foreach (var gn in queryPlainText)
@@ -103,7 +103,7 @@ namespace Genealogy
                 AlternateFormsList = new List<NativeForm>();
 
                 // First, assemble a query to get all direct matches
-                var query1 = from c in Utilities.dB.KrestniJmenas
+                var query1 = from c in Utilities.DataContext.KrestniJmenas
                     where (c.PlainText == Value) || (c.CodePage == Value)
                     select c;
 
@@ -133,7 +133,7 @@ namespace Genealogy
                 }
 
                 // Construct the query to get the "first level" matches
-                var query2 = from c in Utilities.dB.GivenNameEquivalents
+                var query2 = from c in Utilities.DataContext.GivenNameEquivalents
                     where lNatives.Contains(c.Native) || lPlainTexts.Contains(c.English)
                     select c;
 
@@ -141,7 +141,7 @@ namespace Genealogy
                 foreach (GivenNameEquivalent geNext in query2)
                 {
                     GivenNameEquivalent next = geNext;
-                    var query3 = from c in Utilities.dB.KrestniJmenas
+                    var query3 = from c in Utilities.DataContext.KrestniJmenas
                         where c.CodePage == next.Native
                         select c;
 

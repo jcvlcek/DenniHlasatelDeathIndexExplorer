@@ -70,7 +70,7 @@ namespace Genealogy
             {
                 string sSurname = lQuery["Surname"];
                 string sHtml = "<h2>Matches for surname \"" + sSurname + "\":</h2>" + Environment.NewLine;
-                var q = from c in Utilities.dB.Prijmenis
+                var q = from c in Utilities.DataContext.Prijmenis
                         where c.PlainText == sSurname
                         select c;
 

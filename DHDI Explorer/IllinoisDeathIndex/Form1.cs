@@ -153,7 +153,7 @@ namespace Genealogy
                 dHDeathIndexTableAdapter.Fill(genealogyDataSet.DHDeathIndex);
 
                 _mdB = new Linq2SqlDataContext();
-                Utilities.dB = _mdB;
+                Utilities.DataContext = _mdB;
 
                 var query = from c in _mdB.DHDeathIndexes
                             select c.GivenName;

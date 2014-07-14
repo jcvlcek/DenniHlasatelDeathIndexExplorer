@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using dbAccess;
 
@@ -18,7 +15,7 @@ namespace Genealogy
         /// <summary>
         /// Database connection (if available, otherwise null)
         /// </summary>
-        public static Linq2SqlDataContext dB
+        public static Linq2SqlDataContext DataContext
         {
             get;
             set;
@@ -30,17 +27,17 @@ namespace Genealogy
         public static string DataFilesFolder
         {
             get { 
-                string sFolder = Genealogy.Properties.Settings.Default.DataFilesFolder;
+                string sFolder = Properties.Settings.Default.DataFilesFolder;
                 if (string.IsNullOrEmpty(sFolder))
                 {
                     PromptForDataFilesFolder();
-                    sFolder = Genealogy.Properties.Settings.Default.DataFilesFolder;
+                    sFolder = Properties.Settings.Default.DataFilesFolder;
                 }
                 return sFolder;
             }
             set
             {
-                Genealogy.Properties.Settings.Default.DataFilesFolder = value;
+                Properties.Settings.Default.DataFilesFolder = value;
                 // TODO: Enable Genealogy.Properties.Settings.Default.Save() when ready to commit...
                 // Genealogy.Properties.Settings.Default.Save();
             }
@@ -53,18 +50,17 @@ namespace Genealogy
         /// </summary>
         public static void PromptForDataFilesFolder()
         {
-            FolderBrowserDialog fDataFiles = new FolderBrowserDialog();
-            fDataFiles.Description = "Select the folder containing the death records data files:";
+            var fDataFiles = new FolderBrowserDialog
+            {
+                Description = "Select the folder containing the death records data files:"
+            };
 
-            string sDataFilesPath = Genealogy.Properties.Settings.Default.DataFilesFolder;
+            string sDataFilesPath = Properties.Settings.Default.DataFilesFolder;
 
-            if (System.IO.Directory.Exists(sDataFilesPath))
-                fDataFiles.SelectedPath = sDataFilesPath;
-            else
-                fDataFiles.SelectedPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            fDataFiles.SelectedPath = System.IO.Directory.Exists(sDataFilesPath) ? sDataFilesPath : System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 
             DialogResult bOk = fDataFiles.ShowDialog();
-            if (bOk == System.Windows.Forms.DialogResult.OK)
+            if (bOk == DialogResult.OK)
                 DataFilesFolder = fDataFiles.SelectedPath;
         }
 
@@ -77,7 +73,7 @@ namespace Genealogy
         /// <returns>DialogResult.OK if the file is found, otherwise DialogResult.Cancel</returns>
         public static DialogResult CheckForDataFile(string sFile, out string sFullPath)
         {
-            string sDataFilesFolder = Genealogy.Properties.Settings.Default.DataFilesFolder;
+            string sDataFilesFolder = Properties.Settings.Default.DataFilesFolder;
             sFullPath = string.Empty;
 
             if (string.IsNullOrEmpty(sDataFilesFolder))
@@ -111,7 +107,8 @@ namespace Genealogy
         /// <summary>
         /// Days of the week, in Czech (nominative case?), using HTML entities to represent characters with diacriticals
         /// </summary>
-        static private string[] mDays = new string[] {
+        static private readonly string[] DaysOfWeekList =
+        {
             "Ned&#283;le", "Pond&#283;l&iacute;", "&Uacute;ter&yacute", "St&#345;eda",
             "&#268;tvrtek", "P&aacute;tek", "Sobota"
         };
@@ -119,7 +116,8 @@ namespace Genealogy
         /// <summary>
         /// Months of the year, in Czech (nominative case?), using HTML entities to represent characters with diacriticals
         /// </summary>
-        static private string[] mMonths = new string[] {
+        static private readonly string[] MonthsList =
+        {
             "Ledna",
             "&Uacute;nora",
             "B&#345;ezna",
@@ -141,8 +139,8 @@ namespace Genealogy
         /// <returns></returns>
         public static string CzechDate( DateTime dtWhen )
         {
-            return mDays[(int)dtWhen.DayOfWeek] + " " + dtWhen.Day.ToString() + ". "
-                + mMonths[dtWhen.Month - 1] + " " + dtWhen.Year.ToString();
+            return DaysOfWeekList[(int)dtWhen.DayOfWeek] + " " + dtWhen.Day + ". "
+                + MonthsList[dtWhen.Month - 1] + " " + dtWhen.Year;
         }
     }
 }
