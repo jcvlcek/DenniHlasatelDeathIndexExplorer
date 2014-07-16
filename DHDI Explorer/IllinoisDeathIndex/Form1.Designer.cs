@@ -84,6 +84,8 @@
             this.givenNameEquivalentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.prijmeniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.krestniJmenaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.givenNameEquivalentsTableAdapter = new Genealogy.GenealogyDataSetTableAdapters.GivenNameEquivalentsTableAdapter();
             this.prijmeniBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.prijmeniTableAdapter = new Genealogy.GenealogyDataSetTableAdapters.PrijmeniTableAdapter();
@@ -247,7 +249,8 @@
             this.toolStripMenuItem1,
             this.webToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            this.tableToolStripMenuItem});
+            this.tableToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Name = "menuStrip1";
             // 
             // toolStripMenuItem1
@@ -473,6 +476,18 @@
             this.krestniJmenaToolStripMenuItem.Name = "krestniJmenaToolStripMenuItem";
             this.krestniJmenaToolStripMenuItem.Click += new System.EventHandler(this.krestniJmenaToolStripMenuItem_Click);
             // 
+            // helpToolStripMenuItem
+            // 
+            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            // 
             // givenNameEquivalentsTableAdapter
             // 
             this.givenNameEquivalentsTableAdapter.ClearBeforeFill = true;
@@ -605,6 +620,8 @@
         private System.Windows.Forms.ToolStripMenuItem searchSurnamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem convertToJSONToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unrecognizedGivenNamesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
