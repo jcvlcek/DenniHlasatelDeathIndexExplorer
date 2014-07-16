@@ -104,6 +104,9 @@
     <Compile Include="WebChar.cs" />
     <Compile Include="WebQuery.cs" />
     <Compile Include="WebQueryEventArgs.cs" />
+    <EmbeddedResource Include="Form1.cs-CZ.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.de-DE.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
