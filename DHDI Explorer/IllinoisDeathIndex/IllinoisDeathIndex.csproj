@@ -189,6 +189,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Captions %28Czech%29.txt" />
     <Content Include="Captions %28German%29.txt" />
     <Content Include="ThingsToDo.txt" />
   </ItemGroup>
