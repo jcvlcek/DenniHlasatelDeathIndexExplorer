@@ -1,4 +1,4 @@
-From www.scintilla.org/locale.de.properties
+﻿From www.scintilla.org/locale.de.properties
 
 # locale.properties defines the localised text for the user interface
 # Some definitions are commented out because they duplicate another string
@@ -27,22 +27,23 @@ translation.encoding=LATIN1
 # Menus
 
 # File menu
-File=
-New=
-Open=
+File=&Soubor
+New=Nový
+Open=&Otevřít
 Open Selected Filename=
 Revert=
-Close=
-Save=
-Save As=
+Close=&Zavřít
+Save=&Uložit
+Save As=Uložit j&ako
 Export=
 As HTML=
 As RTF=
 Page Setup=
-Print=
+Print=&Tisk
+Send=O&deslat
 Load Session=
 Save Session=
-Exit=
+Exit=Konec
 
 # Edit menu
 Edit=
@@ -67,7 +68,7 @@ Make Selection Uppercase=
 Make Selection Lowercase=
 
 # Search menu
-Search=
+Search=&Hledat
 Find=
 Find Next=
 Find Previous=
@@ -133,9 +134,9 @@ Next=
 Close all=
 
 # Help menu
-Help=
+Help=&Nápověda
 About Sc1=
-About SciTE=
+About <name> application=&O aplikaci <name>
 
 # Dialogs
 
@@ -148,7 +149,7 @@ No=
 # About dialog
 About SciTE=
 # This is to add something like: Swahili translation 1.41.1 by Neil Hodgson
-TranslationCredit=Deutsche �bersetzung f�r Version 1.72
+TranslationCredit=Deutsche Übersetzung für Version 1.72
 Contributors:=
 
 # Open, Save dialogs
@@ -290,7 +291,7 @@ As PDF=
 Export File As PDF=
 
 # 1.53
-Version=
+Version=V&erze
 by=
 
 # 1.54
