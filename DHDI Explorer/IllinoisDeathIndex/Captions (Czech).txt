@@ -1,4 +1,5 @@
 ﻿From www.scintilla.org/locale.de.properties
+# Also from http://interval.cz/clanky/adobe-photoshop-6-prehled-klavesovych-zkratek/
 
 # locale.properties defines the localised text for the user interface
 # Some definitions are commented out because they duplicate another string
@@ -30,6 +31,7 @@ translation.encoding=LATIN1
 File=&Soubor
 New=Nový
 Open=&Otevřít
+Open As=Otevřít jako
 Open Selected Filename=
 Revert=
 Close=&Zavřít
@@ -38,22 +40,24 @@ Save As=Uložit j&ako
 Export=
 As HTML=
 As RTF=
-Page Setup=
+Page Setup=Vzhled stránky
 Print=&Tisk
+Print Options=Volby tisku
 Send=O&deslat
 Load Session=
 Save Session=
 Exit=Konec
 
 # Edit menu
-Edit=
-Undo=
-Redo=
-Cut=
-Copy=
-Paste=
-Delete=
-Select All=
+Edit=&Upravit
+Undo=Krok zpět
+Redo=Krok dopředu
+Cut=Vyjmout
+Copy=&Kopírovat
+Paste=&Vložit
+Delete=&Smazat
+Select All=Vybrat vše
+Deselect=Odznačit
 Copy as RTF=
 Match Brace=
 Select to Brace=
@@ -81,10 +85,10 @@ Toggle Bookmark=
 Clear All Bookmarks=
 
 # View menu
-View=
+View=Zobrazení
 Toggle current fold=
 Toggle all folds=
-Full Screen=
+Full Screen=Na celou obrazovku
 Tool Bar=
 Tab Bar=
 Status Bar=
