@@ -73,11 +73,13 @@ Make Selection Lowercase=
 
 # Search menu
 Search=&Hledat
-Find=
-Find Next=
+Find=&Najít
+Find Next=Najít další
 Find Previous=
+Find All=Najít vše
 Find in Files=
-Replace=
+Replace=Nahradit
+Replace All=Nahradit vše
 Go to=
 Next Bookmark=
 Previous Bookmark=
