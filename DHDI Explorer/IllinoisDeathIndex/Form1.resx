@@ -142,9 +142,6 @@
   <data name="listSurnamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>257, 24</value>
   </data>
-  <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 24</value>
-  </data>
   <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
     <value>openToolStripMenuItem</value>
   </data>
@@ -157,8 +154,12 @@
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>E&amp;xit</value>
   </data>
-  <data name="&gt;&gt;tabText.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;denniHlasatelToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="txtResponse.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
   </data>
   <data name="txtDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>368, 32</value>
@@ -175,11 +176,6 @@
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 24</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="txtLastName.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tabTree.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
@@ -195,6 +191,7 @@
   <data name="dataGridView1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="txtResponse.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -213,6 +210,9 @@
   <data name="tabHits.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 25</value>
   </data>
+  <data name="krestniJmenaToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 24</value>
+  </data>
   <data name="&gt;&gt;krestniJmenaTableAdapter.Type" xml:space="preserve">
     <value>Genealogy.GenealogyDataSetTableAdapters.KrestniJmenaTableAdapter, GenealogyDataSet.Designer.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
@@ -228,7 +228,7 @@
   <data name="&gt;&gt;tabBrowse.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;denniHlasatelToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;kdeJsmeSurnameSearchToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
@@ -255,6 +255,9 @@
   <data name="txtFirstName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
+  <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 2, 0, 2</value>
+  </data>
   <data name="&gt;&gt;denniHlasatelToolStripMenuItem.Name" xml:space="preserve">
     <value>denniHlasatelToolStripMenuItem</value>
   </data>
@@ -263,9 +266,6 @@
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 24</value>
-  </data>
-  <data name="&gt;&gt;convertDHFilesToolStripMenuItem.Name" xml:space="preserve">
-    <value>convertDHFilesToolStripMenuItem</value>
   </data>
   <data name="givenNameEquivalentsToolStripMenuItem.Text" xml:space="preserve">
     <value>Given Name Equivalents</value>
@@ -290,7 +290,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACc
-        CQAAAk1TRnQBSQFMAgEBAgEAAZQBAAGYAQABEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAgEAAbQBAAG8AQABEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -394,6 +394,9 @@
   <data name="&gt;&gt;givenNameEquivalentsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tabText.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
   <data name="&gt;&gt;nativeDataGridViewTextBoxColumn.Name" xml:space="preserve">
     <value>nativeDataGridViewTextBoxColumn</value>
   </data>
@@ -421,20 +424,14 @@
   <data name="&gt;&gt;txtFirstName.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="dataGridView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1256, 675</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="framesDumpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>198, 24</value>
-  </data>
-  <data name="&gt;&gt;dHDeathIndexBindingSource.Name" xml:space="preserve">
-    <value>dHDeathIndexBindingSource</value>
   </data>
   <data name="&gt;&gt;txtFirstName.Parent" xml:space="preserve">
     <value>$this</value>
@@ -442,8 +439,11 @@
   <data name="convertToJSONToolStripMenuItem.Text" xml:space="preserve">
     <value>Convert to JSON</value>
   </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
   <data name="prijmeniToolStripMenuItem.Text" xml:space="preserve">
-    <value>Prijmeni</value>
+    <value>Příjmení</value>
   </data>
   <data name="dataFilesFolderToolStripMenuItem.Text" xml:space="preserve">
     <value>Data Files Folder...</value>
@@ -454,8 +454,8 @@
   <data name="txtDate.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="dataGridView1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="mnuDenniHlasatelSearch.Size" type="System.Drawing.Size, System.Drawing">
     <value>249, 24</value>
@@ -472,11 +472,11 @@
   <data name="&gt;&gt;txtFirstName.Name" xml:space="preserve">
     <value>txtFirstName</value>
   </data>
-  <data name="webToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 24</value>
+  <data name="&gt;&gt;dataGridView1.Parent" xml:space="preserve">
+    <value>tabdB</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;prijmeniTableAdapter.Type" xml:space="preserve">
+    <value>Genealogy.GenealogyDataSetTableAdapters.PrijmeniTableAdapter, GenealogyDataSet.Designer.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="tableToolStripMenuItem.Text" xml:space="preserve">
     <value>Table</value>
@@ -538,17 +538,11 @@
   <data name="webBrowser1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="&gt;&gt;toolsToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;exitToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="txtResponse.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
   </data>
   <data name="&gt;&gt;givenNameEquivalentsBindingSource.Type" xml:space="preserve">
     <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exitToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tabHits.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -571,23 +565,23 @@
   <data name="&gt;&gt;krestniJmenaTableAdapter.Name" xml:space="preserve">
     <value>krestniJmenaTableAdapter</value>
   </data>
+  <data name="&gt;&gt;txtLastName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="menuStrip1.Text" xml:space="preserve">
     <value>menuStrip1</value>
   </data>
-  <data name="&gt;&gt;mnuDenniHlasatelSearch.Name" xml:space="preserve">
-    <value>mnuDenniHlasatelSearch</value>
+  <data name="&gt;&gt;tabText.Name" xml:space="preserve">
+    <value>tabText</value>
   </data>
-  <data name="&gt;&gt;prijmeniTableAdapter.Type" xml:space="preserve">
-    <value>Genealogy.GenealogyDataSetTableAdapters.PrijmeniTableAdapter, GenealogyDataSet.Designer.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;krestniJmenaBindingSource.Name" xml:space="preserve">
+    <value>krestniJmenaBindingSource</value>
   </data>
   <data name="kdeJsmeSurnameSearchToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>257, 24</value>
   </data>
   <data name="&gt;&gt;lvHits.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="givenNamesCheckToolStripMenuItem.Text" xml:space="preserve">
-    <value>Given names check</value>
   </data>
   <data name="webToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
     <value>Ctrl+D</value>
@@ -598,8 +592,8 @@
   <data name="&gt;&gt;dataGridView1.Name" xml:space="preserve">
     <value>dataGridView1</value>
   </data>
-  <data name="&gt;&gt;tabText.Name" xml:space="preserve">
-    <value>tabText</value>
+  <data name="&gt;&gt;tvDocument.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="lvHits.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -651,9 +645,6 @@
   </data>
   <data name="tabTree.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;denniHlasatelXMLToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tabControl1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -715,8 +706,8 @@
   <data name="&gt;&gt;prijmeniTableAdapter.Name" xml:space="preserve">
     <value>prijmeniTableAdapter</value>
   </data>
-  <data name="&gt;&gt;txtResponse.Parent" xml:space="preserve">
-    <value>tabText</value>
+  <data name="txtResponse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1248, 667</value>
   </data>
   <data name="denniHlasatelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>238, 24</value>
@@ -727,9 +718,6 @@
   <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
     <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;krestniJmenaBindingSource.Name" xml:space="preserve">
-    <value>krestniJmenaBindingSource</value>
-  </data>
   <data name="&gt;&gt;framesDumpToolStripMenuItem.Name" xml:space="preserve">
     <value>framesDumpToolStripMenuItem</value>
   </data>
@@ -739,8 +727,8 @@
   <data name="&gt;&gt;tabHits.Name" xml:space="preserve">
     <value>tabHits</value>
   </data>
-  <data name="dataGridView1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;prijmeniConversionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;txtDate.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -754,8 +742,8 @@
   <data name="tvDocument.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 4</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
-    <value>toolStripMenuItem4</value>
+  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Denní Hlasatel Death Index</value>
@@ -787,8 +775,8 @@
   <data name="dataFilesFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>198, 24</value>
   </data>
-  <data name="&gt;&gt;txtLastName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;convertDHFilesToolStripMenuItem.Name" xml:space="preserve">
+    <value>convertDHFilesToolStripMenuItem</value>
   </data>
   <data name="tabTree.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -802,8 +790,8 @@
   <data name="exitToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Alt+F4</value>
   </data>
-  <data name="&gt;&gt;kdeJsmeSurnameSearchToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="txtResponse.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="&gt;&gt;webBrowser1.Type" xml:space="preserve">
     <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -811,8 +799,8 @@
   <data name="&gt;&gt;tableToolStripMenuItem.Name" xml:space="preserve">
     <value>tableToolStripMenuItem</value>
   </data>
-  <data name="krestniJmenaToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>238, 24</value>
+  <data name="&gt;&gt;denniHlasatelXMLToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="illinoisDeathIndexToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>249, 24</value>
@@ -886,6 +874,9 @@
   <data name="illinoisDeathIndexToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Search Illinois death indices for match(es)</value>
   </data>
+  <data name="&gt;&gt;mnuDenniHlasatelSearch.Name" xml:space="preserve">
+    <value>mnuDenniHlasatelSearch</value>
+  </data>
   <data name="tabBrowse.Text" xml:space="preserve">
     <value>Browser</value>
   </data>
@@ -901,11 +892,14 @@
   <data name="&gt;&gt;lvHits.Name" xml:space="preserve">
     <value>lvHits</value>
   </data>
-  <data name="familySearchToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+M</value>
+  <data name="givenNamesCheckToolStripMenuItem.Text" xml:space="preserve">
+    <value>Given names check</value>
   </data>
   <data name="familySearchToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Family Search</value>
+    <value>&amp;FamilySearch.org</value>
+  </data>
+  <data name="&gt;&gt;toolsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
     <value>toolStripMenuItem3</value>
@@ -935,7 +929,7 @@
     <value>2</value>
   </data>
   <data name="krestniJmenaToolStripMenuItem.Text" xml:space="preserve">
-    <value>Krestni Jmena</value>
+    <value>Křestní jména</value>
   </data>
   <data name="&gt;&gt;nextDHRecordToolStripMenuItem.Name" xml:space="preserve">
     <value>nextDHRecordToolStripMenuItem</value>
@@ -954,6 +948,9 @@
   </data>
   <data name="givenNamesMergeToolStripMenuItem.Text" xml:space="preserve">
     <value>Given names merge</value>
+  </data>
+  <data name="webToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 24</value>
   </data>
   <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 24</value>
@@ -997,8 +994,8 @@
   <data name="&gt;&gt;tabHits.Parent" xml:space="preserve">
     <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;prijmeniConversionToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="dataGridView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1256, 675</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1033,6 +1030,9 @@
   <data name="tabText.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 25</value>
   </data>
+  <data name="familySearchToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+M</value>
+  </data>
   <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1040,7 +1040,7 @@
     <value>238, 24</value>
   </data>
   <data name="denniHlasatelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Denni Hlasatel</value>
+    <value>Denní Hlasatel</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Open</value>
@@ -1054,14 +1054,11 @@
   <data name="tvDocument.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;dataGridView1.Parent" xml:space="preserve">
-    <value>tabdB</value>
+  <data name="denniHlasatelXMLToolStripMenuItem.Text" xml:space="preserve">
+    <value>Denní Hlasatel (XML)</value>
   </data>
   <data name="txtLastName.Location" type="System.Drawing.Point, System.Drawing">
     <value>199, 32</value>
-  </data>
-  <data name="&gt;&gt;tvDocument.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="&gt;&gt;convertDHFilesToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1078,17 +1075,17 @@
   <data name="&gt;&gt;givenNamesMergeToolStripMenuItem.Name" xml:space="preserve">
     <value>givenNamesMergeToolStripMenuItem</value>
   </data>
-  <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>8, 2, 0, 2</value>
+  <data name="txtLastName.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="tabBrowse.Size" type="System.Drawing.Size, System.Drawing">
     <value>1256, 675</value>
   </data>
+  <data name="&gt;&gt;txtResponse.Parent" xml:space="preserve">
+    <value>tabText</value>
+  </data>
   <data name="familySearchToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>249, 24</value>
-  </data>
-  <data name="txtResponse.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Both</value>
   </data>
   <data name="&gt;&gt;searchSurnamesToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1109,13 +1106,13 @@
     <value>257, 24</value>
   </data>
   <data name="mnuDenniHlasatelSearch.Text" xml:space="preserve">
-    <value>Denni Hlasatel (dB)</value>
+    <value>Denní Hlasatel (dB)</value>
   </data>
-  <data name="txtResponse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1248, 667</value>
+  <data name="&gt;&gt;dHDeathIndexBindingSource.Name" xml:space="preserve">
+    <value>dHDeathIndexBindingSource</value>
   </data>
-  <data name="denniHlasatelXMLToolStripMenuItem.Text" xml:space="preserve">
-    <value>Denni Hlasatel (XML)</value>
+  <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 24</value>
   </data>
   <data name="prijmeniRankCheckToolStripMenuItem.Text" xml:space="preserve">
     <value>Prijmeni rank check</value>
@@ -1125,6 +1122,9 @@
   </data>
   <data name="tabBrowse.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
   </data>
   <metadata name="givenNameEquivalentsTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>252, 43</value>
@@ -1152,9 +1152,6 @@
   </metadata>
   <metadata name="givenNameEquivalentsBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 43</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>cs-CZ</value>
   </metadata>
   <metadata name="prijmeniTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 80</value>

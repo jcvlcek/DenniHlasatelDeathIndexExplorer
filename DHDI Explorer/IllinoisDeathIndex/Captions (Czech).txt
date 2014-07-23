@@ -58,6 +58,7 @@ Paste=&Vložit
 Delete=&Smazat
 Select All=Vybrat vše
 Deselect=Odznačit
+Properties=&Vlastnosti
 Copy as RTF=
 Match Brace=
 Select to Brace=
@@ -147,10 +148,10 @@ About <name> application=&O aplikaci <name>
 # Dialogs
 
 # Generic dialog
-OK=
-Cancel=
-Yes=
-No=
+OK=OK
+Cancel=Zrušit
+Yes=Ano
+No=Ne
 
 # About dialog
 About SciTE=
