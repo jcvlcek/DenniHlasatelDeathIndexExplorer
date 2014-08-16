@@ -1286,5 +1286,18 @@ namespace Genealogy
         {
             // TODO: Move code here (from "list given names" menu event handler) to generate list of unmatched given names
         }
+
+        private void dateRangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DateTime startTime = new DateTime(1916, 09, 01), endTime = new DateTime(1916, 11, 30);
+            txtResponse.Clear();
+            var query = (from d in _mdB.DHDeathIndexes
+                         where ( d.ReportDate.Date >= startTime.Date) && ( d.ReportDate.Date <= endTime.Date)
+                select d).ToList();
+            foreach (var deathRecord in query)
+            {
+                txtResponse.AppendText(string.Format("{0},{1},{2}{3}", deathRecord.FilingDate.ToShortDateString(), deathRecord.FirstName, deathRecord.LastName, Environment.NewLine));
+            }
+        }
     }
 }
