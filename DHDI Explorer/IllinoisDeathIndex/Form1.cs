@@ -100,10 +100,9 @@ namespace Genealogy
 
             // Display the results list contents in both the tree and list views
             DisplayRecords(e.Results, false);
-            foreach (IDeathRecord recNext in e.Results)
+            foreach (var o in e.Results.OfType<IObject>())
             {
-                if ( recNext is IObject )
-                    _mTreeView.DisplayInTree((IObject)recNext);
+                _mTreeView.DisplayInTree(o);
             }
 
             foreach (ListViewItem itmNext in lvHits.Items)
@@ -143,13 +142,9 @@ namespace Genealogy
         {
             try
             {
-                // TODO: This line of code loads data into the 'genealogyDataSet.KrestniJmena' table. You can move, or remove it, as needed.
                 krestniJmenaTableAdapter.Fill(genealogyDataSet.KrestniJmena);
-                // TODO: This line of code loads data into the 'genealogyDataSet.Prijmeni' table. You can move, or remove it, as needed.
                 prijmeniTableAdapter.Fill(genealogyDataSet.Prijmeni);
-                // TODO: This line of code loads data into the 'genealogyDataSet.GivenNameEquivalents' table. You can move, or remove it, as needed.
                 givenNameEquivalentsTableAdapter.Fill(genealogyDataSet.GivenNameEquivalents);
-                // TODO: This line of code loads data into the 'genealogyDataSet.DHDeathIndex' table. You can move, or remove it, as needed.
                 dHDeathIndexTableAdapter.Fill(genealogyDataSet.DHDeathIndex);
 
                 _mdB = new Linq2SqlDataContext();
@@ -166,7 +161,7 @@ namespace Genealogy
             }
             catch (System.Data.SqlClient.SqlException ex)
             {
-                MessageBox.Show( "Unable to load/fill database table adapters:" + Environment.NewLine + ex.Message, "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( @"Unable to load/fill database table adapters:" + Environment.NewLine + ex.Message, @"Database error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             }
 
             webBrowser1.Navigating += webBrowser1_Navigating;
@@ -193,27 +188,27 @@ namespace Genealogy
 
                 if (webBrowser1.Document == null)
                 {
-                    MessageBox.Show("No browser document loaded", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(@"No browser document loaded", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else if (webBrowser1.Document.Window == null)
                 {
-                    MessageBox.Show("Browser document window is not set", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(@"Browser document window is not set", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else if (webBrowser1.Document.Window.Frames == null)
                 {
-                    MessageBox.Show("Browser document window contains no frames", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(@"Browser document window contains no frames", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else if (webBrowser1.Document.Window.Frames["Display_Area"] == null)
                 {
-                    MessageBox.Show("Frame \"Display_Area\" not found in the browser document window", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(@"Frame ""Display_Area"" not found in the browser document window", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else if (webBrowser1.Document.Window.Frames["Display_Area"].Document == null)
                 {
-                    MessageBox.Show("Frame \"Display_Area\" has no document associated with it", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(@"Frame ""Display_Area"" has no document associated with it", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else if (webBrowser1.Document.Window.Frames["Display_Area"].Document.Body == null)
                 {
-                    MessageBox.Show("Document associated with frame \"Display_Area\" has no body", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(@"Document associated with frame ""Display_Area"" has no body", unableToExecute, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else 
                 {
@@ -244,39 +239,36 @@ namespace Genealogy
                             ( c.ReportDate.Day == dtWhen.Day )
                         select c;
 
-            foreach ( var q in query )
+            if (!query.Any())
+                return;
+            foreach (var drTarg in lvHits.SelectedItems.Cast<ListViewItem>().Select(i => i.Tag).OfType<IDeathRecord>())
             {
-                foreach (ListViewItem itmNext in lvHits.SelectedItems)
+                if (drTarg.DeathDate.Year > 1915)
                 {
-                    IDeathRecord drTarg = (IDeathRecord)itmNext.Tag;
-
-                    if (drTarg.DeathDate.Year > 1915)
+                    var indxNew = IllinoisDeathIndex.CreatePost1915(drTarg);
+                    _mdB.IllinoisDeathIndexPost1915s.InsertOnSubmit(indxNew);
+                    try
                     {
-                        IllinoisDeathIndexPost1915 indxNew = IllinoisDeathIndex.CreatePost1915(drTarg);
-                        _mdB.IllinoisDeathIndexPost1915s.InsertOnSubmit(indxNew);
-                        try
-                        {
-                            _mdB.SubmitChanges();
-                            MessageBox.Show("Added to Illinois post-1915 db as serial #" + indxNew.Serial, "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.ToString(), "Failed to add to post-1915 db", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        _mdB.SubmitChanges();
+                        MessageBox.Show(@"Added to Illinois post-1915 db as serial #" + indxNew.Serial, @"Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        IllinoisDeathIndexPre1916 indxNew = IllinoisDeathIndex.CreatePre1916(drTarg);
-                        _mdB.IllinoisDeathIndexPre1916s.InsertOnSubmit(indxNew);
-                        try
-                        {
-                            _mdB.SubmitChanges();
-                            MessageBox.Show("Added to Illinois pre-1916 db as serial #" + indxNew.serial.ToString(), "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.ToString(), "Failed to add to pre-1916 db", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        MessageBox.Show(ex.ToString(), @"Failed to add to post-1915 db", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    var indxNew = IllinoisDeathIndex.CreatePre1916(drTarg);
+                    _mdB.IllinoisDeathIndexPre1916s.InsertOnSubmit(indxNew);
+                    try
+                    {
+                        _mdB.SubmitChanges();
+                        MessageBox.Show(@"Added to Illinois pre-1916 db as serial #" + indxNew.serial, @"Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString(), @"Failed to add to pre-1916 db", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -370,7 +362,7 @@ namespace Genealogy
 
                 sAlternateForms = lAlternateGivenNames.Aggregate(sAlternateForms, (current, sNext) => current + (sNext + " " + txtLastName.Text + Environment.NewLine));
 
-                MessageBox.Show("All possible forms of this name:" + Environment.NewLine + sAlternateForms, "Alternate names possible", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"All possible forms of this name:" + Environment.NewLine + sAlternateForms, @"Alternate names possible", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             if (lAlternateGivenNames.Count > 0)
@@ -493,7 +485,7 @@ namespace Genealogy
                 }
             }
 
-            MessageBox.Show(iNames + " names found in spreadsheet", "Prijmeni scan", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(iNames + @" names found in spreadsheet", @"Prijmeni scan", MessageBoxButtons.OK, MessageBoxIcon.Information);
             fNames.Close();
             fNamesOut.SaveAs(System.IO.Path.Combine(Utilities.DataFilesFolder, "prijmeni lowercased.xls"));
             fNamesOut.Close();
@@ -514,12 +506,12 @@ namespace Genealogy
                 txtLastName.Text = drNew.LastName;
                 txtDate.Text = drNew.FilingDate.Day + "," + MonthAbbreviations[drNew.FilingDate.Month - 1] + "," + drNew.FilingDate.Year;
                 DisplayRecord(drNew);
-                MessageBox.Show(drNew.FirstName + " " + drNew.LastName + "'s death notice was published" + Environment.NewLine
-                    + drNew.FilingDate.ToLongDateString(), "Denni Hlasatel record", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(drNew.FirstName + " " + drNew.LastName + @"'s death notice was published" + Environment.NewLine
+                    + drNew.FilingDate.ToLongDateString(), @"Denni Hlasatel record", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message + Environment.NewLine + ex, "Unable to find next Denni Hlasatel death record", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message + Environment.NewLine + ex, @"Unable to find next Denni Hlasatel death record", MessageBoxButtons.OK, MessageBoxIcon.Error );
             }
         }
 
@@ -658,13 +650,13 @@ namespace Genealogy
         /// <remarks>This method is for diagnostic purposes only, and will be removed from the final version of the software</remarks>
         private void ListStrings(IEnumerable<string> lStrings)
         {
-            List<string> lDistinctNames = new List<string>(lStrings);
+            var lDistinctNames = new List<string>(lStrings);
             lDistinctNames.Sort();
             txtResponse.Clear();
-            foreach (string sNext in lDistinctNames)
+            foreach (var sNext in lDistinctNames)
                 txtResponse.AppendText(sNext + Environment.NewLine);
             txtResponse.AppendText(Environment.NewLine +
-                lDistinctNames.Count.ToString() + " names total" + Environment.NewLine);
+                lDistinctNames.Count + " names total" + Environment.NewLine);
         }
 
         /// <summary>
@@ -681,14 +673,7 @@ namespace Genealogy
         {
             //var query = (from c in mdB.DHDeathIndexes
             //             select c.GivenName).ToList<string>().Distinct<string>();
-            List<string> lAllGivenNames = new List<string>();
-
-            var q1 = from tK in _mdB.KrestniJmenas
-                     select tK.PlainText;
-
-            foreach (string sNext in q1 )
-                if ( !lAllGivenNames.Contains( sNext ) )
-                    lAllGivenNames.Add( sNext );
+            var lAllGivenNames = (from tK in _mdB.KrestniJmenas select tK.PlainText).Distinct().ToList();
 
             var q2 = from tG in _mdB.GivenNameEquivalents
                      select tG.English;
