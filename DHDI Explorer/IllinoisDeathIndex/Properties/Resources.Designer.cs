@@ -65,7 +65,7 @@ namespace Genealogy.Properties {
         /// </summary>
         internal static string SearchMatchString {
             get {
-                return ResourceManager.GetString("Form1_OnWebQueryCompleted_Match", resourceCulture);
+                return ResourceManager.GetString("SearchMatchString", resourceCulture);
             }
         }
         
@@ -74,7 +74,34 @@ namespace Genealogy.Properties {
         /// </summary>
         internal static string SearchNoMatchString {
             get {
-                return ResourceManager.GetString("Form1_OnWebQueryCompleted_NoMatch", resourceCulture);
+                return ResourceManager.GetString("SearchNoMatchString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the folder containing the death records data files:.
+        /// </summary>
+        internal static string Utilities_PromptForDataFilesFolder {
+            get {
+                return ResourceManager.GetString("Utilities_PromptForDataFilesFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please set a data files folder location{0}from the File menu.
+        /// </summary>
+        internal static string Utilities_SetDataFilesFolder {
+            get {
+                return ResourceManager.GetString("Utilities_SetDataFilesFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please set a valid data files folder location{0}from the File menu. The current folder:{1}{2}{3}does not exist.
+        /// </summary>
+        internal static string Utilities_SetValidDataFilesFolder {
+            get {
+                return ResourceManager.GetString("Utilities_SetValidDataFilesFolder", resourceCulture);
             }
         }
     }

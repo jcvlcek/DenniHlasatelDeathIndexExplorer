@@ -706,8 +706,7 @@ namespace Genealogy
                        where tcheck == null
                        select s1;
 
-            List<string> lOddNames = new List<string>();
-            List<string> lUnmatchedNames = new List<string>();
+            var lUnmatchedNames = new List<string>();
             foreach (string sNext in rows)
             {
                 int iCount = 0;
@@ -715,7 +714,7 @@ namespace Genealogy
                 var oddNames = from d1 in _mdB.DHDeathIndexes
                                where d1.GivenName == sNext
                                select d1;
-                foreach (DHDeathIndex dNext in oddNames)
+                foreach (DenniHlasatelDeathRecord dNext in oddNames)
                 {
                     // lOddNames.Add(dNext.GivenName + " " + dNext.LastName + " (" + dNext.FilingDate.ToShortDateString() + ")");
                     ++iCount;
@@ -900,7 +899,7 @@ namespace Genealogy
                 dtStart = DateTime.MinValue;
                 dtEnd = DateTime.MaxValue;
             }
-            _denniHlasatelMatches = DHDeathIndex.Matches(_mdB.DHDeathIndexes, drMatch, dtStart, dtEnd );
+            _denniHlasatelMatches = DenniHlasatelDeathRecord.Matches(_mdB.DHDeathIndexes, drMatch, dtStart, dtEnd );
             DisplayRecords(_denniHlasatelMatches);
             if (!string.IsNullOrEmpty(Utilities.DataFilesFolder))
             {
@@ -1198,7 +1197,7 @@ namespace Genealogy
             _onDocumentCompleted = null;
         }
 
-        private SearchForm _fGivenNameSearchForm = new SearchForm();
+        private readonly SearchForm _fGivenNameSearchForm = new SearchForm();
 
         /// <summary>
         /// Initiates a search into the Denni Hlasatel death index
@@ -1220,7 +1219,7 @@ namespace Genealogy
             _fGivenNameSearchForm.Search(_mGivenNamesCache, txtResponse);
         }
 
-        private SearchForm _fSurnameSearchForm = new SearchForm();
+        private readonly SearchForm _fSurnameSearchForm = new SearchForm();
 
         /// <summary>
         /// Initiates a search into the Denni Hlasatel death index

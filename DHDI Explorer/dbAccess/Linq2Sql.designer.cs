@@ -48,9 +48,9 @@ namespace dbAccess
     partial void InsertIllinoisDeathIndexPre1916(IllinoisDeathIndexPre1916 instance);
     partial void UpdateIllinoisDeathIndexPre1916(IllinoisDeathIndexPre1916 instance);
     partial void DeleteIllinoisDeathIndexPre1916(IllinoisDeathIndexPre1916 instance);
-    partial void InsertDHDeathIndex(DHDeathIndex instance);
-    partial void UpdateDHDeathIndex(DHDeathIndex instance);
-    partial void DeleteDHDeathIndex(DHDeathIndex instance);
+    partial void InsertDHDeathIndex(DenniHlasatelDeathRecord instance);
+    partial void UpdateDHDeathIndex(DenniHlasatelDeathRecord instance);
+    partial void DeleteDHDeathIndex(DenniHlasatelDeathRecord instance);
     partial void InsertKrestniJmena(KrestniJmena instance);
     partial void UpdateKrestniJmena(KrestniJmena instance);
     partial void DeleteKrestniJmena(KrestniJmena instance);
@@ -159,11 +159,11 @@ namespace dbAccess
 			}
 		}
 		
-		public System.Data.Linq.Table<DHDeathIndex> DHDeathIndexes
+		public System.Data.Linq.Table<DenniHlasatelDeathRecord> DHDeathIndexes
 		{
 			get
 			{
-				return this.GetTable<DHDeathIndex>();
+				return this.GetTable<DenniHlasatelDeathRecord>();
 			}
 		}
 		
@@ -1656,7 +1656,7 @@ namespace dbAccess
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DHDeathIndex")]
-	public partial class DHDeathIndex : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class DenniHlasatelDeathRecord : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1683,7 +1683,7 @@ namespace dbAccess
     partial void OnserialChanged();
     #endregion
 		
-		public DHDeathIndex()
+		public DenniHlasatelDeathRecord()
 		{
 			OnCreated();
 		}

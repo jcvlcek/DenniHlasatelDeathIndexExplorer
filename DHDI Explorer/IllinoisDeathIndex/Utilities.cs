@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using dbAccess;
+using Genealogy.Properties;
 
 namespace Genealogy
 {
@@ -27,17 +28,17 @@ namespace Genealogy
         public static string DataFilesFolder
         {
             get { 
-                string sFolder = Properties.Settings.Default.DataFilesFolder;
+                string sFolder = Settings.Default.DataFilesFolder;
                 if (string.IsNullOrEmpty(sFolder))
                 {
                     PromptForDataFilesFolder();
-                    sFolder = Properties.Settings.Default.DataFilesFolder;
+                    sFolder = Settings.Default.DataFilesFolder;
                 }
                 return sFolder;
             }
             set
             {
-                Properties.Settings.Default.DataFilesFolder = value;
+                Settings.Default.DataFilesFolder = value;
                 // TODO: Enable Genealogy.Properties.Settings.Default.Save() when ready to commit...
                 // Genealogy.Properties.Settings.Default.Save();
             }
@@ -52,10 +53,10 @@ namespace Genealogy
         {
             var fDataFiles = new FolderBrowserDialog
             {
-                Description = "Select the folder containing the death records data files:"
+                Description = Resources.Utilities_PromptForDataFilesFolder
             };
 
-            string sDataFilesPath = Properties.Settings.Default.DataFilesFolder;
+            string sDataFilesPath = Settings.Default.DataFilesFolder;
 
             fDataFiles.SelectedPath = System.IO.Directory.Exists(sDataFilesPath) ? sDataFilesPath : System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 
@@ -73,18 +74,19 @@ namespace Genealogy
         /// <returns>DialogResult.OK if the file is found, otherwise DialogResult.Cancel</returns>
         public static DialogResult CheckForDataFile(string sFile, out string sFullPath)
         {
-            string sDataFilesFolder = Properties.Settings.Default.DataFilesFolder;
+            string sDataFilesFolder = Settings.Default.DataFilesFolder;
             sFullPath = string.Empty;
 
             if (string.IsNullOrEmpty(sDataFilesFolder))
             {
-                MessageBox.Show("Please set a data files folder location" + Environment.NewLine + "from the File menu", "No data files folder location set", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(string.Format(Resources.Utilities_SetDataFilesFolder, Environment.NewLine), "No data files folder location set", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return DialogResult.Cancel;
             }
 
             if (!System.IO.Directory.Exists(sDataFilesFolder))
             {
-                MessageBox.Show("Please set a valid data files folder location" + Environment.NewLine + "from the File menu. The current folder:" + Environment.NewLine + sDataFilesFolder + Environment.NewLine + "does not exist", "Invalid data files folder location", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Resources.Utilities_SetValidDataFilesFolder,
+                    Environment.NewLine, Environment.NewLine, Environment.NewLine, sDataFilesFolder, Environment.NewLine), "Invalid data files folder location", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return DialogResult.Cancel;
             }
 

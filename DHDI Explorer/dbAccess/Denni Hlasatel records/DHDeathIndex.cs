@@ -7,7 +7,7 @@ namespace dbAccess
     /// <summary>
     /// Represents an individual death notice record in the Denni Hlasatel death index database.
     /// </summary>
-    public partial class DHDeathIndex : IDeathRecord
+    public partial class DenniHlasatelDeathRecord : IDeathRecord
     {
         #region Constructors
 
@@ -18,7 +18,7 @@ namespace dbAccess
         /// <param name="drTarg">the Denni Hlasatel death index record <paramref name="drSource"/> is to be copied into</param>
         /// <remarks>This method copies only the <see cref="FilingDate"/>, <see cref="FirstName"/>, <see cref="MiddleName"/> and <see cref="LastName"/> properties.
         /// These are all that are supported by records in the Denni Hlasatel death index database.</remarks>
-        private static void Initialize(IDeathRecord drSource, DHDeathIndex drTarg)
+        private static void Initialize(IDeathRecord drSource, IDeathRecord drTarg)
         {
             // The commented-out properties simply don't exist in the Denni Hlasatel index
             //drTarg.AgeInYears = drSource.AgeInYears;
@@ -41,9 +41,9 @@ namespace dbAccess
         /// </summary>
         /// <param name="drSource">the existing death record to copy</param>
         /// <returns>A Denni Hlasatel death index record containing the supported vital statistics from <paramref name="drSource"/></returns>
-        public static DHDeathIndex Create(IDeathRecord drSource)
+        public static DenniHlasatelDeathRecord Create(IDeathRecord drSource)
         {
-            var drNew = new DHDeathIndex();
+            var drNew = new DenniHlasatelDeathRecord();
             Initialize(drSource, drNew);
             return drNew;
         }
@@ -101,7 +101,7 @@ namespace dbAccess
         /// <param name="drMatch">a death record containing properties to be matches</param>
         /// <param name="filter">the filter function that tests each record in the table against the matching record <paramref name="drMatch"/></param>
         /// <returns>a list of matching death records</returns>
-        public static List<IDeathRecord> Matches( IEnumerable<DHDeathIndex> lIndices, IDeathRecord drMatch, Func<IDeathRecord, IDeathRecord, bool> filter)
+        public static List<IDeathRecord> Matches( IEnumerable<DenniHlasatelDeathRecord> lIndices, IDeathRecord drMatch, Func<IDeathRecord, IDeathRecord, bool> filter)
         {
             return (from c in lIndices
                 where filter(c, drMatch)
@@ -117,7 +117,7 @@ namespace dbAccess
         /// <param name="dtStart">the earliest date of any matching death record</param>
         /// <param name="dtEnd">the latest date of any matching death record</param>
         /// <returns>a list of matching death records</returns>
-        public static List<IDeathRecord> Matches( IQueryable<DHDeathIndex> lIndices, IDeathRecord drMatch, DateTime dtStart, DateTime dtEnd )
+        public static List<IDeathRecord> Matches( IQueryable<DenniHlasatelDeathRecord> lIndices, IDeathRecord drMatch, DateTime dtStart, DateTime dtEnd )
         {
             return (from c in lIndices
                 where (string.IsNullOrEmpty(drMatch.FirstName) || (c.GivenName.Contains(drMatch.FirstName))) &&
