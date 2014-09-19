@@ -136,4 +136,12 @@
     <value>Please set a valid data files folder location{0}from the File menu. The current folder:{1}{2}{3}does not exist</value>
     <comment>Prompt the user to choose a valid data files folder location</comment>
   </data>
+  <data name="DuplicateRankCaption" xml:space="preserve">
+    <value>Duplicate rank ({0}) at name "{1}"</value>
+    <comment>Caption for message box flagging that two names with the same rank have been found</comment>
+  </data>
+  <data name="DuplicateKeyLabel" xml:space="preserve">
+    <value>Duplicate key</value>
+    <comment>A succinct label flagging a duplicate key</comment>
+  </data>
 </root>

@@ -61,6 +61,24 @@ namespace Genealogy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duplicate key.
+        /// </summary>
+        internal static string DuplicateKeyLabel {
+            get {
+                return ResourceManager.GetString("DuplicateKeyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate rank ({0}) at name &quot;{1}&quot;.
+        /// </summary>
+        internal static string DuplicateRankCaption {
+            get {
+                return ResourceManager.GetString("DuplicateRankCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Match.
         /// </summary>
         internal static string SearchMatchString {

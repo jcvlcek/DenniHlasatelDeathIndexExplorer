@@ -466,20 +466,16 @@ namespace Genealogy
                     ++iBlanks;
                 else
                 {
-                    /*
-                    foreach (char cNext in sValue.ToCharArray())
+                    if (sValue.ToCharArray().Any(cNext => (cNext < 0x20) || (cNext > 127)))
                     {
-                        if ((cNext < 0x20) || (cNext > 127))
-                            MessageBox.Show("Name with special character (" + sValue + ")" + Environment.NewLine +
-                                "found in row " + iRow.ToString(), "Special character detected", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        MessageBox.Show(@"Name with special character (" + sValue + @")" + Environment.NewLine +
+                                        @"found in row " + iRow, @"Special character detected", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                     }
-                    foreach (char cNext in sHtml.ToCharArray())
+                    if (sHtml.ToCharArray().Any(cNext => (cNext < 0x20) || (cNext > 127)))
                     {
-                        if ((cNext < 0x20) || (cNext > 127))
-                            MessageBox.Show("Name with special character (" + sHtml + ")" + Environment.NewLine +
-                                "found in HTML string at row " + iRow.ToString(), "Special character detected", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        MessageBox.Show(@"Name with special character (" + sHtml + @")" + Environment.NewLine +
+                                        @"found in HTML string at row " + iRow, @"Special character detected", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                     }
-                    */
                     ++iNames;
                     iBlanks = 0;
                 }
@@ -504,9 +500,9 @@ namespace Genealogy
                 IDeathRecord drNew = DenniHlasatelDataStore.Next();
                 txtFirstName.Text = drNew.FirstName;
                 txtLastName.Text = drNew.LastName;
-                txtDate.Text = drNew.FilingDate.Day + "," + MonthAbbreviations[drNew.FilingDate.Month - 1] + "," + drNew.FilingDate.Year;
+                txtDate.Text = drNew.FilingDate.Day + @"," + MonthAbbreviations[drNew.FilingDate.Month - 1] + @"," + drNew.FilingDate.Year;
                 DisplayRecord(drNew);
-                MessageBox.Show(drNew.FirstName + " " + drNew.LastName + @"'s death notice was published" + Environment.NewLine
+                MessageBox.Show(drNew.FirstName + @" " + drNew.LastName + @"'s death notice was published" + Environment.NewLine
                     + drNew.FilingDate.ToLongDateString(), @"Denni Hlasatel record", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -529,11 +525,10 @@ namespace Genealogy
                 return;
             var fNames = new ExcelFile(sPrijmeniPath);
 
-            int iBlanks, iNames, iRow, iPreviousRank = -1;
-            var sPreviousName = string.Empty;
+            int iBlanks, iRow;
             var lRanks = new List<int>();
 
-            for (iBlanks = 0, iNames = 0, iRow = 2; iBlanks < 5; ++iRow)
+            for (iBlanks = 0, iRow = 2; iBlanks < 5; ++iRow)
             {
                 var pTarg = new Point(1, iRow);
                 var pName = new Point(5, iRow);
@@ -543,7 +538,7 @@ namespace Genealogy
                 if ((iRow % 100) == 0)
                 {
                     txtLastName.Text = sName;
-                    txtFirstName.Text = iRow.ToString();
+                    txtFirstName.Text = iRow.ToString(CultureInfo.InvariantCulture);
                     Application.DoEvents();
                 }
 
@@ -553,12 +548,9 @@ namespace Genealogy
                 {
                     int iRank = int.Parse(sRank);
                     if (lRanks.Contains(iRank))
-                        MessageBox.Show("Duplicate rank (" + sRank + ") at name \"" + sName + "\"", "Duplicate key", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show(string.Format(Resources.DuplicateRankCaption, sRank, sName), Resources.DuplicateKeyLabel, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     else
                         lRanks.Add(iRank);
-                    iPreviousRank = iRank;
-                    sPreviousName = sName;
-                    ++iNames;
                     iBlanks = 0;
                 }
             }
@@ -629,16 +621,15 @@ namespace Genealogy
             }
 
             // It's lousy to use try/catch in this way, but the alternative is really stupidly painful
-            // (particularly given that there's no way to test if Frame "Display_Area" exists or not...
+            // (particularly given that there's no way to test if Frame "Display_Area" exists or not,
+            //  thus you can't avoid throwing the exception if it doesn't...)
             try
             {
-                HtmlWindow frame = webBrowser1.Document.Window.Frames["Display_Area"];
-                if ((frame.Document != null) && (frame.Document.Body != null))
-                    frame.Document.Body.InnerHtml = sInnerHtml;
+                webBrowser1.Document.Window.Frames["Display_Area"].Document.Body.InnerHtml = sInnerHtml;
             }
-            catch
+            catch (Exception ex)
             {
-                // Do nothing
+                Console.WriteLine( ex.ToString() );
             }
         }
 
