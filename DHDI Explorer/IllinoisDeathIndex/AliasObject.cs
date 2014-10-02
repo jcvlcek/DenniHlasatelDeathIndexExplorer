@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Genealogy
@@ -8,7 +9,7 @@ namespace Genealogy
     /// </summary>
     [Description("Base class implementation of an \"alias\" to an existing IObject instance")]
     [DefaultProperty("Name")]
-    public abstract class AliasObject : IObject
+    public abstract class AliasObject : IObject, IDisposable
     {
         #region Private members
 
@@ -104,5 +105,16 @@ namespace Genealogy
         }
         #endregion
 
+        #region IDisposable interface
+
+        /// <summary>
+        /// Free any unmanaged resources allocated by this object
+        /// </summary>
+        public void Dispose()
+        {
+            // Do nothing (for now)
+        }
+
+        #endregion
     }
 }
